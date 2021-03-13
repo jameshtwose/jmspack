@@ -6,5 +6,5 @@ Python package of functions that James finds useful
 
 The documentation for the package can be found [here](https://docs.jms.rocks).
 
-The package can be installed via [conda](https://anaconda.org/james.twose/jmspack) using the following code:
+The package can be installed via [conda](https://anaconda.org/james.twose/jmspack) using the following code: <br>
 `conda install -c james.twose jmspack`
