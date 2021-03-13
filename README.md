@@ -1,2 +1,5 @@
 # jmspack
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4de4fdcb-e2f0-4178-8f3f-cff4ecbeea3d/deploy-status)](https://app.netlify.com/sites/romantic-franklin-818651/deploys)
+
 Python package of functions that James finds useful
