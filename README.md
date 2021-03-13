@@ -2,7 +2,9 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4de4fdcb-e2f0-4178-8f3f-cff4ecbeea3d/deploy-status)](https://app.netlify.com/sites/romantic-franklin-818651/deploys)
 
-https://anaconda.org/james.twose/jmspack/badges/version.svg
+[![Anaconda-Server Badge](https://anaconda.org/james.twose/jmspack/badges/version.svg)](https://anaconda.org/james.twose/jmspack)
+
+[![Anaconda-Server Badge](https://anaconda.org/james.twose/jmspack/badges/platforms.svg)](https://anaconda.org/james.twose/jmspack)
 
 Python package of functions that James finds useful
 
