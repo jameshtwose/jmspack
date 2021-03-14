@@ -1,13 +1,14 @@
 """Submodule NLTSA.py includes the following functions: <br>
- - fluctuation_intensity(): run fluctuation intensity on a time series to detect non linear change <br>
- - distribution_uniformity(): run distribution uniformity on a time series to detect non linear change <br>
- - complexity_resonance(): the product of fluctuation_intensity and distribution_uniformity <br>
- - complexity_resonance_diagram(): plots a heatmap of the complexity_resonance <br>
- - ts_levels(): defines distinct levels in a time series based on decision tree regressor <br>
- - cmaps_options[]: a list of possible colour maps that may be used when plotting <br>
- - flatten(): a utils function which flattens a list of lists into one list <br>
- - cumulative_complexity_peaks(): a function which will calculate the significant peaks in the dynamic
-   complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs) <br>
+- fluctuation_intensity(): run fluctuation intensity on a time series to detect non linear change <br>
+- distribution_uniformity(): run distribution uniformity on a time series to detect non linear change <br>
+- complexity_resonance(): the product of fluctuation_intensity and distribution_uniformity <br>
+- complexity_resonance_diagram(): plots a heatmap of the complexity_resonance <br>
+- ts_levels(): defines distinct levels in a time series based on decision tree regressor <br>
+- cmaps_options[]: a list of possible colour maps that may be used when plotting <br>
+- flatten(): a utils function which flattens a list of lists into one list <br>
+- cumulative_complexity_peaks(): a function which will calculate the significant peaks in the dynamic
+complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs) <br>
+- cumulative_complexity_peaks_plot(): plots a heatmap of the cumulative_complexity_peaks <br>
 """
 import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
@@ -322,7 +323,7 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
     ew_data_F = pd.DataFrame(ew_data_F)
 
     newrows = df.iloc[0:1, :].copy()
-    newrows.loc[:, col_first - 1 : col_last] = 0.0
+    newrows.iloc[:, col_first - 1 : col_last] = 0.0
 
     data = df.append(newrows)
     data = data.append(newrows)
@@ -450,7 +451,7 @@ def complexity_resonance_diagram(
     """
 
     df_for_plot = df.copy()
-    df_for_plot.insert(loc=0, column="", value=np.nan)
+    # df_for_plot.insert(loc=0, column="", value=np.nan)
 
     # plot the complexity resonance diagram
     fig, ax = plt.subplots(figsize=figsize)
@@ -462,8 +463,8 @@ def complexity_resonance_diagram(
     _ = fig.colorbar(plot_comp)
 
     # Show all ticks
-    ax.set_xticks(np.arange(0.5, len(df_for_plot) + 0.5))
-    ax.set_yticks(np.arange(0.5, len(list(df_for_plot)) + 0.5))
+    ax.set_xticks(np.arange(0, len(df_for_plot)))
+    ax.set_yticks(np.arange(0, len(list(df_for_plot))))
 
     # and label them with the respective list entries
     ax.set_xticklabels(list(df_for_plot.index))
@@ -481,7 +482,7 @@ def complexity_resonance_diagram(
 
     # set the axis title
     ax.set_title(plot_title)
-    plt.show()
+    # plt.show()
 
     return ax
 
@@ -541,3 +542,82 @@ def cumulative_complexity_peaks(
     sig_peaks_df.index = df.index.tolist()
 
     return ccp_df, sig_peaks_df
+
+
+def cumulative_complexity_peaks_plot(
+    cumulative_complexity_peaks_df: pd.DataFrame,
+    significant_peaks_df: pd.DataFrame,
+    plot_title: str = "Cumulative Complexity Peaks Plot",
+    figsize: tuple = (20, 5),
+    height_ratios: list = [1, 3],
+    labels_n: int = 10,
+):
+    r"""Create a cumulative complexity peaks plot based on the cumulative_complexity_peaks_df and the significant_peaks_df
+    Parameters
+    ---------
+    cumulative_complexity_peaks_df: pandas DataFrame
+        A dataframe containing cumulative complexity peaks values from multivariate time series data from 1 person.
+        Rows should indicate time, columns should indicate the cumulative complexity peaks.
+    significant_peaks_df: pandas DataFrame
+        A dataframe containing one column of significant complexity peaks values from multivariate time series data from 1 person.
+        Rows should indicate time, columns should indicate the significant cumulative complexity peaks.
+    plot_title: str
+        A string indicating the title to be used at the top of the plot
+    figsize: tuple (Default=(20,5))
+        The tuple used to specify the size of the plot.
+    height_ratios: list (Default=[1,3])
+        The tuple used to specify the size of the plot.
+    labels_n: int (Default=10)
+        An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the
+        x-axis of the plot.
+
+    Examples
+    ---------
+    Demonstration of the function using time series data
+    >>> ts_df = pd.read_csv("datasets/time_series_dataset.csv", index_col=0)
+    >>> scaler = MinMaxScaler()
+    >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
+    >>> distribution_uniformity_df = pd.DataFrame(distribution_uniformity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
+    >>> distribution_uniformity_df.columns=scaled_ts_df.columns.tolist()
+    >>> fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
+    >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
+    >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
+    >>> cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)
+    >>> _ = cumulative_complexity_peaks_plot(cumulative_complexity_peaks_df=cumulative_complexity_peaks_df, significant_peaks_df=significant_peaks_df)
+    """
+    custom_cmap = sns.color_palette(["#FFFFFF", "#000000"])
+
+    fig, axes = plt.subplots(
+        2, 1, figsize=figsize, gridspec_kw={"height_ratios": height_ratios}
+    )
+
+    axe = sns.heatmap(significant_peaks_df.T, cmap=custom_cmap, cbar=False, ax=axes[0])
+    _ = axe.set_xticks([])
+    _ = axe.get_yticklabels()[0].set_rotation(0)
+
+    _ = axe.set_title(plot_title)
+
+    ax = sns.heatmap(
+        cumulative_complexity_peaks_df.T, cmap=custom_cmap, cbar=False, ax=axes[1]
+    )
+
+    # Show all ticks
+    ax.set_xticks(np.arange(0, len(cumulative_complexity_peaks_df)))
+    ax.set_yticks(np.arange(0, len(list(cumulative_complexity_peaks_df))))
+
+    # and label them with the respective list entries
+    ax.set_xticklabels(list(cumulative_complexity_peaks_df.index))
+    ax.set_yticklabels(list(cumulative_complexity_peaks_df))
+    # Rotate the tick labels and set their alignment.
+    plt.setp(ax.get_xticklabels(), rotation=60, ha="right", rotation_mode="anchor")
+
+    # select the amount of labels on the X-axis you want visible (default=10)
+    # Keeps every nth label
+    [
+        l.set_visible(False)
+        for (i, l) in enumerate(ax.xaxis.get_ticklabels())
+        if i % labels_n != 0
+    ]
+
+    return fig, axes
