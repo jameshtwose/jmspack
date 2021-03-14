@@ -9,26 +9,52 @@
  - cumulative_complexity_peaks(): a function which will calculate the significant peaks in the dynamic
    complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs) <br>
 """
-
+import matplotlib.patheffects as pe
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import matplotlib.patheffects as pe
 import seaborn as sns
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from scipy.stats import norm
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
 
 # create flatten function to use when you have lists within lists
 flatten = lambda l: [item for sublist in l for item in sublist]
 
-cmaps_options = ['flag', 'prism', 'ocean', 'gist_earth', 'terrain', 'gist_stern',
-                 'gnuplot', 'gnuplot2', 'CMRmap', 'cubehelix', 'brg',
-                 'gist_rainbow', 'rainbow', 'jet', 'nipy_spectral', 'gist_ncar']
+cmaps_options = [
+    "flag",
+    "prism",
+    "ocean",
+    "gist_earth",
+    "terrain",
+    "gist_stern",
+    "gnuplot",
+    "gnuplot2",
+    "CMRmap",
+    "cubehelix",
+    "brg",
+    "gist_rainbow",
+    "rainbow",
+    "jet",
+    "nipy_spectral",
+    "gist_ncar",
+]
 
 
-def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, min_samples_split=2, max_leaf_nodes=30,
-              plot=True, equal_spaced=True, n_x_ticks=10):
+def ts_levels(
+    ts,
+    ts_x=None,
+    criterion="mse",
+    max_depth=2,
+    min_samples_leaf=1,
+    min_samples_split=2,
+    max_leaf_nodes=30,
+    plot=True,
+    equal_spaced=True,
+    n_x_ticks=10,
+    figsize=(20, 5),
+):
     r"""Use recursive partitioning (DecisionTreeRegressor) to perform a 'classification' of relatively stable levels in a timeseries.
     Parameters
     ---------
@@ -68,13 +94,15 @@ def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, m
         into account when plotting the X-axis of the plot.
     n_x_ticks: int (Default=10)
         The amount of x-ticks you wish to show when plotting.
+    figsize: tuple (Default=(20,5))
+        The tuple used to specify the size of the plot if plot = True.
 
     Examples
     ---------
     Demonstration of the function using time series data
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> ts = ts_df["lorenz"]
-    >>> ts_levels_df = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
+    >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
     >>>                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)
     """
     # Change ts to a numpy array
@@ -82,7 +110,7 @@ def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, m
         ts = ts.to_numpy()
     # Check whether ts has only one dimension
     if len(ts.shape) != 1:
-        raise ValueError('ts is not one-dimensional')
+        raise ValueError("ts is not one-dimensional")
 
     # Make sure the ts_x matches ts
     if ts_x is not None:
@@ -91,19 +119,27 @@ def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, m
             ts_x = ts_x.to_numpy()
         # Check whether ts_x has only one dimension
         if len(ts.shape) != 1:
-            raise ValueError('ts_x is not one-dimensional')
+            raise ValueError("ts_x is not one-dimensional")
         # Check whether ts and tx_x have the same length
         if not len(ts) == len(ts_x):
-            raise ValueError('ts and ts_x have different lengths')
+            raise ValueError("ts and ts_x have different lengths")
 
     # predictor for the tree
     x = np.array(np.arange(len(ts)))
     x = x.reshape(-1, 1)
 
-    dtr = DecisionTreeRegressor(criterion=criterion, max_depth=max_depth, min_samples_leaf=min_samples_leaf,
-                                min_samples_split=min_samples_split, max_leaf_nodes=max_leaf_nodes)
+    dtr = DecisionTreeRegressor(
+        criterion=criterion,
+        max_depth=max_depth,
+        min_samples_leaf=min_samples_leaf,
+        min_samples_split=min_samples_split,
+        max_leaf_nodes=max_leaf_nodes,
+    )
     tree = dtr.fit(x, ts)
     p = tree.predict(x)
+
+    fig = None
+    ax = None
 
     if plot:
         # Select n indices
@@ -111,8 +147,8 @@ def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, m
 
         # X ticks and labels based on indices
         if ts_x is None:
-            xticks = x[idx]
-            xlabs = x[idx]
+            xticks = flatten(x[idx].tolist())
+            xlabs = flatten(x[idx].tolist())
             x_plot = x
 
         # X labels based on ts_x
@@ -120,36 +156,53 @@ def ts_levels(ts, ts_x=None, criterion="mse", max_depth=2, min_samples_leaf=1, m
             # Plot using x indices and ts_x labels
             if equal_spaced:
                 x_plot = x
-                xticks = x[idx]
-                xlabs = ts_x[idx]
+                xticks = flatten(x[idx].tolist())
+                xlabs = flatten(ts_x[idx].tolist())
 
             # Plot using ts_x indices and ts_x labels
             else:
                 x_plot = ts_x
-                xticks = ts_x[idx]
-                xlabs = ts_x[idx]
+                xticks = flatten(ts_x[idx].tolist())
+                xlabs = flatten(ts_x[idx].tolist())
 
-        _ = plt.figure(figsize=(20, 7))
-        _ = plt.scatter(x_plot, ts, s=20, edgecolor="#2167C5", c="#EB5E23", label='Original Time Series')
-        _ = plt.plot(x_plot, p, c="white", path_effects=[pe.Stroke(linewidth=5, foreground='#2167C5'), pe.Normal()],
-                     label='Time Series Levels')
+        # _ = plt.figure(figsize=(20, 7))
+        fig, ax = plt.subplots(figsize=figsize)
+        _ = plt.scatter(
+            x_plot,
+            ts,
+            s=20,
+            edgecolor="#2167C5",
+            c="#EB5E23",
+            label="Original Time Series",
+        )
+        _ = plt.plot(
+            x_plot,
+            p,
+            c="white",
+            path_effects=[pe.Stroke(linewidth=5, foreground="#2167C5"), pe.Normal()],
+            label="Time Series Levels",
+        )
         _ = plt.xticks(xticks, xlabs)
-        _ = plt.ylabel('Amount')
-        _ = plt.xlabel('Time')
+        _ = plt.ylabel("Amount")
+        _ = plt.xlabel("Time")
         _ = plt.legend()
         _ = plt.title("Time Series Levels Plot")
-        _ = plt.show()
+        # _ = plt.show()
 
     # Store t_steps, original ts and ts_levels to a dataframe
-    df_result = pd.DataFrame({"t_steps": flatten(x.tolist()),
-                              "original_ts": ts.tolist(),
-                              "ts_levels": p.tolist()})
+    df_result = pd.DataFrame(
+        {
+            "t_steps": flatten(x.tolist()),
+            "original_ts": ts.tolist(),
+            "ts_levels": p.tolist(),
+        }
+    )
 
     # Add the additional ts_x
     if ts_x is not None:
-        df_result['ts_x'] = ts_x
+        df_result["ts_x"] = ts_x
 
-    return df_result
+    return df_result, fig, ax
 
 
 def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
@@ -196,12 +249,12 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
     ew_data_D = pd.DataFrame(ew_data_D)
 
     for column in range(col_first - 1, col_last):
-        ts = df.iloc[:, column:column + 1].values
-        s = xmax - xmin
+        ts = df.iloc[:, column : column + 1].values
+        # s = xmax - xmin
         y = np.linspace(xmin, xmax, win)
 
         for i in range(0, len(ts) - win + 1):
-            x = ts[i:i + win]
+            x = ts[i : i + win]
             x = np.sort(x, axis=None)
             r = 0
             g = 0
@@ -217,7 +270,7 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
 
             ew_data_D.iloc[i + win - 1, column - col_first + 1] = 1.0 - r / g
 
-        distribution_uniformity_df = pd.DataFrame(ew_data_D.iloc[0:len(df), :])
+        distribution_uniformity_df = pd.DataFrame(ew_data_D.iloc[0 : len(df), :])
 
         distribution_uniformity_df.columns = df.columns.tolist()
         distribution_uniformity_df.index = df.index.tolist()
@@ -269,7 +322,7 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
     ew_data_F = pd.DataFrame(ew_data_F)
 
     newrows = df.iloc[0:1, :].copy()
-    newrows.loc[:, col_first - 1:col_last] = 0.0
+    newrows.loc[:, col_first - 1 : col_last] = 0.0
 
     data = df.append(newrows)
     data = data.append(newrows)
@@ -280,7 +333,7 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
 
     for column in range(col_first - 1, col_last):
         distance = 1
-        ts = data.iloc[:, column:column + 1].values
+        ts = data.iloc[:, column : column + 1].values
 
         for i in range(0, length_ts - win - 1):
             y = [0] * (win - 1)
@@ -357,8 +410,13 @@ def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
     return complexity_resonance_df
 
 
-def complexity_resonance_diagram(df, cmap_n: int = 12, plot_title="Complexity Resonance Diagram", labels_n=10,
-                                 figsize=(20, 7)):
+def complexity_resonance_diagram(
+    df,
+    cmap_n: int = 12,
+    plot_title="Complexity Resonance Diagram",
+    labels_n=10,
+    figsize=(20, 7),
+):
     r"""Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
     Parameters
     ---------
@@ -398,10 +456,10 @@ def complexity_resonance_diagram(df, cmap_n: int = 12, plot_title="Complexity Re
     fig, ax = plt.subplots(figsize=figsize)
 
     plot_comp = plt.imshow(df_for_plot.T, cmap=cmaps_options[cmap_n])
-    plt.gca().set_aspect(aspect='auto')
+    plt.gca().set_aspect(aspect="auto")
 
     # set the color bar on the right, based on the values from the data
-    cbar = fig.colorbar(plot_comp)
+    _ = fig.colorbar(plot_comp)
 
     # Show all ticks
     ax.set_xticks(np.arange(0.5, len(df_for_plot) + 0.5))
@@ -415,7 +473,11 @@ def complexity_resonance_diagram(df, cmap_n: int = 12, plot_title="Complexity Re
 
     # select the amount of labels on the X-axis you want visible (default=10)
     # Keeps every nth label
-    [l.set_visible(False) for (i, l) in enumerate(ax.xaxis.get_ticklabels()) if i % labels_n != 0]
+    [
+        l.set_visible(False)
+        for (i, l) in enumerate(ax.xaxis.get_ticklabels())
+        if i % labels_n != 0
+    ]
 
     # set the axis title
     ax.set_title(plot_title)
@@ -424,8 +486,11 @@ def complexity_resonance_diagram(df, cmap_n: int = 12, plot_title="Complexity Re
     return ax
 
 
-def cumulative_complexity_peaks(df: pd.DataFrame(), significant_level_item: float = 0.05,
-                                significant_level_time: float = 0.05):
+def cumulative_complexity_peaks(
+    df: pd.DataFrame,
+    significant_level_item: float = 0.05,
+    significant_level_time: float = 0.05,
+):
     r"""Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
     Parameters
     ---------
@@ -454,15 +519,21 @@ def cumulative_complexity_peaks(df: pd.DataFrame(), significant_level_item: floa
     """
 
     ## Creating CCP data frame
-    z_scale_cr_df = pd.DataFrame(StandardScaler().fit_transform(df), columns=df.columns.tolist())
-    ccp_df = z_scale_cr_df.mask(z_scale_cr_df > norm.ppf(1 - significant_level_item), 1).mask(
-        z_scale_cr_df <= norm.ppf(1 - significant_level_item), 0)
+    z_scale_cr_df = pd.DataFrame(
+        StandardScaler().fit_transform(df), columns=df.columns.tolist()
+    )
+    ccp_df = z_scale_cr_df.mask(
+        z_scale_cr_df > norm.ppf(1 - significant_level_item), 1
+    ).mask(z_scale_cr_df <= norm.ppf(1 - significant_level_item), 0)
 
     ## Creating significant CCP time points data frame (1 column)
-    z_scale_sum_ccp_df = pd.DataFrame(StandardScaler().fit_transform(ccp_df.sum(axis=1).values.reshape(-1, 1)),
-                                      columns=["Significant CCPs"])
-    sig_peaks_df = z_scale_sum_ccp_df.mask(z_scale_sum_ccp_df > norm.ppf(1 - significant_level_time), 1).mask(
-        z_scale_sum_ccp_df <= norm.ppf(1 - significant_level_time), 0)
+    z_scale_sum_ccp_df = pd.DataFrame(
+        StandardScaler().fit_transform(ccp_df.sum(axis=1).values.reshape(-1, 1)),
+        columns=["Significant CCPs"],
+    )
+    sig_peaks_df = z_scale_sum_ccp_df.mask(
+        z_scale_sum_ccp_df > norm.ppf(1 - significant_level_time), 1
+    ).mask(z_scale_sum_ccp_df <= norm.ppf(1 - significant_level_time), 0)
 
     ccp_df.columns = df.columns.tolist()
     ccp_df.index = df.index.tolist()
