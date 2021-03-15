@@ -20,6 +20,10 @@ def get_version(rel_path):
         raise RuntimeError("Unable to find version string.")
 
 
+this_directory = os.path.abspath(os.path.dirname("__file__"))
+with open(os.path.join(this_directory, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
+
 install_requires = [
     "seaborn>=0.11.0",
     "statsmodels>=0.12.0",
@@ -48,6 +52,8 @@ setup(
     author="James Twose",
     author_email="contact@jamestwose.com",
     license="BSD (3-clause)",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     packages=find_packages(),
     include_package_data=True,
     install_requires=install_requires,
