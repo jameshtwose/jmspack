@@ -40,7 +40,7 @@ setup_requires: list = []
 packages = find_packages()
 
 setup(
-    name="jmspacl",
+    name="jmspack",
     version=get_version("jmspack/__init__.py"),
     # version="1.4.0",
     description="James Data Science package",
