@@ -19,6 +19,7 @@ from scipy.stats import norm
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
+
 from .utils import flatten
 
 

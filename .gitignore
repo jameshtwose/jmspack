@@ -11,6 +11,13 @@ venv
 # Ignore env files
 .env
 
+# notebooks
+./notebooks/.ipynb_checkpoints/
+.ipynb_checkpoints/
+./.ipynb_checkpoints/
+.ipynb_checkpoints
+./notebooks/.ipynb_checkpoints/NLTSA-checkpoint.ipynb
+
 #Ignore R history files
 .Rhistory
 

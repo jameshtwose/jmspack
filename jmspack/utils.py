@@ -3,11 +3,15 @@
 - apply_scaling(): a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame seperately. <br>
 - flatten(): a utility function used to flatten a list of lists to a single list. <br>
 """
+from typing import Callable
+from typing import Dict
+from typing import Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from typing import Callable, Dict, Union
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
+
 
 class JmsColors:
     r"""Utility class for James Twose's color codes.
@@ -73,12 +77,27 @@ class JmsColors:
             _ = plt.plot([1, 5], [i, i], color=c, linewidth=5)
 
 
-def apply_scaling(df: pd.DataFrame,
-                  method: Union[Callable, str] = "MinMax",
-                  kwargs: Dict = {}):
+def apply_scaling(
+    df: pd.DataFrame, method: Union[Callable, str] = "MinMax", kwargs: Dict = {}
+):
 
     r"""Utility function to be used in conjunction with pandas pipe()
     to scale columns of a data frame seperately.
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        The data frame you want to scale.
+    method: Callable, str
+        The name of the method you wish to use [method options: "MinMax",
+        "Standard"], or an Sklearn transformer,
+        see: https://scikit-learn.org/stable/modules/preprocessing.html
+    kwargs: Dict
+        Dictionary containing additional keywords to be added to the Scaler.
+
+    Returns
+    -------
+    pd.DataFrame
 
     Examples
     --------
@@ -92,27 +111,42 @@ def apply_scaling(df: pd.DataFrame,
     """
 
     if method == "MinMax":
-        scal_df = pd.DataFrame(MinMaxScaler(**kwargs).fit_transform(df),
-             index = df.index,
-            columns = df.columns)
+        scal_df = pd.DataFrame(
+            MinMaxScaler(**kwargs).fit_transform(df), index=df.index, columns=df.columns
+        )
     elif method == "Standard":
-        scal_df = pd.DataFrame(StandardScaler(**kwargs).fit_transform(df),
-             index = df.index,
-            columns = df.columns)
+        scal_df = pd.DataFrame(
+            StandardScaler(**kwargs).fit_transform(df),
+            index=df.index,
+            columns=df.columns,
+        )
     else:
-        scal_df = pd.DataFrame(method(**kwargs).fit_transform(df),
-             index = df.index,
-            columns = df.columns)
+        scal_df = pd.DataFrame(
+            method(**kwargs).fit_transform(df), index=df.index, columns=df.columns
+        )
     return scal_df
 
 
 def flatten(l):
     r"""Utility function used to flatten a list of list into a single list.
 
+    Parameters
+    ----------
+    l: list
+        A list of lists.
+
+    Returns
+    -------
+    pd.DataFrame
+
+
     Examples
     --------
-    >>>
-    >>>
+    >>> from jmspack.utils import flatten
+    >>> list_of_lists = [[f"p_{x}" for x in range(10)],
+    ...                 [f"p_{x}" for x in range(10, 20)],
+    ...                 [f"p_{x}" for x in range(20, 30)]]
+    >>> flatten(list_of_lists)
 
     """
     return [item for sublist in l for item in sublist]
