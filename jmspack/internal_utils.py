@@ -1,11 +1,19 @@
 """Submodule internal_utils.py includes the following functions: <br>
 - postgresql_data_extraction():
 - postgresql_table_names_list():
+- create_postgresql_table_based_on_df():
+- add_data_to_postgresql_table():
+- delete_postgresql_table():
 """
 import os
 
 import pandas as pd
 import psycopg2
+
+# INFO: for all of postgresql based functions, you will need to specify your
+# credentials in a ".env" locally. The two required parameters are:
+# postgresql_host="BLA" (the host value for the postgresql database)
+# postgresql_password="BLA2" (the password value for the postgresql database)
 
 
 def postgresql_data_extraction(
@@ -31,7 +39,11 @@ def postgresql_data_extraction(
 
     Examples
     ---------
+    >>> from dotenv import load_dotenv, find_dotenv
     >>> from jmspack.internal_utils import postgresql_data_extraction
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
     >>> df = postgresql_data_extraction()
     """
     df = pd.DataFrame()
@@ -71,7 +83,11 @@ def postgresql_table_names_list(
 
     Examples
     ---------
+    >>> from dotenv import load_dotenv, find_dotenv
     >>> from jmspack.internal_utils import postgresql_table_names_list
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
     >>> table_names = postgresql_table_names_list()
     """
     table_list = False
@@ -100,6 +116,36 @@ def create_postgresql_table_based_on_df(
     user: str,
     table_name: str,
 ):
+
+    r"""
+    Create a new table in a specified postgresql database.
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        The pandas dataframe object you wish to use the columns and data types
+        to create the table from in postgresql
+    database_name: str
+        The name of the postgresql database.
+    user: str
+        The name of the user.
+    table_name: str
+        A string specifying the name of the newly created table.
+
+    Returns
+    -------
+    str
+
+    Examples
+    ---------
+    >>> from dotenv import load_dotenv, find_dotenv
+    >>> from jmspack.internal_utils import create_postgresql_table_based_on_df
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>> 
+    """
+
     python_to_sql_dtypes_dict = {
         "object": "text",
         "float64": "float",
@@ -142,6 +188,36 @@ def add_data_to_postgresql_table(
     user: str,
     table_name: str,
 ):
+
+    r"""
+    Add new data to an existing table in a specified postgresql database.
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        The pandas dataframe object you wish to use the columns and data types
+        to create the table from in postgresql
+    database_name: str
+        The name of the postgresql database.
+    user: str
+        The name of the user.
+    table_name: str
+        A string specifying the name of the newly created table.
+
+    Returns
+    -------
+    str
+
+    Examples
+    ---------
+    >>> from dotenv import load_dotenv, find_dotenv
+    >>> from jmspack.internal_utils import add_data_to_postgresql_table
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>>
+    """
+
     columns_string = ", ".join(df.columns.tolist())
     value_placeholder_string = ", ".join(["%s" for x in range(0, df.shape[1])])
     insert_string = f"""INSERT INTO {table_name} ({columns_string}) VALUES ({value_placeholder_string})"""
@@ -174,6 +250,9 @@ def delete_postgresql_table(
     user: str,
     table_name: str,
 ):
+
+
+
     try:
         conn = psycopg2.connect(
             host=os.getenv("postgresql_host"),

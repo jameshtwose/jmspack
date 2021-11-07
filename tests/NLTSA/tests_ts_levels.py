@@ -7,7 +7,8 @@ from jmspack.NLTSA import ts_levels
 @pytest.fixture
 def df_test():
     """200 rows of time series data"""
-    return pd.read_csv("datasets/time_series_dataset.csv", index_col=0).loc[0:200, :]
+    return pd.read_csv("https://raw.githubusercontent.com/jameshtwose/jmspack/main/datasets/time_series_dataset.csv",
+    index_col=0).loc[0:200, :]
 
 
 class TestTsLevels:
@@ -20,7 +21,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="mse",
+            criterion="squared_error",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
@@ -37,7 +38,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="mse",
+            criterion="squared_error",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
@@ -60,7 +61,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="mse",
+            criterion="squared_error",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
