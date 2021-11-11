@@ -1,10 +1,13 @@
-"""Submodule utils.py includes the following functions and classes: <br>
-- JmsColors: a class containing useful colours according to Jms and functions to show these colors in various forms. <br>
-- apply_scaling(): a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame seperately. <br>
-- flatten(): a utility function used to flatten a list of lists to a single list. <br>
+r"""Submodule utils.py includes the following functions and classes: <br>
+- **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
+    <br>
+- **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
+    seperately. <br>
+- **flatten():** a utility function used to flatten a list of lists to a single list. <br>
 """
 from typing import Callable
 from typing import Dict
+from typing import Optional
 from typing import Union
 
 import matplotlib.pyplot as plt
@@ -78,7 +81,9 @@ class JmsColors:
 
 
 def apply_scaling(
-    df: pd.DataFrame, method: Union[Callable, str] = "MinMax", kwargs: Dict = {}
+    df: pd.DataFrame,
+    method: Union[str, Optional[Callable]] = "MinMax",
+    kwargs: Dict = {},
 ):
 
     r"""Utility function to be used in conjunction with pandas pipe()
@@ -112,7 +117,9 @@ def apply_scaling(
 
     if method == "MinMax":
         scal_df = pd.DataFrame(
-            MinMaxScaler(**kwargs).fit_transform(df), index=df.index, columns=df.columns
+            MinMaxScaler(**kwargs).fit_transform(df),
+            index=df.index,
+            columns=df.columns,
         )
     elif method == "Standard":
         scal_df = pd.DataFrame(
@@ -122,12 +129,12 @@ def apply_scaling(
         )
     else:
         scal_df = pd.DataFrame(
-            method(**kwargs).fit_transform(df), index=df.index, columns=df.columns
+            method(**kwargs).fit_transform(df), index=df.index, columns=df.columns  # type: ignore
         )
     return scal_df
 
 
-def flatten(l):
+def flatten(list_of_lists):
     r"""Utility function used to flatten a list of list into a single list.
 
     Parameters
@@ -149,4 +156,4 @@ def flatten(l):
     >>> flatten(list_of_lists)
 
     """
-    return [item for sublist in l for item in sublist]
+    return [item for sublist in list_of_lists for item in sublist]

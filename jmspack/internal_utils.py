@@ -1,9 +1,9 @@
-"""Submodule internal_utils.py includes the following functions: <br>
-- postgresql_data_extraction(): importing data from a table of a postgresql database. <br>
-- postgresql_table_names_list(): extract the table names from a specified postgresql database. <br>
-- create_postgresql_table_based_on_df(): create a new table in a specified postgresql database based on the columns of a pandas data frame. <br>
-- add_data_to_postgresql_table(): add new data to an existing table in a specified postgresql database. <br>
-- delete_postgresql_table(): delete a table from a postgresql database. <br>
+r"""Submodule internal_utils.py includes the following functions: <br>
+- **postgresql_data_extraction():** importing data from a table of a postgresql database. <br>
+- **postgresql_table_names_list():** extract the table names from a specified postgresql database. <br>
+- **create_postgresql_table_based_on_df():** create a new table in a specified postgresql database based on the columns of a pandas data frame. <br>
+- **add_data_to_postgresql_table():** add new data to an existing table in a specified postgresql database. <br>
+- **delete_postgresql_table():** delete a table from a postgresql database. <br>
 """
 import os
 
@@ -59,7 +59,7 @@ def postgresql_data_extraction(
         df = pd.read_sql_query(f"SELECT * from {table_name}", conn)
         _ = conn.close()
 
-    except:
+    except psycopg2.errors.lookup("08006"):
         print("I am unable to connect to the database")
 
     return df

@@ -23,7 +23,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="squared_error",
+            criterion="mse",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
@@ -40,7 +40,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="squared_error",
+            criterion="mse",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
@@ -63,7 +63,7 @@ class TestTsLevels:
         ts_levels_df, fig, ax = ts_levels(
             ts,
             ts_x=None,
-            criterion="squared_error",
+            criterion="mse",
             max_depth=10,
             min_samples_leaf=1,
             min_samples_split=2,
