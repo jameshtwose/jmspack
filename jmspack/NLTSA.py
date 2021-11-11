@@ -45,7 +45,7 @@ cmaps_options = [
 def ts_levels(
     ts,
     ts_x=None,
-    criterion="squared_error",
+    criterion="mse",
     max_depth=2,
     min_samples_leaf=1,
     min_samples_split=2,
@@ -103,7 +103,7 @@ def ts_levels(
     >>> from jmspack.NLTSA import ts_levels
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> ts = ts_df["lorenz"]
-    >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="squared_error", max_depth=10, min_samples_leaf=1,
+    >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
     >>>                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)
     """
     # Change ts to a numpy array
