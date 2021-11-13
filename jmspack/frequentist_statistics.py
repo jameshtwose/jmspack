@@ -319,7 +319,7 @@ def correlations_as_sample_increases(
     bootstrap_per_N: int = 2,
     plot: bool = True,
     addition_to_title: str = "",
-    figsize: Tuple[float, float] = (12.0, 6.0),
+    figsize: Tuple[float, float] = (9.0, 4.0),
     alpha: float = 0.05,
 ):
     r"""Plot changes in r-value and p-value from correlation between two features when sample size increases.
@@ -413,7 +413,7 @@ def correlations_as_sample_increases(
 
     fig = None
     if plot:
-        fig, ax = plt.subplots(figsize)
+        fig, ax = plt.subplots(figsize=figsize)
         # Add r-value and p-value
         _ = sns.lineplot(
             x=corr_results["N"],
@@ -471,10 +471,9 @@ def potential_for_change_index(
     if scale_data:
         data = data.pipe(apply_scaling)
 
-    tmp_X = data[features_list]
-    tmp_y = data[target]
-
     if weight_measure == "rsquared_adj" or weight_measure == "rsquared":
+        tmp_X = data[features_list]
+        tmp_y = data[target]
         weight_df = multiple_univariate_OLSs(
             X=tmp_X, y=tmp_y, features_list=features_list
         )
@@ -486,7 +485,8 @@ def potential_for_change_index(
             data=data,
             col_list=features_list,
             row_list=[target],
-            check_norm=True,
+            method="pearson",
+            check_norm=False,
             dropna="pairwise",
             permutation_test=False,
             n_permutations=10,
@@ -538,4 +538,24 @@ def potential_for_change_index(
             fmt=".3g",
         )
 
-    return pci_df
+    if weight_measure == "rsquared_adj" or weight_measure == "rsquared":
+        return pci_df.merge(
+            data[features_list]
+            .agg([minimum_measure, centrality_measure, maximum_measure])
+            .T,
+            left_index=True,
+            right_index=True,
+        ).merge(weight_df[[weight_measure, "P>|t|"]], left_index=True, right_index=True)
+
+    else:
+        return pci_df.merge(
+            data[features_list]
+            .agg([minimum_measure, centrality_measure, maximum_measure])
+            .T,
+            left_index=True,
+            right_index=True,
+        ).merge(
+            weight_df.loc[:, [weight_measure, "p-value"]],
+            left_index=True,
+            right_index=True,
+        )
