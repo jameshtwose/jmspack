@@ -1,0 +1,34 @@
+Version 0.1.0
+ - adding build instructions and a bump-version shell script to make life a bit easier when creating new package versions
+ - Merge pull request #2 from jameshtwose/making_tests
+ - creating tests for flatten, apply_scaling and potential_for_change_index functions. Also updating some of the example notebooks
+ - writing notebooks for the utils functions, creating some frequentist statistics functions and writing up an optimising NLTSA notebook
+ - writing notebooks for the utils functions, creating some frequentist statistics functions and writing up an optimising NLTSA notebook
+ - starting to write tests for the utils and internal_utils functions
+ - removing superfluous files and folders
+ - writing tests and updating notebooks for utils, internal_utils and NLTSA modules
+ - writing tests and notebooks for utils, internal_utils, NLTSA
+ - adding the utils python file to jmspack - currently this includes a class called jmscolors which provides an easy utility function for getting a set of stylish colours
+ - bumping to version 0.0.3
+ - Adding create_postgresql_table_based_on_df(), add_data_to_postgresql_table(), delete_postgresql_table() functions to the internal_utils submodule - need to make tests still
+ - building the latest version of the documentation
+ - updating the setup.py to include the README.md as the long description so it shows as the project description on pypi
+ - Merge branch 'main' of github.com:jameshtwose/jmspack into main
+ - updating the setup py due to a spelling mistake
+ - Update README.md
+ - Adding internal_utils to jmspack - currently postgresql functions - data extraction and table names extraction
+ - Writing tests for ts_levels function and adding the pre-commit setup, building the latest documentation
+ - Merge branch 'main' of github.com:jameshtwose/jmspack into main
+ - Adding a time series dataset .csv and adding a notebook showing the use of the NLTSA functions.
+ - Update README.md
+ - Update README.md
+ - Update README.md
+ - Update README.md
+ - Building the documentation via pdoc3
+ - Merge branch 'main' of github.com:jameshtwose/jmspack into main
+ - Building the documentation via pdoc3
+ - Update README.md
+ - Building the documentation via pdoc3
+ - Adding the Nonlinear Time Series submodule to jmspack
+ - Initiating the jmspack python package
+ - Initial commit
