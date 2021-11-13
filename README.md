@@ -6,6 +6,14 @@
 
 [![Anaconda-Server Badge](https://anaconda.org/james.twose/jmspack/badges/platforms.svg)](https://anaconda.org/james.twose/jmspack)
 
+[![Anaconda-Server Badge](https://anaconda.org/james.twose/jmspack/badges/latest_release_relative_date.svg)](https://anaconda.org/james.twose/jmspack)
+
+[![Anaconda-Server Badge](https://anaconda.org/james.twose/jmspack/badges/downloads.svg)](https://anaconda.org/james.twose/jmspack)
+
+[![PyPI version](https://badge.fury.io/py/jmspack.svg)](https://badge.fury.io/py/jmspack)
+
+[![PyPI download month](https://img.shields.io/pypi/dm/jmspack.svg)](https://pypi.python.org/pypi/jmspack/)
+
 Python package of functions that James finds useful
 
 The documentation for the package can be found [here](https://docs.jms.rocks).
