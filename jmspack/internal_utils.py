@@ -1,11 +1,19 @@
-"""Submodule internal_utils.py includes the following functions: <br>
-- postgresql_data_extraction():
-- postgresql_table_names_list():
+r"""Submodule internal_utils.py includes the following functions: <br>
+- **postgresql_data_extraction():** importing data from a table of a postgresql database. <br>
+- **postgresql_table_names_list():** extract the table names from a specified postgresql database. <br>
+- **create_postgresql_table_based_on_df():** create a new table in a specified postgresql database based on the columns of a pandas data frame. <br>
+- **add_data_to_postgresql_table():** add new data to an existing table in a specified postgresql database. <br>
+- **delete_postgresql_table():** delete a table from a postgresql database. <br>
 """
 import os
 
 import pandas as pd
 import psycopg2
+
+# INFO: for all of postgresql based functions, you will need to specify your
+# credentials in a ".env" locally. The two required parameters are:
+# postgresql_host="BLA" (the host value for the postgresql database)
+# postgresql_password="BLA2" (the password value for the postgresql database)
 
 
 def postgresql_data_extraction(
@@ -31,8 +39,14 @@ def postgresql_data_extraction(
 
     Examples
     ---------
+    >>> from dotenv import load_dotenv, find_dotenv
     >>> from jmspack.internal_utils import postgresql_data_extraction
-    >>> df = postgresql_data_extraction()
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>> df = postgresql_data_extraction(table_name = 'iris_test',
+                                database_name = 'tracker',
+                                user='tracker')
     """
     df = pd.DataFrame()
     try:
@@ -45,7 +59,7 @@ def postgresql_data_extraction(
         df = pd.read_sql_query(f"SELECT * from {table_name}", conn)
         _ = conn.close()
 
-    except:
+    except psycopg2.errors.lookup("08006"):
         print("I am unable to connect to the database")
 
     return df
@@ -71,7 +85,11 @@ def postgresql_table_names_list(
 
     Examples
     ---------
+    >>> from dotenv import load_dotenv, find_dotenv
     >>> from jmspack.internal_utils import postgresql_table_names_list
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
     >>> table_names = postgresql_table_names_list()
     """
     table_list = False
@@ -100,6 +118,42 @@ def create_postgresql_table_based_on_df(
     user: str,
     table_name: str,
 ):
+
+    r"""
+    Create a new table in a specified postgresql database based on the columns of a pandas data frame.
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        The pandas dataframe object you wish to use the columns and data types
+        to create the table from in postgresql
+    database_name: str
+        The name of the postgresql database.
+    user: str
+        The name of the user.
+    table_name: str
+        A string specifying the name of the newly created table.
+
+    Returns
+    -------
+    str
+
+    Examples
+    ---------
+    >>> import seaborn as sns
+    >>> from dotenv import load_dotenv, find_dotenv
+    >>> from jmspack.internal_utils import add_data_to_postgresql_table
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>> iris_df = sns.load_dataset("iris")
+    >>> _ = create_postgresql_table_based_on_df(df=iris_df,
+    ...                                         database_name="tracker",
+    ...                                         user="tracker",
+    ...                                         table_name="iris_test",
+    ...                                         )
+    """
+
     python_to_sql_dtypes_dict = {
         "object": "text",
         "float64": "float",
@@ -142,6 +196,47 @@ def add_data_to_postgresql_table(
     user: str,
     table_name: str,
 ):
+
+    r"""
+    Add new data to an existing table in a specified postgresql database.
+
+    Parameters
+    ----------
+    df: pd.DataFrame
+        The pandas dataframe object you wish to use the columns and data types
+        to create the table from in postgresql
+    database_name: str
+        The name of the postgresql database.
+    user: str
+        The name of the user.
+    table_name: str
+        A string specifying the name of the newly created table.
+
+    Returns
+    -------
+    str
+
+    Examples
+    ---------
+    >>> import seaborn as sns
+    >>> from dotenv import load_dotenv, find_dotenv
+    >>> from jmspack.internal_utils import add_data_to_postgresql_table
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>> iris_df = sns.load_dataset("iris")
+    >>> _ = create_postgresql_table_based_on_df(df=iris_df,
+    ...                                         database_name="tracker",
+    ...                                         user="tracker",
+    ...                                         table_name="iris_test",
+    ...                                         )
+    >>> _ = add_data_to_postgresql_table(df=iris_df,
+    ...                                 database_name="tracker",
+    ...                                 user="tracker",
+    ...                                 table_name="iris_test",
+    ...                                 )
+    """
+
     columns_string = ", ".join(df.columns.tolist())
     value_placeholder_string = ", ".join(["%s" for x in range(0, df.shape[1])])
     insert_string = f"""INSERT INTO {table_name} ({columns_string}) VALUES ({value_placeholder_string})"""
@@ -174,6 +269,48 @@ def delete_postgresql_table(
     user: str,
     table_name: str,
 ):
+
+    r"""
+    Delete a table from a postgresql database.
+
+    Parameters
+    ----------
+    database_name: str
+        The name of the postgresql database.
+    user: str
+        The name of the user.
+    table_name: str
+        A string specifying the name of the newly created table.
+
+    Returns
+    -------
+    str
+
+    Examples
+    ---------
+    >>> import seaborn as sns
+    >>> from dotenv import load_dotenv, find_dotenv
+    >>> from jmspack.internal_utils import add_data_to_postgresql_table
+    >>> # Make sure you have a .env file somewhere with your postgresql credentials
+    >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
+    >>> load_dotenv(find_dotenv())
+    >>> iris_df = sns.load_dataset("iris")
+    >>> _ = create_postgresql_table_based_on_df(df=iris_df,
+    ...                                         database_name="tracker",
+    ...                                         user="tracker",
+    ...                                         table_name="iris_test",
+    ...                                         )
+    >>> _ = add_data_to_postgresql_table(df=iris_df,
+    ...                                 database_name="tracker",
+    ...                                 user="tracker",
+    ...                                 table_name="iris_test",
+    ...                                 )
+    >>> _ = delete_postgresql_table(database_name="tracker",
+    ...                             user="tracker",
+    ...                             table_name="iris_test"
+    ...                             )
+    """
+
     try:
         conn = psycopg2.connect(
             host=os.getenv("postgresql_host"),

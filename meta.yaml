@@ -16,11 +16,11 @@ requirements:
     - statsmodels >=0.12.0
     - scikit-learn >=0.23.0
     - requests >=2.24.0
-    - jupyter>=1.0.0
+    # - jupyterlab>=1.0.0
   run:
     - python
     - seaborn >=0.11.0
     - statsmodels >=0.12.0
     - scikit-learn >=0.23.0
     - requests >=2.24.0
-    - jupyter>=1.0.0
+    # - jupyterlab>=1.0.0

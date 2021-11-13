@@ -1,14 +1,13 @@
-"""Submodule NLTSA.py includes the following functions: <br>
-- fluctuation_intensity(): run fluctuation intensity on a time series to detect non linear change <br>
-- distribution_uniformity(): run distribution uniformity on a time series to detect non linear change <br>
-- complexity_resonance(): the product of fluctuation_intensity and distribution_uniformity <br>
-- complexity_resonance_diagram(): plots a heatmap of the complexity_resonance <br>
-- ts_levels(): defines distinct levels in a time series based on decision tree regressor <br>
-- cmaps_options[]: a list of possible colour maps that may be used when plotting <br>
-- flatten(): a utils function which flattens a list of lists into one list <br>
-- cumulative_complexity_peaks(): a function which will calculate the significant peaks in the dynamic
+r"""Submodule NLTSA.py includes the following functions: <br>
+- **fluctuation_intensity():** run fluctuation intensity on a time series to detect non linear change <br>
+- **distribution_uniformity():** run distribution uniformity on a time series to detect non linear change <br>
+- **complexity_resonance():** the product of fluctuation_intensity and distribution_uniformity <br>
+- **complexity_resonance_diagram():** plots a heatmap of the complexity_resonance <br>
+- **ts_levels():** defines distinct levels in a time series based on decision tree regressor <br>
+- **cmaps_options[]:** a list of possible colour maps that may be used when plotting <br>
+- **cumulative_complexity_peaks():** a function which will calculate the significant peaks in the dynamic
 complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs) <br>
-- cumulative_complexity_peaks_plot(): plots a heatmap of the cumulative_complexity_peaks <br>
+- **cumulative_complexity_peaks_plot():** plots a heatmap of the cumulative_complexity_peaks <br>
 """
 import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
@@ -20,8 +19,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 
-# create flatten function to use when you have lists within lists
-flatten = lambda l: [item for sublist in l for item in sublist]
+from .utils import flatten
+
 
 cmaps_options = [
     "flag",
@@ -101,6 +100,7 @@ def ts_levels(
     Examples
     ---------
     Demonstration of the function using time series data
+    >>> from jmspack.NLTSA import ts_levels
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> ts = ts_df["lorenz"]
     >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
