@@ -39,3 +39,22 @@ consider removing them prior to the build)_
 - For linux systems it is suggested to specify the render folder
 you can specify the render folder using `--croot`.
 - The package name is `neuropy-#.#.#-py{PYTHON_VERSION}.tar.bz2`
+
+## Push to pypi
+- `python3 -m build`
+  - If build is not installed do this: `python3 -m pip install --upgrade build`
+- `python3 -m pip install --upgrade twine`
+- `python3 -m twine upload dist/*`
+  - Fill in credentials for pypi.org
+
+## Push to anaconda
+- `anaconda login`
+  - If anaconda is not installed do this: `conda install anaconda-client`
+- `anaconda upload ~/path/to/package/{NEW_VERSION}.tar.bz2`
+
+## Release update on GitHub
+- Go to Compare & pull request  pull request for `release-#.#.#` branch
+- Update __Release__ and __Tag__
+- Create a documentation.zip folder
+  - `zip -r documentation.zip documentation`
+- Please add the `documentation zip`, the `**package name**.tar.bz2` to the assets

@@ -29,7 +29,7 @@ install_requires = [
     "statsmodels>=0.12.0",
     "scikit-learn>=0.23.0",
     "requests>=2.24.0",
-    "jupyter>=1.0.0",
+    # "jupyter>=1.0.0",
 ]
 
 tests_require = [
