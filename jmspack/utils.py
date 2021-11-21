@@ -5,6 +5,11 @@ r"""Submodule utils.py includes the following functions and classes: <br>
     seperately. <br>
 - **flatten():** a utility function used to flatten a list of lists to a single list. <br>
 """
+import os
+import sys
+from contextlib import (
+    contextmanager,
+)  # these three are needed to create the silence output function
 from typing import Callable
 from typing import Dict
 from typing import Optional
@@ -14,6 +19,22 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
+
+# Import libraries necessary for functions
+
+
+# Create a function which will silence printing when called
+
+
+@contextmanager
+def silence_stdout():
+    new_target = open(os.devnull, "w")
+    old_target = sys.stdout
+    sys.stdout = new_target
+    try:
+        yield new_target
+    finally:
+        sys.stdout = old_target
 
 
 class JmsColors:

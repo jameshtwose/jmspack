@@ -11,13 +11,6 @@ r"""Submodule ml_utils.py includes the following functions:
   - summary_performance_metrics_classification(): tmp <br>
 
 """
-# Import libraries necessary for functions
-import os
-import sys
-from contextlib import (
-    contextmanager,
-)  # these three are needed to create the silence output function
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -32,13 +25,6 @@ from sklearn.feature_selection import RFE
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import auc
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import f1_score
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import roc_auc_score
-from sklearn.metrics import roc_curve
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import train_test_split
@@ -50,19 +36,6 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
 # Import a list of models you would like to use
-# Create a function which will silence printing when called
-
-
-@contextmanager
-def silence_stdout():
-    new_target = open(os.devnull, "w")
-    old_target = sys.stdout
-    sys.stdout = new_target
-    try:
-        yield new_target
-    finally:
-        sys.stdout = old_target
-
 
 # set plotting options
 cmap_data = plt.cm.Paired
@@ -520,7 +493,7 @@ def RFE_opt_rf(X, y, n_features_to_select, max_depth, n_estimators):
     )
 
     # Calculates the test set accuracy
-    acc = accuracy_score(y_test, rfe.predict(X_test))
+    acc = metrics.accuracy_score(y_test, rfe.predict(X_test))
 
     print("\n- Sizes :")
     print(f"- X shape = {X.shape}")
@@ -710,14 +683,14 @@ def summary_performance_metrics_classification(y_true, y_pred):
     pd.DataFrame
     """
     # TP, TN, FP, FN
-    confusion_matrix_metric = confusion_matrix(y_true, y_pred)
+    confusion_matrix_metric = metrics.confusion_matrix(y_true, y_pred)
     TN = confusion_matrix_metric[0][0]
     FP = confusion_matrix_metric[0][1]
     FN = confusion_matrix_metric[1][0]
     TP = confusion_matrix_metric[1][1]
 
     # accuracy
-    accuracy_score_metric = accuracy_score(y_true, y_pred)
+    accuracy_score_metric = metrics.accuracy_score(y_true, y_pred)
 
     # prevalance
     prevalence = np.mean(y_true == 1)
@@ -738,10 +711,10 @@ def summary_performance_metrics_classification(y_true, y_pred):
     NPV = TN / (TN + FN)
 
     # auc
-    auc_score = roc_auc_score(y_true, y_pred)
+    auc_score = metrics.roc_auc_score(y_true, y_pred)
 
     # F1
-    f1 = f1_score(y_true, y_pred)
+    f1 = metrics.f1_score(y_true, y_pred)
 
     df_metrics = pd.DataFrame(
         {
