@@ -11,12 +11,18 @@ r"""Submodule ml_utils.py includes the following functions:
   - summary_performance_metrics_classification(): tmp <br>
 
 """
+from typing import Union
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import sklearn.linear_model
 from matplotlib.colors import ListedColormap
+from matplotlib.patches import Patch
 from sklearn import metrics
+from sklearn.base import BaseEstimator
+from sklearn.base import ClassifierMixin
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import GradientBoostingClassifier
@@ -35,21 +41,17 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
-# Import a list of models you would like to use
-
-# set plotting options
-cmap_data = plt.cm.Paired
-cmap_cv = plt.cm.coolwarm
+from jmspack.utils import JmsColors
 
 
 def plot_decision_boundary(
     X: pd.DataFrame,
     y: pd.Series,
-    clf,
-    title: str,
-    legend_title: str,
-    h=0.05,
-    figsize=(11.7, 8.27),
+    clf: ClassifierMixin = sklearn.linear_model.LogisticRegression(),
+    title: str = "Decision Boundary Logistic Regression",
+    legend_title: str = "Legend",
+    h: float = 0.05,
+    figsize: tuple = (11.7, 8.27),
 ):
     r"""
     Generate a simple plot of the decision boundary of a classifier.
@@ -181,13 +183,19 @@ def plot_decision_boundary(
         title="Probabilities",
         scatterpoints=1,
     )
-    plt.gca().add_artist(leg1)
+    _ = plt.gca().add_artist(leg1)
 
     return boundaries
 
 
-def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
+def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
     """Create a sample plot for indices of a cross-validation object."""
+
+    # set plotting options
+    cmap_data = plt.cm.Paired
+    cmap_cv = plt.cm.coolwarm
+
+    fig, ax = plt.subplots(figsize=figsize)
 
     # Generate the training/testing visualizations for each CV split
     for ii, (tr, tt) in enumerate(cv.split(X=X, y=y, groups=group)):
@@ -228,23 +236,33 @@ def plot_cv_indices(cv, X, y, group, ax, n_splits, lw=10):
         xlim=[0, len(X)],
     )
     ax.set_title("{}".format(type(cv).__name__), fontsize=15)
-    return ax
+
+    ax.legend(
+        [Patch(color=cmap_cv(0.8)), Patch(color=cmap_cv(0.02))],
+        ["Testing set", "Training set"],
+        loc=(1.02, 0.8),
+    )
+    # Make the legend fit
+    plt.tight_layout()
+    fig.subplots_adjust(right=0.7)
+
+    return fig, ax
 
 
 def plot_learning_curve(
-    estimator,
-    title,
-    X,
-    y,
-    groups,
-    cross_color,
-    test_color,
-    scoring="accuracy",
-    ylim=None,
-    cv=None,
-    n_jobs=None,
-    train_sizes=np.linspace(0.1, 1.0, 5),
-    figsize=(7, 5),
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.linear_model.LogisticRegression(),
+    title: str = "Learning Curve Logistic Regression",
+    groups: Union[None, np.array] = None,
+    cross_color: str = JmsColors.PURPLE,
+    test_color: str = JmsColors.YELLOW,
+    scoring: str = "accuracy",
+    ylim: Union[None, tuple] = None,
+    cv: Union[None, int] = None,
+    n_jobs: int = -1,
+    train_sizes: np.array = np.linspace(0.1, 1.0, 40),
+    figsize: tuple = (10, 5),
 ):
     """
     Generate a simple plot of the test and training learning curve.
@@ -279,6 +297,7 @@ def plot_learning_curve(
           - :term:`CV splitter`,
           - An iterable yielding (train, test) splits as arrays of indices.
         For integer/None inputs, if ``y`` is binary or multiclass,
+        :param groups:
         :class:`StratifiedKFold` used. If the estimator is not a classifier
         or if ``y`` is neither binary nor multiclass, :class:`KFold` is used.
         Refer :ref:`User Guide <cross_validation>` for the various
@@ -298,7 +317,7 @@ def plot_learning_curve(
         be big enough to contain at least one sample from each class.
         (default: np.linspace(0.1, 1.0, 5))
     """
-    fig = plt.figure(figsize=figsize)
+    fig, ax = plt.subplots(figsize=figsize)
     plt.title(title)
     if ylim is not None:
         plt.ylim(*ylim)
@@ -319,26 +338,26 @@ def plot_learning_curve(
     train_scores_std = np.std(train_scores, axis=1)
     test_scores_mean = np.mean(test_scores, axis=1)
     test_scores_std = np.std(test_scores, axis=1)
-    plt.grid()
+    _ = plt.grid()
 
-    plt.fill_between(
+    _ = plt.fill_between(
         train_sizes,
         train_scores_mean - train_scores_std,
         train_scores_mean + train_scores_std,
         alpha=0.1,
         color=test_color,
     )
-    plt.fill_between(
+    _ = plt.fill_between(
         train_sizes,
         test_scores_mean - test_scores_std,
         test_scores_mean + test_scores_std,
         alpha=0.1,
         color=cross_color,
     )
-    plt.plot(
+    _ = plt.plot(
         train_sizes, train_scores_mean, "o-", color=test_color, label="Training score"
     )
-    plt.plot(
+    _ = plt.plot(
         train_sizes,
         test_scores_mean,
         "o-",
@@ -346,8 +365,8 @@ def plot_learning_curve(
         label="Cross-validation score",
     )
 
-    plt.legend(loc="best")
-    return fig
+    _ = plt.legend(loc="best")
+    return fig, ax
 
 
 # create a dictionary of models
@@ -403,7 +422,12 @@ dict_of_models = [
 ]
 
 
-def multi_roc_auc_plot(X, y, models):
+def multi_roc_auc_plot(
+    X: pd.DataFrame,
+    y: pd.Series,
+    models: list = dict_of_models,
+    figsize: tuple = (7, 7),
+):
     # create a numeric outcome measure if the data type is categorical
     #     if y.dtype == "category":
     #         y_cat_codes = y.cat.codes.values
@@ -415,7 +439,7 @@ def multi_roc_auc_plot(X, y, models):
     X_train, X_test, y_train, y_test = train_test_split(
         X, y_cat_codes, test_size=0.3, random_state=42
     )
-    _ = plt.figure(figsize=(7, 7))
+    fig, ax = plt.subplots(figsize=figsize)
     # Below for loop iterates through your models list
     for m in models:
         model = m["model"]  # select the model
@@ -431,49 +455,50 @@ def multi_roc_auc_plot(X, y, models):
         # Now, plot the computed values
         plt.plot(fpr, tpr, label="%s ROC (area = %0.2f)" % (m["label"], auc_score))
     # Custom settings for the plot
-    plt.plot([0, 1], [0, 1], "r--")
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel("1-Specificity (False Positive Rate)")
-    plt.ylabel("Sensitivity (True Positive Rate)")
-    plt.title("Receiver Operating Characteristic")
-    plt.legend(loc="lower right")
-    plt.show()  # Display
+    _ = plt.plot([0, 1], [0, 1], c="grey", ls="--")
+    _ = plt.xlim([0.0, 1.0])
+    _ = plt.ylim([0.0, 1.05])
+    _ = plt.xlabel("1-Specificity (False Positive Rate)")
+    _ = plt.ylabel("Sensitivity (True Positive Rate)")
+    _ = plt.title("Receiver Operating Characteristics")
+    _ = plt.legend(loc="lower right")
+    # plt.show()  # Display
+
+    return fig, ax
 
 
-def RFE_opt_rf(X, y, n_features_to_select, max_depth, n_estimators):
+def optimize_model(
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.ensemble.RandomForestClassifier(),
+    grid_params_dict: dict = {
+        "max_depth": [1, 2, 3, 4, 5, 10],
+        "n_estimators": [10, 20, 30, 40, 50],
+        "max_features": ["log2", "auto", "sqrt"],
+        "criterion": ["gini", "entropy"],
+    },
+    gridsearch_kwargs: dict = {"scoring": "roc_auc", "cv": 3, "n_jobs": -2},
+    rfe_kwargs: dict = {"n_features_to_select": 2, "verbose": 1},
+):
+
     # Perform a 75% training and 25% test data split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, stratify=y, random_state=42
     )
-    # Instanciate Random Forest
-    rf = RandomForestClassifier(
-        random_state=42, oob_score=False
-    )  # use oob_score with many trees
-
-    # Define params_dt
-    params_rf = {
-        "max_depth": max_depth,
-        "n_estimators": n_estimators,
-        "max_features": ["log2", "auto", "sqrt"],
-        "criterion": ["gini", "entropy"],
-    }
 
     # Instantiate grid_dt
     grid_dt = GridSearchCV(
-        estimator=rf, param_grid=params_rf, scoring="roc_auc", cv=3, n_jobs=-2
+        estimator=estimator, param_grid=grid_params_dict, **gridsearch_kwargs
     )
 
     # Optimize hyperparameter
     _ = grid_dt.fit(X_train, y_train)
 
     # Extract the best estimator
-    optimized_rf = grid_dt.best_estimator_
+    optimized_estimator = grid_dt.best_estimator_
 
     # Create the RFE with a optimized random forest
-    rfe = RFE(
-        estimator=optimized_rf, n_features_to_select=n_features_to_select, verbose=1
-    )
+    rfe = RFE(estimator=optimized_estimator, **rfe_kwargs)
 
     # Fit the eliminator to the data
     _ = rfe.fit(X_train, y_train)
@@ -489,7 +514,7 @@ def RFE_opt_rf(X, y, n_features_to_select, max_depth, n_estimators):
 
     # create dataframe with importances per feature
     feature_importance = pd.Series(
-        dict(zip(X.columns, optimized_rf.feature_importances_.round(2)))
+        dict(zip(X.columns, optimized_estimator.feature_importances_.round(2)))
     )
 
     # Calculates the test set accuracy
@@ -503,31 +528,21 @@ def RFE_opt_rf(X, y, n_features_to_select, max_depth, n_estimators):
     print(f"- y_train shape = {y_train.shape}")
     print(f"- y_test shape = {y_test.shape}")
 
-    print("\n- Optimal Parameters :")
-    print(f"- max_depth = {optimized_rf.get_params()['max_depth']}")
-    print(f"- n_estimators = {optimized_rf.get_params()['n_estimators']}")
-    print(f"- max_features = {optimized_rf.get_params()['max_features']}")
-    print(f"- criterion = {optimized_rf.get_params()['criterion']}")
+    print("\n- Model info :")
+    print(f"- Optimal Parameters = {optimized_estimator.get_params()}")
     print(f"- Selected feature list = {feature_selected}")
     print("- Accuracy score on test set = {0:.1%}".format(acc))
 
-    max_depth = optimized_rf.get_params()["max_depth"]
-    n_estimators = optimized_rf.get_params()["n_estimators"]
-    max_features = optimized_rf.get_params()["max_features"]
-    criterion = optimized_rf.get_params()["criterion"]
-
     return (
+        optimized_estimator,
         feature_ranking,
         feature_selected,
         feature_importance,
-        max_depth,
-        n_estimators,
-        max_features,
-        criterion,
+        pd.DataFrame(optimized_estimator.get_params(), index=["optimal_parameters"]),
     )
 
 
-def make_confusion_matrix(
+def plot_confusion_matrix(
     cf,
     group_names=None,
     categories="auto",
@@ -537,7 +552,7 @@ def make_confusion_matrix(
     xyticks=True,
     xyplotlabels=True,
     sum_stats=True,
-    figsize=None,
+    figsize: tuple = (7, 5),
     cmap="Blues",
     title=None,
 ):
@@ -561,6 +576,8 @@ def make_confusion_matrix(
 
     title:         Title for the heatmap. Default is None.
     """
+
+    fig, ax = plt.subplots(figsize=figsize)
 
     # CODE TO GENERATE TEXT INSIDE EACH SQUARE
     blanks = ["" for i in range(cf.size)]
@@ -607,18 +624,12 @@ def make_confusion_matrix(
     else:
         stats_text = ""
 
-    # SET FIGURE PARAMETERS ACCORDING TO OTHER ARGUMENTS
-    if figsize is None:
-        # Get default figure size if not set
-        figsize = plt.rcParams.get("figure.figsize")
-
     if xyticks == False:
         # Do not show categories if xyticks is False
         categories = False
 
     # MAKE THE HEATMAP VISUALIZATION
-    plt.figure(figsize=figsize)
-    sns.heatmap(
+    _ = sns.heatmap(
         cf,
         annot=box_labels,
         fmt="",
@@ -629,13 +640,15 @@ def make_confusion_matrix(
     )
 
     if xyplotlabels:
-        plt.ylabel("True label")
-        plt.xlabel("Predicted label" + stats_text)
+        _ = plt.ylabel("True label")
+        _ = plt.xlabel("Predicted label" + stats_text)
     else:
-        plt.xlabel(stats_text)
+        _ = plt.xlabel(stats_text)
 
     if title:
-        plt.title(title)
+        _ = plt.title(title)
+
+    return fig, ax
 
 
 def summary_performance_metrics_classification(y_true, y_pred):
