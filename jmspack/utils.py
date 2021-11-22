@@ -1,9 +1,12 @@
 r"""Submodule utils.py includes the following functions and classes: <br>
-- **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
-    <br>
-- **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
-    seperately. <br>
-- **flatten():** a utility function used to flatten a list of lists to a single list. <br>
+
+    - **silence_stdout():** tmp <br>
+    - **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
+        <br>
+    - **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
+        seperately. <br>
+    - **flatten():** a utility function used to flatten a list of lists to a single list. <br>
+
 """
 import os
 import sys
@@ -20,12 +23,8 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
-# Import libraries necessary for functions
-
 
 # Create a function which will silence printing when called
-
-
 @contextmanager
 def silence_stdout():
     new_target = open(os.devnull, "w")

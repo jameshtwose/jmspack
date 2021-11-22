@@ -1,6 +1,5 @@
 r"""Submodule ml_utils.py includes the following functions:
 
-  - silence_stdout(): tmp <br>
   - plot_decision_boundary(): Generate a simple plot of the decision boundary of a classifier. <br>
   - plot_cv_indices(): tmp <br>
   - plot_learning_curve(): tmp <br>
@@ -11,6 +10,7 @@ r"""Submodule ml_utils.py includes the following functions:
   - summary_performance_metrics_classification(): tmp <br>
 
 """
+import warnings
 from typing import Union
 
 import matplotlib.pyplot as plt
@@ -76,6 +76,8 @@ def plot_decision_boundary(
     ----------
     boundaries: Figure
         Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim
+    ax: Axes
+        The axes associated with the boundaries Figure.
     Examples
     ----------
     >>> import seaborn as sns
@@ -185,7 +187,7 @@ def plot_decision_boundary(
     )
     _ = plt.gca().add_artist(leg1)
 
-    return boundaries
+    return boundaries, ax
 
 
 def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
@@ -651,7 +653,76 @@ def plot_confusion_matrix(
     return fig, ax
 
 
-def summary_performance_metrics_classification(y_true, y_pred):
+def _bootstrap_auc(
+    model, X_test, y_true, use_probabilities, bootstraps, fold_size, random_state
+):
+    """Internal function to bootstrap auc.
+    Originates from the AI in healthcare specialization of coursera. https://www.coursera.org/specializations/ai-healthcare
+    Parameters
+    ----------
+    model:
+        The fitted sklearn model.
+    X_test: pd.Series
+        The predictors used to match to y_true.
+    y_true: pd.Series
+        The actual binary targets.
+    classes: list(str)
+        List with the name of the classes in string format.
+    bootstraps: int
+        The number of bootstraps.
+    fold_size: int
+        The number of folds.
+    Returns
+    -------
+    list
+    """
+
+    if use_probabilities:
+        y_pred_proba = model.predict_proba(X_test)[:, 1]
+        df = pd.DataFrame({"y": y_true, "pred": y_pred_proba})
+    else:
+        y_pred = model.predict(X_test)
+        df = pd.DataFrame({"y": y_true, "pred": y_pred})
+
+    statistics = np.zeros(bootstraps)
+
+    df_pos = df[df.y == 1]
+    df_neg = df[df.y == 0]
+    prevalence = len(df_pos) / len(df)
+
+    # get positive examples for stratified sampling
+    for i in range(bootstraps):
+        # stratified sampling of positive and negative examples
+        pos_sample = df_pos.sample(
+            n=int(fold_size * prevalence), replace=True, random_state=random_state
+        )
+        neg_sample = df_neg.sample(
+            n=int(fold_size * (1 - prevalence)),
+            replace=True,
+            random_state=random_state + 1,
+        )
+
+        y_sample = np.concatenate([pos_sample.y.values, neg_sample.y.values])
+        pred_sample = np.concatenate([pos_sample.pred.values, neg_sample.pred.values])
+
+        if use_probabilities:
+            fpr, tpr, thresholds = metrics.roc_curve(y_sample, pred_sample, pos_label=1)
+            score = metrics.auc(fpr, tpr)
+        else:
+            score = metrics.roc_auc_score(y_sample, pred_sample)
+
+        statistics[i] = score
+
+    mean = statistics.mean()
+    max_ = np.quantile(statistics, 0.95)
+    min_ = np.quantile(statistics, 0.05)
+
+    return [f"{mean:.3f} (95% CI {min_:.3f}-{max_:.3f})"]
+
+
+def summary_performance_metrics_classification(
+    model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420
+):
     """Summary of different evaluation metrics specific to a single class classification learning problem.
     Notes
     -----
@@ -667,6 +738,7 @@ def summary_performance_metrics_classification(y_true, y_pred):
     - positive predictive value: The proportion of positive predictions that are true positives.
     - negative predictive value: The proportion of negative predictions that are true negatives.
     - auc: A measure of goodness of fit.
+    - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
     - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
     Examples
     --------
@@ -686,15 +758,69 @@ def summary_performance_metrics_classification(y_true, y_pred):
     >>> summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
     Parameters
     ----------
+    model: sklearn.model
+        A fitted sklearn model with predict() and predict_proba() methods.
+    X_test: pd.DataFrame
+        A data frame used to run predict the target values (y_pred).
     y_true: pd.Series or np.arrays
         Binary true values.
-    y_pred: pd.Series or np.arrays
-        Binary predictions of model.
-
+    bootstraps: int
+    fold_size: int
     Returns
     -------
     pd.DataFrame
     """
+
+    y_pred = model.predict(X_test)
+
+    # check if the fitted model has the "predict_proba" attribute
+    if "predict_proba" in dir(model):
+        # check that the fitted model has the "probability" attribute
+        if "probability" in dir(model):
+            # and that it is set to True (this can be the case for SVC)
+            if model.probability:
+                predict_proba_bool = True
+                y_pred_proba = model.predict_proba(X_test)[:, 1]
+                # auc
+                fpr, tpr, thresholds = metrics.roc_curve(
+                    y_true, y_pred_proba, pos_label=1
+                )
+                auc_score = metrics.auc(fpr, tpr)
+            else:
+                predict_proba_bool = False
+                warnings.warn(
+                    f"The classifier {model.__class__} does have the 'predict_proba' method, however it does not have"
+                    f" the 'probability' parameter set to True, hence model evaluation metrics will be based on "
+                    f"binary predictions"
+                )
+                auc_score = metrics.roc_auc_score(y_true, y_pred)
+        else:
+            # the model has "predict_proba and no "probability" boolean so it 100% has "predict_proba"
+            predict_proba_bool = True
+            y_pred_proba = model.predict_proba(X_test)[:, 1]
+            # auc
+            fpr, tpr, thresholds = metrics.roc_curve(y_true, y_pred_proba, pos_label=1)
+            auc_score = metrics.auc(fpr, tpr)
+    else:
+        # the model has no "predict_proba" attribute so probabilities are not used
+        predict_proba_bool = False
+        warnings.warn(
+            f"The classifier {model.__class__} does not have the 'predict_proba' method, hence "
+            f"model evaluation metrics will be based on binary predictions"
+        )
+        auc_score = metrics.roc_auc_score(y_true, y_pred)
+
+    # bootstrapped auc
+    bootstrap_auc_metric = _bootstrap_auc(
+        model,
+        X_test,
+        y_true,
+        use_probabilities=predict_proba_bool,
+        bootstraps=bootstraps,
+        fold_size=fold_size,
+        random_state=random_state,
+    )
+
     # TP, TN, FP, FN
     confusion_matrix_metric = metrics.confusion_matrix(y_true, y_pred)
     TN = confusion_matrix_metric[0][0]
@@ -705,6 +831,9 @@ def summary_performance_metrics_classification(y_true, y_pred):
     # accuracy
     accuracy_score_metric = metrics.accuracy_score(y_true, y_pred)
 
+    # balanced accuracy
+    balanced_accuracy_score_metric = metrics.balanced_accuracy_score(y_true, y_pred)
+
     # prevalance
     prevalence = np.mean(y_true == 1)
 
@@ -714,17 +843,11 @@ def summary_performance_metrics_classification(y_true, y_pred):
     # specificity
     specificity = TN / (TN + FP)
 
-    # balanced accuracy
-    bacc = (sensitivity + specificity) / 2
-
     # positive predictive value
     PPV = TP / (TP + FP)
 
     # negative predictive value
     NPV = TN / (TN + FN)
-
-    # auc
-    auc_score = metrics.roc_auc_score(y_true, y_pred)
 
     # F1
     f1 = metrics.f1_score(y_true, y_pred)
@@ -736,16 +859,17 @@ def summary_performance_metrics_classification(y_true, y_pred):
             "FN": FN,
             "TP": TP,
             "Accuracy": accuracy_score_metric,
-            "Balanced Accuracy": bacc,
+            "Balanced Accuracy": balanced_accuracy_score_metric,
             "Prevalence": prevalence,
             "Sensitivity": sensitivity,
             "Specificity": specificity,
             "PPV": PPV,
             "NPV": NPV,
             "auc": auc_score,
+            "Mean AUC (CI 5%-95%)": bootstrap_auc_metric,
             "F1": f1,
         },
         index=["scores"],
     )
 
-    return df_metrics
+    return df_metrics.round(3)
