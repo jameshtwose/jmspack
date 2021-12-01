@@ -430,16 +430,11 @@ def multi_roc_auc_plot(
     models: list = dict_of_models,
     figsize: tuple = (7, 7),
 ):
-    # create a numeric outcome measure if the data type is categorical
-    #     if y.dtype == "category":
-    #         y_cat_codes = y.cat.codes.values
-    #     else:
-    #         y_cat_codes = y
-    y_cat_codes = y
+
     # scale the data and create training and test sets of the data
     X = StandardScaler().fit_transform(X)
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y_cat_codes, test_size=0.3, random_state=42
+        X, y, test_size=0.3, random_state=42
     )
     fig, ax = plt.subplots(figsize=figsize)
     # Below for loop iterates through your models list
