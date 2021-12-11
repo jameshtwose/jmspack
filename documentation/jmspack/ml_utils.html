@@ -1,0 +1,1911 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>jmspack.ml_utils API documentation</title>
+<meta name="description" content="Submodule ml_utils.py includes the following functions: …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>jmspack.ml_utils</code></h1>
+</header>
+<section id="section-intro">
+<p>Submodule ml_utils.py includes the following functions:</p>
+<ul>
+<li>plot_decision_boundary(): Generate a simple plot of the decision boundary of a classifier. <br></li>
+<li>plot_cv_indices(): tmp <br></li>
+<li>plot_learning_curve(): tmp <br></li>
+<li>dict_of_models: tmp <br></li>
+<li>multi_roc_auc_plot(): tmp <br></li>
+<li>RFE_opt_rf(): tmp <br></li>
+<li>make_confusion_matrix(): tmp <br></li>
+<li>summary_performance_metrics_classification(): tmp <br></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">r&#34;&#34;&#34;Submodule ml_utils.py includes the following functions:
+
+  - plot_decision_boundary(): Generate a simple plot of the decision boundary of a classifier. &lt;br&gt;
+  - plot_cv_indices(): tmp &lt;br&gt;
+  - plot_learning_curve(): tmp &lt;br&gt;
+  - dict_of_models: tmp &lt;br&gt;
+  - multi_roc_auc_plot(): tmp &lt;br&gt;
+  - RFE_opt_rf(): tmp &lt;br&gt;
+  - make_confusion_matrix(): tmp &lt;br&gt;
+  - summary_performance_metrics_classification(): tmp &lt;br&gt;
+
+&#34;&#34;&#34;
+import warnings
+from typing import Union
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import sklearn.linear_model
+from matplotlib.colors import ListedColormap
+from matplotlib.patches import Patch
+from sklearn import metrics
+from sklearn.base import BaseEstimator
+from sklearn.base import ClassifierMixin
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_selection import RFE
+from sklearn.gaussian_process import GaussianProcessClassifier
+from sklearn.gaussian_process.kernels import RBF
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import learning_curve
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
+from jmspack.utils import JmsColors
+
+
+def plot_decision_boundary(
+    X: pd.DataFrame,
+    y: pd.Series,
+    clf: ClassifierMixin = sklearn.linear_model.LogisticRegression(),
+    title: str = &#34;Decision Boundary Logistic Regression&#34;,
+    legend_title: str = &#34;Legend&#34;,
+    h: float = 0.05,
+    figsize: tuple = (11.7, 8.27),
+):
+    r&#34;&#34;&#34;
+    Generate a simple plot of the decision boundary of a classifier.
+    Parameters
+    ----------
+    X : array-like, shape (n_samples, n_features)
+        Classifier vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples)
+        Target relative to X for classification. Datatype should be integers.
+    clf : scikit-learn algorithm
+        An object that has the `predict` and `predict_proba` methods
+    h : int (default: 0.05)
+        Step size in the mesh
+    title : string
+        Title for the plot.
+    legend_title : string
+        Legend title for the plot.
+    figsize: tuple (default: (11.7, 8.27))
+        Width and height of the figure in inches
+    Returns
+    ----------
+    boundaries: Figure
+        Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim
+    ax: Axes
+        The axes associated with the boundaries Figure.
+    Examples
+    ----------
+    &gt;&gt;&gt; import seaborn as sns
+    &gt;&gt;&gt; from sklearn.svm import SVC
+    &gt;&gt;&gt; data = sns.load_dataset(&#34;iris&#34;)
+    &gt;&gt;&gt; # convert the target from string to category to numeric as sklearn cannot handle strings as target
+    &gt;&gt;&gt; y = data[&#34;species&#34;]
+    &gt;&gt;&gt; X = data[[&#34;sepal_length&#34;, &#34;sepal_width&#34;]]
+    &gt;&gt;&gt; clf = SVC(kernel=&#34;rbf&#34;, gamma=2, C=1, probability=True)
+    &gt;&gt;&gt; _ = plot_decision_boundary(X=X, y=y, clf=clf, title = &#39;Decision Boundary&#39;, legend_title = &#34;Species&#34;)
+    &gt;&gt;&gt; # plt.show()
+    &#34;&#34;&#34;
+
+    if X.shape[1] != 2:
+        raise ValueError(&#34;X must contains only two features.&#34;)
+
+    if not (
+        pd.api.types.is_integer_dtype(y)
+        or pd.api.types.is_object_dtype(y)
+        or pd.api.types.is_categorical_dtype(y)
+    ):
+        raise TypeError(
+            &#34;The target variable y can only have the following dtype: [int, object, category].&#34;
+        )
+
+    label_0 = X.columns.tolist()[0]
+    label_1 = X.columns.tolist()[1]
+
+    X = X.copy()
+    y = y.copy()
+
+    X = X.values
+    y = y.astype(&#34;category&#34;).cat.codes.values
+
+    #     full_col_list = list(sns.color_palette(&#34;husl&#34;, len(np.unique(y))))
+    full_col_list = list(sns.color_palette())
+
+    if len(np.unique(y)) &gt; len(full_col_list):
+        raise ValueError(
+            &#34;More labels in the data then colors in the color list. Either reduce the number of labels or expend the color list&#34;
+        )
+
+    sub_col_list = full_col_list[0 : len(np.unique(y))]
+    cmap_bold = ListedColormap(sub_col_list)
+
+    # Try to include a mapping in a later release (+ show categorical labels in the legend)
+
+    _ = clf.fit(X, y)
+
+    # Plot the decision boundary. For that, we will assign a color to each
+    # point in the mesh [x_min, x_max]x[y_min, y_max].
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    Z_proba = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])
+    Z_max = Z_proba.max(axis=1)  # Take the class with highest probability
+    Z_max = Z_max.reshape(xx.shape)
+
+    # Put the result into a color plot
+    boundaries, ax = plt.subplots(figsize=figsize)
+    _ = ax.contour(xx, yy, Z, cmap=cmap_bold)
+    _ = ax.scatter(
+        xx, yy, s=(Z_max ** 2 / h), c=Z, cmap=cmap_bold, alpha=1, edgecolors=&#34;none&#34;
+    )
+
+    # Plot also the training points
+    training = ax.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolors=&#34;black&#34;)
+    _ = plt.xlim(xx.min(), xx.max())
+    _ = plt.ylim(yy.min(), yy.max())
+    _ = plt.title(title)
+    _ = plt.subplots_adjust(right=0.8)
+    _ = plt.xlabel(label_0)
+    _ = plt.ylabel(label_1)
+
+    # Add legend colors
+    leg1 = plt.legend(
+        *training.legend_elements(),
+        frameon=False,
+        fontsize=12,
+        borderaxespad=0,
+        bbox_to_anchor=(1, 0.5),
+        handlelength=2,
+        handletextpad=1,
+        title=legend_title,
+    )
+
+    # Add legend sizes
+    l1 = plt.scatter([], [], c=&#34;black&#34;, s=0.4 ** 2 / h, edgecolors=&#34;none&#34;)
+    l2 = plt.scatter([], [], c=&#34;black&#34;, s=0.6 ** 2 / h, edgecolors=&#34;none&#34;)
+    l3 = plt.scatter([], [], c=&#34;black&#34;, s=0.8 ** 2 / h, edgecolors=&#34;none&#34;)
+    l4 = plt.scatter([], [], c=&#34;black&#34;, s=1 ** 2 / h, edgecolors=&#34;none&#34;)
+
+    labels = [&#34;0.4&#34;, &#34;0.6&#34;, &#34;0.8&#34;, &#34;1&#34;]
+    _ = plt.legend(
+        [l1, l2, l3, l4],
+        labels,
+        frameon=False,
+        fontsize=12,
+        borderaxespad=0,
+        bbox_to_anchor=(1, 1),
+        handlelength=2,
+        handletextpad=1,
+        title=&#34;Probabilities&#34;,
+        scatterpoints=1,
+    )
+    _ = plt.gca().add_artist(leg1)
+
+    return boundaries, ax
+
+
+def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
+    &#34;&#34;&#34;Create a sample plot for indices of a cross-validation object.&#34;&#34;&#34;
+
+    # set plotting options
+    cmap_data = plt.cm.Paired
+    cmap_cv = plt.cm.coolwarm
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Generate the training/testing visualizations for each CV split
+    for ii, (tr, tt) in enumerate(cv.split(X=X, y=y, groups=group)):
+        # Fill in indices with the training/test groups
+        indices = np.array([np.nan] * len(X))
+        indices[tt] = 1
+        indices[tr] = 0
+
+        # Visualize the results
+        ax.scatter(
+            range(len(indices)),
+            [ii + 0.5] * len(indices),
+            c=indices,
+            marker=&#34;_&#34;,
+            lw=lw,
+            cmap=cmap_cv,
+            vmin=-0.2,
+            vmax=1.2,
+        )
+
+    # Plot the data classes and groups at the end
+    ax.scatter(
+        range(len(X)), [ii + 1.5] * len(X), c=y, marker=&#34;_&#34;, lw=lw, cmap=cmap_data
+    )
+
+    ax.scatter(
+        range(len(X)), [ii + 2.5] * len(X), c=group, marker=&#34;_&#34;, lw=lw, cmap=cmap_data
+    )
+
+    # Formatting
+    yticklabels = list(range(n_splits)) + [&#34;class&#34;, &#34;group&#34;]
+    ax.set(
+        yticks=np.arange(n_splits + 2) + 0.5,
+        yticklabels=yticklabels,
+        xlabel=&#34;Sample index&#34;,
+        ylabel=&#34;CV iteration&#34;,
+        ylim=[n_splits + 2.2, -0.2],
+        xlim=[0, len(X)],
+    )
+    ax.set_title(&#34;{}&#34;.format(type(cv).__name__), fontsize=15)
+
+    ax.legend(
+        [Patch(color=cmap_cv(0.8)), Patch(color=cmap_cv(0.02))],
+        [&#34;Testing set&#34;, &#34;Training set&#34;],
+        loc=(1.02, 0.8),
+    )
+    # Make the legend fit
+    plt.tight_layout()
+    fig.subplots_adjust(right=0.7)
+
+    return fig, ax
+
+
+def plot_learning_curve(
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.linear_model.LogisticRegression(),
+    title: str = &#34;Learning Curve Logistic Regression&#34;,
+    groups: Union[None, np.array] = None,
+    cross_color: str = JmsColors.PURPLE,
+    test_color: str = JmsColors.YELLOW,
+    scoring: str = &#34;accuracy&#34;,
+    ylim: Union[None, tuple] = None,
+    cv: Union[None, int] = None,
+    n_jobs: int = -1,
+    train_sizes: np.array = np.linspace(0.1, 1.0, 40),
+    figsize: tuple = (10, 5),
+):
+    &#34;&#34;&#34;
+    Generate a simple plot of the test and training learning curve.
+    Parameters
+    ----------
+    estimator : object type that implements the &#34;fit&#34; and &#34;predict&#34; methods
+        An object of that type which is cloned for each validation.
+    title : string
+        Title for the chart.
+    X : array-like, shape (n_samples, n_features)
+        Training vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples) or (n_samples, n_features), optional
+        Target relative to X for classification or regression;
+        None for unsupervised learning.
+
+    cross_color : string
+        Signifies the color of the cross validation in the plot
+
+    test_color : string
+        Signifies the color of the test set in the plot
+
+    scoring : string
+        Signifies a scoring to evaluate the cross validation
+    ylim : tuple, shape (ymin, ymax), optional
+        Defines minimum and maximum yvalues plotted.
+    cv : int, cross-validation generator or an iterable, optional
+        Determines the cross-validation splitting strategy.
+        Possible inputs for cv are:
+          - None, to use the default 3-fold cross-validation,
+          - integer, to specify the number of folds.
+          - :term:`CV splitter`,
+          - An iterable yielding (train, test) splits as arrays of indices.
+        For integer/None inputs, if ``y`` is binary or multiclass,
+        :param groups:
+        :class:`StratifiedKFold` used. If the estimator is not a classifier
+        or if ``y`` is neither binary nor multiclass, :class:`KFold` is used.
+        Refer :ref:`User Guide &lt;cross_validation&gt;` for the various
+        cross-validators that can be used here.
+    n_jobs : int or None, optional (default=None)
+        Number of jobs to run in parallel.
+        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`
+        for more details.
+    train_sizes : array-like, shape (n_ticks,), dtype float or int
+        Relative or absolute numbers of training examples that will be used to
+        generate the learning curve. If the dtype is float, it is regarded as a
+        fraction of the maximum size of the training set (that is determined
+        by the selected validation method), i.e. it has to be within (0, 1].
+        Otherwise it is interpreted as absolute sizes of the training sets.
+        Note that for classification the number of samples usually have to
+        be big enough to contain at least one sample from each class.
+        (default: np.linspace(0.1, 1.0, 5))
+    &#34;&#34;&#34;
+    fig, ax = plt.subplots(figsize=figsize)
+    plt.title(title)
+    if ylim is not None:
+        plt.ylim(*ylim)
+    plt.xlabel(&#34;Training examples&#34;)
+    plt.ylabel(scoring)
+    train_sizes, train_scores, test_scores = learning_curve(
+        estimator,
+        X,
+        y,
+        groups=groups,
+        cv=cv,
+        scoring=scoring,
+        n_jobs=n_jobs,
+        train_sizes=train_sizes,
+        random_state=42,
+    )
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+    _ = plt.grid()
+
+    _ = plt.fill_between(
+        train_sizes,
+        train_scores_mean - train_scores_std,
+        train_scores_mean + train_scores_std,
+        alpha=0.1,
+        color=test_color,
+    )
+    _ = plt.fill_between(
+        train_sizes,
+        test_scores_mean - test_scores_std,
+        test_scores_mean + test_scores_std,
+        alpha=0.1,
+        color=cross_color,
+    )
+    _ = plt.plot(
+        train_sizes, train_scores_mean, &#34;o-&#34;, color=test_color, label=&#34;Training score&#34;
+    )
+    _ = plt.plot(
+        train_sizes,
+        test_scores_mean,
+        &#34;o-&#34;,
+        color=cross_color,
+        label=&#34;Cross-validation score&#34;,
+    )
+
+    _ = plt.legend(loc=&#34;best&#34;)
+    return fig, ax
+
+
+# create a dictionary of models
+dict_of_models = [
+    {
+        &#34;label&#34;: &#34;Logistic Regression&#34;,
+        &#34;model&#34;: LogisticRegression(solver=&#34;lbfgs&#34;),
+    },
+    {
+        &#34;label&#34;: &#34;Gradient Boosting&#34;,
+        &#34;model&#34;: GradientBoostingClassifier(),
+    },
+    {
+        &#34;label&#34;: &#34;K_Neighbors Classifier&#34;,
+        &#34;model&#34;: KNeighborsClassifier(3),
+    },
+    {
+        &#34;label&#34;: &#34;SVM Classifier (linear)&#34;,
+        &#34;model&#34;: SVC(kernel=&#34;linear&#34;, C=0.025, probability=True),
+    },
+    {
+        &#34;label&#34;: &#34;SVM Classifier (Radial Basis Function; RBF)&#34;,
+        &#34;model&#34;: SVC(kernel=&#34;rbf&#34;, gamma=2, C=1, probability=True),
+    },
+    {
+        &#34;label&#34;: &#34;Gaussian Process Classifier&#34;,
+        &#34;model&#34;: GaussianProcessClassifier(1.0 * RBF(1.0)),
+    },
+    {
+        &#34;label&#34;: &#34;Decision Tree (depth=5)&#34;,
+        &#34;model&#34;: DecisionTreeClassifier(max_depth=5),
+    },
+    {
+        &#34;label&#34;: &#34;Random Forest Classifier(depth=5)&#34;,
+        &#34;model&#34;: RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    },
+    {
+        &#34;label&#34;: &#34;Multilayer Perceptron (MLP) Classifier&#34;,
+        &#34;model&#34;: MLPClassifier(alpha=1, max_iter=1000),
+    },
+    {
+        &#34;label&#34;: &#34;AdaBoost Classifier&#34;,
+        &#34;model&#34;: AdaBoostClassifier(),
+    },
+    {
+        &#34;label&#34;: &#34;Naive Bayes (Gaussian) Classifier&#34;,
+        &#34;model&#34;: GaussianNB(),
+    },
+    {
+        &#34;label&#34;: &#34;Quadratic Discriminant Analysis Classifier&#34;,
+        &#34;model&#34;: QuadraticDiscriminantAnalysis(),
+    },
+]
+
+
+def multi_roc_auc_plot(
+    X: pd.DataFrame,
+    y: pd.Series,
+    models: list = dict_of_models,
+    figsize: tuple = (7, 7),
+):
+
+    # scale the data and create training and test sets of the data
+    X = StandardScaler().fit_transform(X)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42
+    )
+    fig, ax = plt.subplots(figsize=figsize)
+    # Below for loop iterates through your models list
+    for m in models:
+        model = m[&#34;model&#34;]  # select the model
+        model.fit(X_train, y_train)  # train the model
+        # Compute False postive rate, and True positive rate
+        fpr, tpr, thresholds = metrics.roc_curve(
+            y_test, model.predict_proba(X_test)[:, 1]
+        )
+        # Calculate Area under the curve to display on the plot
+        auc_score = metrics.roc_auc_score(
+            y_test, model.predict(X_test), average=&#34;macro&#34;
+        )
+        # Now, plot the computed values
+        plt.plot(fpr, tpr, label=&#34;%s ROC (area = %0.2f)&#34; % (m[&#34;label&#34;], auc_score))
+    # Custom settings for the plot
+    _ = plt.plot([0, 1], [0, 1], c=&#34;grey&#34;, ls=&#34;--&#34;)
+    _ = plt.xlim([0.0, 1.0])
+    _ = plt.ylim([0.0, 1.05])
+    _ = plt.xlabel(&#34;1-Specificity (False Positive Rate)&#34;)
+    _ = plt.ylabel(&#34;Sensitivity (True Positive Rate)&#34;)
+    _ = plt.title(&#34;Receiver Operating Characteristics&#34;)
+    _ = plt.legend(loc=&#34;lower right&#34;)
+    # plt.show()  # Display
+
+    return fig, ax
+
+
+def optimize_model(
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.ensemble.RandomForestClassifier(),
+    grid_params_dict: dict = {
+        &#34;max_depth&#34;: [1, 2, 3, 4, 5, 10],
+        &#34;n_estimators&#34;: [10, 20, 30, 40, 50],
+        &#34;max_features&#34;: [&#34;log2&#34;, &#34;auto&#34;, &#34;sqrt&#34;],
+        &#34;criterion&#34;: [&#34;gini&#34;, &#34;entropy&#34;],
+    },
+    gridsearch_kwargs: dict = {&#34;scoring&#34;: &#34;roc_auc&#34;, &#34;cv&#34;: 3, &#34;n_jobs&#34;: -2},
+    rfe_kwargs: dict = {&#34;n_features_to_select&#34;: 2, &#34;verbose&#34;: 1},
+):
+
+    # Perform a 75% training and 25% test data split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, stratify=y, random_state=42
+    )
+
+    # Instantiate grid_dt
+    grid_dt = GridSearchCV(
+        estimator=estimator, param_grid=grid_params_dict, **gridsearch_kwargs
+    )
+
+    # Optimize hyperparameter
+    _ = grid_dt.fit(X_train, y_train)
+
+    # Extract the best estimator
+    optimized_estimator = grid_dt.best_estimator_
+
+    # Create the RFE with a optimized random forest
+    rfe = RFE(estimator=optimized_estimator, **rfe_kwargs)
+
+    # Fit the eliminator to the data
+    _ = rfe.fit(X_train, y_train)
+
+    # create dataframe with features ranking (high = dropped early on)
+    feature_ranking = pd.DataFrame(
+        data=dict(zip(X.columns, rfe.ranking_)), index=np.arange(0, len(X.columns))
+    )
+    feature_ranking = feature_ranking.loc[0, :].sort_values()
+
+    # create dataframe with feature selected
+    feature_selected = X.columns[rfe.support_].to_list()
+
+    # create dataframe with importances per feature
+    feature_importance = pd.Series(
+        dict(zip(X.columns, optimized_estimator.feature_importances_.round(2)))
+    )
+
+    # Calculates the test set accuracy
+    acc = metrics.accuracy_score(y_test, rfe.predict(X_test))
+
+    print(&#34;\n- Sizes :&#34;)
+    print(f&#34;- X shape = {X.shape}&#34;)
+    print(f&#34;- y shape = {y.shape}&#34;)
+    print(f&#34;- X_train shape = {X_train.shape}&#34;)
+    print(f&#34;- X_test shape = {X_test.shape}&#34;)
+    print(f&#34;- y_train shape = {y_train.shape}&#34;)
+    print(f&#34;- y_test shape = {y_test.shape}&#34;)
+
+    print(&#34;\n- Model info :&#34;)
+    print(f&#34;- Optimal Parameters = {optimized_estimator.get_params()}&#34;)
+    print(f&#34;- Selected feature list = {feature_selected}&#34;)
+    print(&#34;- Accuracy score on test set = {0:.1%}&#34;.format(acc))
+
+    return (
+        optimized_estimator,
+        feature_ranking,
+        feature_selected,
+        feature_importance,
+        pd.DataFrame(optimized_estimator.get_params(), index=[&#34;optimal_parameters&#34;]),
+    )
+
+
+def plot_confusion_matrix(
+    cf,
+    group_names=None,
+    categories=&#34;auto&#34;,
+    count=True,
+    percent=True,
+    cbar=True,
+    xyticks=True,
+    xyplotlabels=True,
+    sum_stats=True,
+    figsize: tuple = (7, 5),
+    cmap=&#34;Blues&#34;,
+    title=None,
+):
+    &#34;&#34;&#34;
+    This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
+    Arguments
+    ---------
+    cf:            confusion matrix to be passed in
+    group_names:   List of strings that represent the labels row by row to be shown in each square.
+    categories:    List of strings containing the categories to be displayed on the x,y axis. Default is &#39;auto&#39;
+    count:         If True, show the raw number in the confusion matrix. Default is True.
+    normalize:     If True, show the proportions for each category. Default is True.
+    cbar:          If True, show the color bar. The cbar values are based off the values in the confusion matrix.
+                   Default is True.
+    xyticks:       If True, show x and y ticks. Default is True.
+    xyplotlabels:  If True, show &#39;True Label&#39; and &#39;Predicted Label&#39; on the figure. Default is True.
+    sum_stats:     If True, display summary statistics below the figure. Default is True.
+    figsize:       Tuple representing the figure size. Default will be the matplotlib rcParams value.
+    cmap:          Colormap of the values displayed from matplotlib.pyplot.cm. Default is &#39;Blues&#39;
+                   See http://matplotlib.org/examples/color/colormaps_reference.html
+
+    title:         Title for the heatmap. Default is None.
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # CODE TO GENERATE TEXT INSIDE EACH SQUARE
+    blanks = [&#34;&#34; for i in range(cf.size)]
+
+    if group_names and len(group_names) == cf.size:
+        group_labels = [&#34;{}\n&#34;.format(value) for value in group_names]
+    else:
+        group_labels = blanks
+
+    if count:
+        group_counts = [&#34;{0:0.0f}\n&#34;.format(value) for value in cf.flatten()]
+    else:
+        group_counts = blanks
+
+    if percent:
+        group_percentages = [
+            &#34;{0:.2%}&#34;.format(value) for value in cf.flatten() / np.sum(cf)
+        ]
+    else:
+        group_percentages = blanks
+
+    box_labels = [
+        f&#34;{v1}{v2}{v3}&#34;.strip()
+        for v1, v2, v3 in zip(group_labels, group_counts, group_percentages)
+    ]
+    box_labels = np.asarray(box_labels).reshape(cf.shape[0], cf.shape[1])
+
+    # CODE TO GENERATE SUMMARY STATISTICS &amp; TEXT FOR SUMMARY STATS
+    if sum_stats:
+        # Accuracy is sum of diagonal divided by total observations
+        accuracy = np.trace(cf) / float(np.sum(cf))
+
+        # if it is a binary confusion matrix, show some more stats
+        if len(cf) == 2:
+            # Metrics for Binary Confusion Matrices
+            precision = cf[1, 1] / sum(cf[:, 1])
+            recall = cf[1, 1] / sum(cf[1, :])
+            f1_score = 2 * precision * recall / (precision + recall)
+            stats_text = &#34;\n\nAccuracy={:0.3f}\nPrecision={:0.3f}\nRecall={:0.3f}\nF1 Score={:0.3f}&#34;.format(
+                accuracy, precision, recall, f1_score
+            )
+        else:
+            stats_text = &#34;\n\nAccuracy={:0.3f}&#34;.format(accuracy)
+    else:
+        stats_text = &#34;&#34;
+
+    if xyticks == False:
+        # Do not show categories if xyticks is False
+        categories = False
+
+    # MAKE THE HEATMAP VISUALIZATION
+    _ = sns.heatmap(
+        cf,
+        annot=box_labels,
+        fmt=&#34;&#34;,
+        cmap=cmap,
+        cbar=cbar,
+        xticklabels=categories,
+        yticklabels=categories,
+    )
+
+    if xyplotlabels:
+        _ = plt.ylabel(&#34;True label&#34;)
+        _ = plt.xlabel(&#34;Predicted label&#34; + stats_text)
+    else:
+        _ = plt.xlabel(stats_text)
+
+    if title:
+        _ = plt.title(title)
+
+    return fig, ax
+
+
+def _bootstrap_auc(
+    model, X_test, y_true, use_probabilities, bootstraps, fold_size, random_state
+):
+    &#34;&#34;&#34;Internal function to bootstrap auc.
+    Originates from the AI in healthcare specialization of coursera. https://www.coursera.org/specializations/ai-healthcare
+    Parameters
+    ----------
+    model:
+        The fitted sklearn model.
+    X_test: pd.Series
+        The predictors used to match to y_true.
+    y_true: pd.Series
+        The actual binary targets.
+    classes: list(str)
+        List with the name of the classes in string format.
+    bootstraps: int
+        The number of bootstraps.
+    fold_size: int
+        The number of folds.
+    Returns
+    -------
+    list
+    &#34;&#34;&#34;
+
+    if use_probabilities:
+        y_pred_proba = model.predict_proba(X_test)[:, 1]
+        df = pd.DataFrame({&#34;y&#34;: y_true, &#34;pred&#34;: y_pred_proba})
+    else:
+        y_pred = model.predict(X_test)
+        df = pd.DataFrame({&#34;y&#34;: y_true, &#34;pred&#34;: y_pred})
+
+    statistics = np.zeros(bootstraps)
+
+    df_pos = df[df.y == 1]
+    df_neg = df[df.y == 0]
+    prevalence = len(df_pos) / len(df)
+
+    # get positive examples for stratified sampling
+    for i in range(bootstraps):
+        # stratified sampling of positive and negative examples
+        pos_sample = df_pos.sample(
+            n=int(fold_size * prevalence), replace=True, random_state=random_state
+        )
+        neg_sample = df_neg.sample(
+            n=int(fold_size * (1 - prevalence)),
+            replace=True,
+            random_state=random_state + 1,
+        )
+
+        y_sample = np.concatenate([pos_sample.y.values, neg_sample.y.values])
+        pred_sample = np.concatenate([pos_sample.pred.values, neg_sample.pred.values])
+
+        if use_probabilities:
+            fpr, tpr, thresholds = metrics.roc_curve(y_sample, pred_sample, pos_label=1)
+            score = metrics.auc(fpr, tpr)
+        else:
+            score = metrics.roc_auc_score(y_sample, pred_sample)
+
+        statistics[i] = score
+
+    mean = statistics.mean()
+    max_ = np.quantile(statistics, 0.95)
+    min_ = np.quantile(statistics, 0.05)
+
+    return [f&#34;{mean:.3f} (95% CI {min_:.3f}-{max_:.3f})&#34;]
+
+
+def summary_performance_metrics_classification(
+    model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420
+):
+    &#34;&#34;&#34;Summary of different evaluation metrics specific to a single class classification learning problem.
+    Notes
+    -----
+    The function returns the following metrics:
+    - true positive (TP): The model classifies the example as positive, and the actual label also positive.
+    - false positive (FP): The model classifies the example as positive, but the actual label is negative.
+    - true negative (TN): The model classifies the example as negative, and the actual label is also negative.
+    - false negative (FN): The model classifies the example as negative, but the label is actually positive.
+    - accuracy: The fractions of predictions the model got right.
+    - prevalance: The proportion of positive examples. Where y=1.
+    - sensitivity: The probability that our test outputs positive given that the case is actually positive.
+    - specificity: The probability that the test outputs negative given that the case is actually negative.
+    - positive predictive value: The proportion of positive predictions that are true positives.
+    - negative predictive value: The proportion of negative predictions that are true negatives.
+    - auc: A measure of goodness of fit.
+    - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
+    - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
+    Examples
+    --------
+    &gt;&gt;&gt; from sklearn import datasets
+    &gt;&gt;&gt; from sklearn.model_selection import train_test_split
+    &gt;&gt;&gt; from sklearn.neighbors import KNeighborsClassifier
+    &gt;&gt;&gt; import pandas as pd
+    &gt;&gt;&gt; data = datasets.load_breast_cancer()
+    &gt;&gt;&gt; df = pd.DataFrame(data.data, columns=data.feature_names)
+    &gt;&gt;&gt; df[&#39;target&#39;] = data.target
+    &gt;&gt;&gt; X = data.data
+    &gt;&gt;&gt; y = data.target
+    &gt;&gt;&gt; X_train, X_test, y_train, y_test = train_test_split(X, y)
+    &gt;&gt;&gt; clf = KNeighborsClassifier(n_neighbors=6)
+    &gt;&gt;&gt; clf.fit(X_train, y_train)
+    &gt;&gt;&gt; y_pred = clf.predict(X_test)
+    &gt;&gt;&gt; summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
+    Parameters
+    ----------
+    model: sklearn.model
+        A fitted sklearn model with predict() and predict_proba() methods.
+    X_test: pd.DataFrame
+        A data frame used to run predict the target values (y_pred).
+    y_true: pd.Series or np.arrays
+        Binary true values.
+    bootstraps: int
+    fold_size: int
+    Returns
+    -------
+    pd.DataFrame
+    &#34;&#34;&#34;
+
+    y_pred = model.predict(X_test)
+
+    # check if the fitted model has the &#34;predict_proba&#34; attribute
+    if &#34;predict_proba&#34; in dir(model):
+        # check that the fitted model has the &#34;probability&#34; attribute
+        if &#34;probability&#34; in dir(model):
+            # and that it is set to True (this can be the case for SVC)
+            if model.probability:
+                predict_proba_bool = True
+                y_pred_proba = model.predict_proba(X_test)[:, 1]
+                # auc
+                fpr, tpr, thresholds = metrics.roc_curve(
+                    y_true, y_pred_proba, pos_label=1
+                )
+                auc_score = metrics.auc(fpr, tpr)
+            else:
+                predict_proba_bool = False
+                warnings.warn(
+                    f&#34;The classifier {model.__class__} does have the &#39;predict_proba&#39; method, however it does not have&#34;
+                    f&#34; the &#39;probability&#39; parameter set to True, hence model evaluation metrics will be based on &#34;
+                    f&#34;binary predictions&#34;
+                )
+                auc_score = metrics.roc_auc_score(y_true, y_pred)
+        else:
+            # the model has &#34;predict_proba and no &#34;probability&#34; boolean so it 100% has &#34;predict_proba&#34;
+            predict_proba_bool = True
+            y_pred_proba = model.predict_proba(X_test)[:, 1]
+            # auc
+            fpr, tpr, thresholds = metrics.roc_curve(y_true, y_pred_proba, pos_label=1)
+            auc_score = metrics.auc(fpr, tpr)
+    else:
+        # the model has no &#34;predict_proba&#34; attribute so probabilities are not used
+        predict_proba_bool = False
+        warnings.warn(
+            f&#34;The classifier {model.__class__} does not have the &#39;predict_proba&#39; method, hence &#34;
+            f&#34;model evaluation metrics will be based on binary predictions&#34;
+        )
+        auc_score = metrics.roc_auc_score(y_true, y_pred)
+
+    # bootstrapped auc
+    bootstrap_auc_metric = _bootstrap_auc(
+        model,
+        X_test,
+        y_true,
+        use_probabilities=predict_proba_bool,
+        bootstraps=bootstraps,
+        fold_size=fold_size,
+        random_state=random_state,
+    )
+
+    # TP, TN, FP, FN
+    confusion_matrix_metric = metrics.confusion_matrix(y_true, y_pred)
+    TN = confusion_matrix_metric[0][0]
+    FP = confusion_matrix_metric[0][1]
+    FN = confusion_matrix_metric[1][0]
+    TP = confusion_matrix_metric[1][1]
+
+    # accuracy
+    accuracy_score_metric = metrics.accuracy_score(y_true, y_pred)
+
+    # balanced accuracy
+    balanced_accuracy_score_metric = metrics.balanced_accuracy_score(y_true, y_pred)
+
+    # prevalance
+    prevalence = np.mean(y_true == 1)
+
+    # sensitivity
+    sensitivity = TP / (TP + FN)
+
+    # specificity
+    specificity = TN / (TN + FP)
+
+    # positive predictive value
+    PPV = TP / (TP + FP)
+
+    # negative predictive value
+    NPV = TN / (TN + FN)
+
+    # F1
+    f1 = metrics.f1_score(y_true, y_pred)
+
+    df_metrics = pd.DataFrame(
+        {
+            &#34;TN&#34;: TN,
+            &#34;FP&#34;: FP,
+            &#34;FN&#34;: FN,
+            &#34;TP&#34;: TP,
+            &#34;Accuracy&#34;: accuracy_score_metric,
+            &#34;Balanced Accuracy&#34;: balanced_accuracy_score_metric,
+            &#34;Prevalence&#34;: prevalence,
+            &#34;Sensitivity&#34;: sensitivity,
+            &#34;Specificity&#34;: specificity,
+            &#34;PPV&#34;: PPV,
+            &#34;NPV&#34;: NPV,
+            &#34;auc&#34;: auc_score,
+            &#34;Mean AUC (CI 5%-95%)&#34;: bootstrap_auc_metric,
+            &#34;F1&#34;: f1,
+        },
+        index=[&#34;scores&#34;],
+    )
+
+    return df_metrics.round(3)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="jmspack.ml_utils.multi_roc_auc_plot"><code class="name flex">
+<span>def <span class="ident">multi_roc_auc_plot</span></span>(<span>X: pandas.core.frame.DataFrame, y: pandas.core.series.Series, models: list = [{'label': 'Logistic Regression', 'model': LogisticRegression()}, {'label': 'Gradient Boosting', 'model': GradientBoostingClassifier()}, {'label': 'K_Neighbors Classifier', 'model': KNeighborsClassifier(n_neighbors=3)}, {'label': 'SVM Classifier (linear)', 'model': SVC(C=0.025, kernel='linear', probability=True)}, {'label': 'SVM Classifier (Radial Basis Function; RBF)', 'model': SVC(C=1, gamma=2, probability=True)}, {'label': 'Gaussian Process Classifier', 'model': GaussianProcessClassifier(kernel=1**2 * RBF(length_scale=1))}, {'label': 'Decision Tree (depth=5)', 'model': DecisionTreeClassifier(max_depth=5)}, {'label': 'Random Forest Classifier(depth=5)', 'model': RandomForestClassifier(max_depth=5, max_features=1, n_estimators=10)}, {'label': 'Multilayer Perceptron (MLP) Classifier', 'model': MLPClassifier(alpha=1, max_iter=1000)}, {'label': 'AdaBoost Classifier', 'model': AdaBoostClassifier()}, {'label': 'Naive Bayes (Gaussian) Classifier', 'model': GaussianNB()}, {'label': 'Quadratic Discriminant Analysis Classifier', 'model': QuadraticDiscriminantAnalysis()}], figsize: tuple = (7, 7))</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def multi_roc_auc_plot(
+    X: pd.DataFrame,
+    y: pd.Series,
+    models: list = dict_of_models,
+    figsize: tuple = (7, 7),
+):
+
+    # scale the data and create training and test sets of the data
+    X = StandardScaler().fit_transform(X)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42
+    )
+    fig, ax = plt.subplots(figsize=figsize)
+    # Below for loop iterates through your models list
+    for m in models:
+        model = m[&#34;model&#34;]  # select the model
+        model.fit(X_train, y_train)  # train the model
+        # Compute False postive rate, and True positive rate
+        fpr, tpr, thresholds = metrics.roc_curve(
+            y_test, model.predict_proba(X_test)[:, 1]
+        )
+        # Calculate Area under the curve to display on the plot
+        auc_score = metrics.roc_auc_score(
+            y_test, model.predict(X_test), average=&#34;macro&#34;
+        )
+        # Now, plot the computed values
+        plt.plot(fpr, tpr, label=&#34;%s ROC (area = %0.2f)&#34; % (m[&#34;label&#34;], auc_score))
+    # Custom settings for the plot
+    _ = plt.plot([0, 1], [0, 1], c=&#34;grey&#34;, ls=&#34;--&#34;)
+    _ = plt.xlim([0.0, 1.0])
+    _ = plt.ylim([0.0, 1.05])
+    _ = plt.xlabel(&#34;1-Specificity (False Positive Rate)&#34;)
+    _ = plt.ylabel(&#34;Sensitivity (True Positive Rate)&#34;)
+    _ = plt.title(&#34;Receiver Operating Characteristics&#34;)
+    _ = plt.legend(loc=&#34;lower right&#34;)
+    # plt.show()  # Display
+
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.optimize_model"><code class="name flex">
+<span>def <span class="ident">optimize_model</span></span>(<span>X: pandas.core.frame.DataFrame, y: pandas.core.series.Series, estimator: sklearn.base.BaseEstimator = RandomForestClassifier(), grid_params_dict: dict = {'max_depth': [1, 2, 3, 4, 5, 10], 'n_estimators': [10, 20, 30, 40, 50], 'max_features': ['log2', 'auto', 'sqrt'], 'criterion': ['gini', 'entropy']}, gridsearch_kwargs: dict = {'scoring': 'roc_auc', 'cv': 3, 'n_jobs': -2}, rfe_kwargs: dict = {'n_features_to_select': 2, 'verbose': 1})</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def optimize_model(
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.ensemble.RandomForestClassifier(),
+    grid_params_dict: dict = {
+        &#34;max_depth&#34;: [1, 2, 3, 4, 5, 10],
+        &#34;n_estimators&#34;: [10, 20, 30, 40, 50],
+        &#34;max_features&#34;: [&#34;log2&#34;, &#34;auto&#34;, &#34;sqrt&#34;],
+        &#34;criterion&#34;: [&#34;gini&#34;, &#34;entropy&#34;],
+    },
+    gridsearch_kwargs: dict = {&#34;scoring&#34;: &#34;roc_auc&#34;, &#34;cv&#34;: 3, &#34;n_jobs&#34;: -2},
+    rfe_kwargs: dict = {&#34;n_features_to_select&#34;: 2, &#34;verbose&#34;: 1},
+):
+
+    # Perform a 75% training and 25% test data split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, stratify=y, random_state=42
+    )
+
+    # Instantiate grid_dt
+    grid_dt = GridSearchCV(
+        estimator=estimator, param_grid=grid_params_dict, **gridsearch_kwargs
+    )
+
+    # Optimize hyperparameter
+    _ = grid_dt.fit(X_train, y_train)
+
+    # Extract the best estimator
+    optimized_estimator = grid_dt.best_estimator_
+
+    # Create the RFE with a optimized random forest
+    rfe = RFE(estimator=optimized_estimator, **rfe_kwargs)
+
+    # Fit the eliminator to the data
+    _ = rfe.fit(X_train, y_train)
+
+    # create dataframe with features ranking (high = dropped early on)
+    feature_ranking = pd.DataFrame(
+        data=dict(zip(X.columns, rfe.ranking_)), index=np.arange(0, len(X.columns))
+    )
+    feature_ranking = feature_ranking.loc[0, :].sort_values()
+
+    # create dataframe with feature selected
+    feature_selected = X.columns[rfe.support_].to_list()
+
+    # create dataframe with importances per feature
+    feature_importance = pd.Series(
+        dict(zip(X.columns, optimized_estimator.feature_importances_.round(2)))
+    )
+
+    # Calculates the test set accuracy
+    acc = metrics.accuracy_score(y_test, rfe.predict(X_test))
+
+    print(&#34;\n- Sizes :&#34;)
+    print(f&#34;- X shape = {X.shape}&#34;)
+    print(f&#34;- y shape = {y.shape}&#34;)
+    print(f&#34;- X_train shape = {X_train.shape}&#34;)
+    print(f&#34;- X_test shape = {X_test.shape}&#34;)
+    print(f&#34;- y_train shape = {y_train.shape}&#34;)
+    print(f&#34;- y_test shape = {y_test.shape}&#34;)
+
+    print(&#34;\n- Model info :&#34;)
+    print(f&#34;- Optimal Parameters = {optimized_estimator.get_params()}&#34;)
+    print(f&#34;- Selected feature list = {feature_selected}&#34;)
+    print(&#34;- Accuracy score on test set = {0:.1%}&#34;.format(acc))
+
+    return (
+        optimized_estimator,
+        feature_ranking,
+        feature_selected,
+        feature_importance,
+        pd.DataFrame(optimized_estimator.get_params(), index=[&#34;optimal_parameters&#34;]),
+    )</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.plot_confusion_matrix"><code class="name flex">
+<span>def <span class="ident">plot_confusion_matrix</span></span>(<span>cf, group_names=None, categories='auto', count=True, percent=True, cbar=True, xyticks=True, xyplotlabels=True, sum_stats=True, figsize: tuple = (7, 5), cmap='Blues', title=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
+Arguments</p>
+<hr>
+<dl>
+<dt><strong><code>cf</code></strong> :&ensp;<code>
+confusion matrix to be passed in</code></dt>
+<dd>&nbsp;</dd>
+<dt>group_names:
+List of strings that represent the labels row by row to be shown in each square.</dt>
+<dt><strong><code>categories</code></strong> :&ensp;<code>
+List</code> of <code>strings containing the categories to be displayed on the x,y axis. Default is 'auto'</code></dt>
+<dd>&nbsp;</dd>
+<dt>count:
+If True, show the raw number in the confusion matrix. Default is True.</dt>
+<dt>normalize:
+If True, show the proportions for each category. Default is True.</dt>
+<dt>cbar:
+If True, show the color bar. The cbar values are based off the values in the confusion matrix.</dt>
+<dt>Default is True.</dt>
+<dt>xyticks:
+If True, show x and y ticks. Default is True.</dt>
+<dt>xyplotlabels:
+If True, show 'True Label' and 'Predicted Label' on the figure. Default is True.</dt>
+<dt>sum_stats:
+If True, display summary statistics below the figure. Default is True.</dt>
+<dt>figsize:
+Tuple representing the figure size. Default will be the matplotlib rcParams value.</dt>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>
+Colormap</code> of <code>the values displayed from matplotlib.pyplot.cm. Default is 'Blues'</code></dt>
+<dd>See <a href="http://matplotlib.org/examples/color/colormaps_reference.html">http://matplotlib.org/examples/color/colormaps_reference.html</a></dd>
+</dl>
+<p>title:
+Title for the heatmap. Default is None.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_confusion_matrix(
+    cf,
+    group_names=None,
+    categories=&#34;auto&#34;,
+    count=True,
+    percent=True,
+    cbar=True,
+    xyticks=True,
+    xyplotlabels=True,
+    sum_stats=True,
+    figsize: tuple = (7, 5),
+    cmap=&#34;Blues&#34;,
+    title=None,
+):
+    &#34;&#34;&#34;
+    This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
+    Arguments
+    ---------
+    cf:            confusion matrix to be passed in
+    group_names:   List of strings that represent the labels row by row to be shown in each square.
+    categories:    List of strings containing the categories to be displayed on the x,y axis. Default is &#39;auto&#39;
+    count:         If True, show the raw number in the confusion matrix. Default is True.
+    normalize:     If True, show the proportions for each category. Default is True.
+    cbar:          If True, show the color bar. The cbar values are based off the values in the confusion matrix.
+                   Default is True.
+    xyticks:       If True, show x and y ticks. Default is True.
+    xyplotlabels:  If True, show &#39;True Label&#39; and &#39;Predicted Label&#39; on the figure. Default is True.
+    sum_stats:     If True, display summary statistics below the figure. Default is True.
+    figsize:       Tuple representing the figure size. Default will be the matplotlib rcParams value.
+    cmap:          Colormap of the values displayed from matplotlib.pyplot.cm. Default is &#39;Blues&#39;
+                   See http://matplotlib.org/examples/color/colormaps_reference.html
+
+    title:         Title for the heatmap. Default is None.
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # CODE TO GENERATE TEXT INSIDE EACH SQUARE
+    blanks = [&#34;&#34; for i in range(cf.size)]
+
+    if group_names and len(group_names) == cf.size:
+        group_labels = [&#34;{}\n&#34;.format(value) for value in group_names]
+    else:
+        group_labels = blanks
+
+    if count:
+        group_counts = [&#34;{0:0.0f}\n&#34;.format(value) for value in cf.flatten()]
+    else:
+        group_counts = blanks
+
+    if percent:
+        group_percentages = [
+            &#34;{0:.2%}&#34;.format(value) for value in cf.flatten() / np.sum(cf)
+        ]
+    else:
+        group_percentages = blanks
+
+    box_labels = [
+        f&#34;{v1}{v2}{v3}&#34;.strip()
+        for v1, v2, v3 in zip(group_labels, group_counts, group_percentages)
+    ]
+    box_labels = np.asarray(box_labels).reshape(cf.shape[0], cf.shape[1])
+
+    # CODE TO GENERATE SUMMARY STATISTICS &amp; TEXT FOR SUMMARY STATS
+    if sum_stats:
+        # Accuracy is sum of diagonal divided by total observations
+        accuracy = np.trace(cf) / float(np.sum(cf))
+
+        # if it is a binary confusion matrix, show some more stats
+        if len(cf) == 2:
+            # Metrics for Binary Confusion Matrices
+            precision = cf[1, 1] / sum(cf[:, 1])
+            recall = cf[1, 1] / sum(cf[1, :])
+            f1_score = 2 * precision * recall / (precision + recall)
+            stats_text = &#34;\n\nAccuracy={:0.3f}\nPrecision={:0.3f}\nRecall={:0.3f}\nF1 Score={:0.3f}&#34;.format(
+                accuracy, precision, recall, f1_score
+            )
+        else:
+            stats_text = &#34;\n\nAccuracy={:0.3f}&#34;.format(accuracy)
+    else:
+        stats_text = &#34;&#34;
+
+    if xyticks == False:
+        # Do not show categories if xyticks is False
+        categories = False
+
+    # MAKE THE HEATMAP VISUALIZATION
+    _ = sns.heatmap(
+        cf,
+        annot=box_labels,
+        fmt=&#34;&#34;,
+        cmap=cmap,
+        cbar=cbar,
+        xticklabels=categories,
+        yticklabels=categories,
+    )
+
+    if xyplotlabels:
+        _ = plt.ylabel(&#34;True label&#34;)
+        _ = plt.xlabel(&#34;Predicted label&#34; + stats_text)
+    else:
+        _ = plt.xlabel(stats_text)
+
+    if title:
+        _ = plt.title(title)
+
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.plot_cv_indices"><code class="name flex">
+<span>def <span class="ident">plot_cv_indices</span></span>(<span>cv, X, y, group, n_splits, lw=10, figsize=(6, 3))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a sample plot for indices of a cross-validation object.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
+    &#34;&#34;&#34;Create a sample plot for indices of a cross-validation object.&#34;&#34;&#34;
+
+    # set plotting options
+    cmap_data = plt.cm.Paired
+    cmap_cv = plt.cm.coolwarm
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Generate the training/testing visualizations for each CV split
+    for ii, (tr, tt) in enumerate(cv.split(X=X, y=y, groups=group)):
+        # Fill in indices with the training/test groups
+        indices = np.array([np.nan] * len(X))
+        indices[tt] = 1
+        indices[tr] = 0
+
+        # Visualize the results
+        ax.scatter(
+            range(len(indices)),
+            [ii + 0.5] * len(indices),
+            c=indices,
+            marker=&#34;_&#34;,
+            lw=lw,
+            cmap=cmap_cv,
+            vmin=-0.2,
+            vmax=1.2,
+        )
+
+    # Plot the data classes and groups at the end
+    ax.scatter(
+        range(len(X)), [ii + 1.5] * len(X), c=y, marker=&#34;_&#34;, lw=lw, cmap=cmap_data
+    )
+
+    ax.scatter(
+        range(len(X)), [ii + 2.5] * len(X), c=group, marker=&#34;_&#34;, lw=lw, cmap=cmap_data
+    )
+
+    # Formatting
+    yticklabels = list(range(n_splits)) + [&#34;class&#34;, &#34;group&#34;]
+    ax.set(
+        yticks=np.arange(n_splits + 2) + 0.5,
+        yticklabels=yticklabels,
+        xlabel=&#34;Sample index&#34;,
+        ylabel=&#34;CV iteration&#34;,
+        ylim=[n_splits + 2.2, -0.2],
+        xlim=[0, len(X)],
+    )
+    ax.set_title(&#34;{}&#34;.format(type(cv).__name__), fontsize=15)
+
+    ax.legend(
+        [Patch(color=cmap_cv(0.8)), Patch(color=cmap_cv(0.02))],
+        [&#34;Testing set&#34;, &#34;Training set&#34;],
+        loc=(1.02, 0.8),
+    )
+    # Make the legend fit
+    plt.tight_layout()
+    fig.subplots_adjust(right=0.7)
+
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.plot_decision_boundary"><code class="name flex">
+<span>def <span class="ident">plot_decision_boundary</span></span>(<span>X: pandas.core.frame.DataFrame, y: pandas.core.series.Series, clf: sklearn.base.ClassifierMixin = LogisticRegression(), title: str = 'Decision Boundary Logistic Regression', legend_title: str = 'Legend', h: float = 0.05, figsize: tuple = (11.7, 8.27))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a simple plot of the decision boundary of a classifier.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>X</code></strong> :&ensp;<code>array-like, shape (n_samples, n_features)</code></dt>
+<dd>Classifier vector, where n_samples is the number of samples and
+n_features is the number of features.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like, shape (n_samples)</code></dt>
+<dd>Target relative to X for classification. Datatype should be integers.</dd>
+<dt><strong><code>clf</code></strong> :&ensp;<code>scikit-learn algorithm</code></dt>
+<dd>An object that has the <code>predict</code> and <code>predict_proba</code> methods</dd>
+<dt><strong><code>h</code></strong> :&ensp;<code>int (default: 0.05)</code></dt>
+<dd>Step size in the mesh</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>string</code></dt>
+<dd>Title for the plot.</dd>
+<dt><strong><code>legend_title</code></strong> :&ensp;<code>string</code></dt>
+<dd>Legend title for the plot.</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple (default: (11.7, 8.27))</code></dt>
+<dd>Width and height of the figure in inches</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>boundaries</code></strong> :&ensp;<code>Figure</code></dt>
+<dd>Properties of the figure can be changed later, e.g. use <code>boundaries.axes[0].set_ylim(0,100)</code> to change ylim</dd>
+<dt><strong><code>ax</code></strong> :&ensp;<code>Axes</code></dt>
+<dd>The axes associated with the boundaries Figure.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python">&gt;&gt;&gt; import seaborn as sns
+&gt;&gt;&gt; from sklearn.svm import SVC
+&gt;&gt;&gt; data = sns.load_dataset(&quot;iris&quot;)
+&gt;&gt;&gt; # convert the target from string to category to numeric as sklearn cannot handle strings as target
+&gt;&gt;&gt; y = data[&quot;species&quot;]
+&gt;&gt;&gt; X = data[[&quot;sepal_length&quot;, &quot;sepal_width&quot;]]
+&gt;&gt;&gt; clf = SVC(kernel=&quot;rbf&quot;, gamma=2, C=1, probability=True)
+&gt;&gt;&gt; _ = plot_decision_boundary(X=X, y=y, clf=clf, title = 'Decision Boundary', legend_title = &quot;Species&quot;)
+&gt;&gt;&gt; # plt.show()
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_decision_boundary(
+    X: pd.DataFrame,
+    y: pd.Series,
+    clf: ClassifierMixin = sklearn.linear_model.LogisticRegression(),
+    title: str = &#34;Decision Boundary Logistic Regression&#34;,
+    legend_title: str = &#34;Legend&#34;,
+    h: float = 0.05,
+    figsize: tuple = (11.7, 8.27),
+):
+    r&#34;&#34;&#34;
+    Generate a simple plot of the decision boundary of a classifier.
+    Parameters
+    ----------
+    X : array-like, shape (n_samples, n_features)
+        Classifier vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples)
+        Target relative to X for classification. Datatype should be integers.
+    clf : scikit-learn algorithm
+        An object that has the `predict` and `predict_proba` methods
+    h : int (default: 0.05)
+        Step size in the mesh
+    title : string
+        Title for the plot.
+    legend_title : string
+        Legend title for the plot.
+    figsize: tuple (default: (11.7, 8.27))
+        Width and height of the figure in inches
+    Returns
+    ----------
+    boundaries: Figure
+        Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim
+    ax: Axes
+        The axes associated with the boundaries Figure.
+    Examples
+    ----------
+    &gt;&gt;&gt; import seaborn as sns
+    &gt;&gt;&gt; from sklearn.svm import SVC
+    &gt;&gt;&gt; data = sns.load_dataset(&#34;iris&#34;)
+    &gt;&gt;&gt; # convert the target from string to category to numeric as sklearn cannot handle strings as target
+    &gt;&gt;&gt; y = data[&#34;species&#34;]
+    &gt;&gt;&gt; X = data[[&#34;sepal_length&#34;, &#34;sepal_width&#34;]]
+    &gt;&gt;&gt; clf = SVC(kernel=&#34;rbf&#34;, gamma=2, C=1, probability=True)
+    &gt;&gt;&gt; _ = plot_decision_boundary(X=X, y=y, clf=clf, title = &#39;Decision Boundary&#39;, legend_title = &#34;Species&#34;)
+    &gt;&gt;&gt; # plt.show()
+    &#34;&#34;&#34;
+
+    if X.shape[1] != 2:
+        raise ValueError(&#34;X must contains only two features.&#34;)
+
+    if not (
+        pd.api.types.is_integer_dtype(y)
+        or pd.api.types.is_object_dtype(y)
+        or pd.api.types.is_categorical_dtype(y)
+    ):
+        raise TypeError(
+            &#34;The target variable y can only have the following dtype: [int, object, category].&#34;
+        )
+
+    label_0 = X.columns.tolist()[0]
+    label_1 = X.columns.tolist()[1]
+
+    X = X.copy()
+    y = y.copy()
+
+    X = X.values
+    y = y.astype(&#34;category&#34;).cat.codes.values
+
+    #     full_col_list = list(sns.color_palette(&#34;husl&#34;, len(np.unique(y))))
+    full_col_list = list(sns.color_palette())
+
+    if len(np.unique(y)) &gt; len(full_col_list):
+        raise ValueError(
+            &#34;More labels in the data then colors in the color list. Either reduce the number of labels or expend the color list&#34;
+        )
+
+    sub_col_list = full_col_list[0 : len(np.unique(y))]
+    cmap_bold = ListedColormap(sub_col_list)
+
+    # Try to include a mapping in a later release (+ show categorical labels in the legend)
+
+    _ = clf.fit(X, y)
+
+    # Plot the decision boundary. For that, we will assign a color to each
+    # point in the mesh [x_min, x_max]x[y_min, y_max].
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+    Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+    Z_proba = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])
+    Z_max = Z_proba.max(axis=1)  # Take the class with highest probability
+    Z_max = Z_max.reshape(xx.shape)
+
+    # Put the result into a color plot
+    boundaries, ax = plt.subplots(figsize=figsize)
+    _ = ax.contour(xx, yy, Z, cmap=cmap_bold)
+    _ = ax.scatter(
+        xx, yy, s=(Z_max ** 2 / h), c=Z, cmap=cmap_bold, alpha=1, edgecolors=&#34;none&#34;
+    )
+
+    # Plot also the training points
+    training = ax.scatter(X[:, 0], X[:, 1], c=y, cmap=cmap_bold, edgecolors=&#34;black&#34;)
+    _ = plt.xlim(xx.min(), xx.max())
+    _ = plt.ylim(yy.min(), yy.max())
+    _ = plt.title(title)
+    _ = plt.subplots_adjust(right=0.8)
+    _ = plt.xlabel(label_0)
+    _ = plt.ylabel(label_1)
+
+    # Add legend colors
+    leg1 = plt.legend(
+        *training.legend_elements(),
+        frameon=False,
+        fontsize=12,
+        borderaxespad=0,
+        bbox_to_anchor=(1, 0.5),
+        handlelength=2,
+        handletextpad=1,
+        title=legend_title,
+    )
+
+    # Add legend sizes
+    l1 = plt.scatter([], [], c=&#34;black&#34;, s=0.4 ** 2 / h, edgecolors=&#34;none&#34;)
+    l2 = plt.scatter([], [], c=&#34;black&#34;, s=0.6 ** 2 / h, edgecolors=&#34;none&#34;)
+    l3 = plt.scatter([], [], c=&#34;black&#34;, s=0.8 ** 2 / h, edgecolors=&#34;none&#34;)
+    l4 = plt.scatter([], [], c=&#34;black&#34;, s=1 ** 2 / h, edgecolors=&#34;none&#34;)
+
+    labels = [&#34;0.4&#34;, &#34;0.6&#34;, &#34;0.8&#34;, &#34;1&#34;]
+    _ = plt.legend(
+        [l1, l2, l3, l4],
+        labels,
+        frameon=False,
+        fontsize=12,
+        borderaxespad=0,
+        bbox_to_anchor=(1, 1),
+        handlelength=2,
+        handletextpad=1,
+        title=&#34;Probabilities&#34;,
+        scatterpoints=1,
+    )
+    _ = plt.gca().add_artist(leg1)
+
+    return boundaries, ax</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.plot_learning_curve"><code class="name flex">
+<span>def <span class="ident">plot_learning_curve</span></span>(<span>X: pandas.core.frame.DataFrame, y: pandas.core.series.Series, estimator: sklearn.base.BaseEstimator = LogisticRegression(), title: str = 'Learning Curve Logistic Regression', groups: Union[NoneType, <built-in function array>] = None, cross_color: str = '#8f0fd4', test_color: str = '#fcdd14', scoring: str = 'accuracy', ylim: Union[NoneType, tuple] = None, cv: Union[NoneType, int] = None, n_jobs: int = -1, train_sizes: <built-in function array> = array([0.1
+, 0.12307692, 0.14615385, 0.16923077, 0.19230769,
+0.21538462, 0.23846154, 0.26153846, 0.28461538, 0.30769231,
+0.33076923, 0.35384615, 0.37692308, 0.4
+, 0.42307692,
+0.44615385, 0.46923077, 0.49230769, 0.51538462, 0.53846154,
+0.56153846, 0.58461538, 0.60769231, 0.63076923, 0.65384615,
+0.67692308, 0.7
+, 0.72307692, 0.74615385, 0.76923077,
+0.79230769, 0.81538462, 0.83846154, 0.86153846, 0.88461538,
+0.90769231, 0.93076923, 0.95384615, 0.97692308, 1.
+]), figsize: tuple = (10, 5))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a simple plot of the test and training learning curve.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>estimator</code></strong> :&ensp;<code>object type that implements the "fit" and "predict" methods</code></dt>
+<dd>An object of that type which is cloned for each validation.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>string</code></dt>
+<dd>Title for the chart.</dd>
+<dt><strong><code>X</code></strong> :&ensp;<code>array-like, shape (n_samples, n_features)</code></dt>
+<dd>Training vector, where n_samples is the number of samples and
+n_features is the number of features.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like, shape (n_samples)</code> or <code>(n_samples, n_features)</code>, optional</dt>
+<dd>Target relative to X for classification or regression;
+None for unsupervised learning.</dd>
+<dt><strong><code>cross_color</code></strong> :&ensp;<code>string</code></dt>
+<dd>Signifies the color of the cross validation in the plot</dd>
+<dt><strong><code>test_color</code></strong> :&ensp;<code>string</code></dt>
+<dd>Signifies the color of the test set in the plot</dd>
+<dt><strong><code>scoring</code></strong> :&ensp;<code>string</code></dt>
+<dd>Signifies a scoring to evaluate the cross validation</dd>
+<dt><strong><code>ylim</code></strong> :&ensp;<code>tuple, shape (ymin, ymax)</code>, optional</dt>
+<dd>Defines minimum and maximum yvalues plotted.</dd>
+<dt><strong><code>cv</code></strong> :&ensp;<code>int, cross-validation generator</code> or <code>an iterable</code>, optional</dt>
+<dd>Determines the cross-validation splitting strategy.
+Possible inputs for cv are:
+- None, to use the default 3-fold cross-validation,
+- integer, to specify the number of folds.
+- :term:<code>CV splitter</code>,
+- An iterable yielding (train, test) splits as arrays of indices.
+For integer/None inputs, if <code>y</code> is binary or multiclass,
+:param groups:
+:class:<code>StratifiedKFold</code> used. If the estimator is not a classifier
+or if <code>y</code> is neither binary nor multiclass, :class:<code>KFold</code> is used.
+Refer :ref:<code>User Guide &lt;cross_validation&gt;</code> for the various
+cross-validators that can be used here.</dd>
+<dt><strong><code>n_jobs</code></strong> :&ensp;<code>int</code> or <code>None</code>, optional <code>(default=None)</code></dt>
+<dd>Number of jobs to run in parallel.
+<code>None</code> means 1 unless in a :obj:<code>joblib.parallel_backend</code> context.
+<code>-1</code> means using all processors. See :term:<code>Glossary &lt;n_jobs&gt;</code>
+for more details.</dd>
+<dt><strong><code>train_sizes</code></strong> :&ensp;<code>array-like, shape (n_ticks,), dtype float</code> or <code>int</code></dt>
+<dd>Relative or absolute numbers of training examples that will be used to
+generate the learning curve. If the dtype is float, it is regarded as a
+fraction of the maximum size of the training set (that is determined
+by the selected validation method), i.e. it has to be within (0, 1].
+Otherwise it is interpreted as absolute sizes of the training sets.
+Note that for classification the number of samples usually have to
+be big enough to contain at least one sample from each class.
+(default: np.linspace(0.1, 1.0, 5))</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_learning_curve(
+    X: pd.DataFrame,
+    y: pd.Series,
+    estimator: BaseEstimator = sklearn.linear_model.LogisticRegression(),
+    title: str = &#34;Learning Curve Logistic Regression&#34;,
+    groups: Union[None, np.array] = None,
+    cross_color: str = JmsColors.PURPLE,
+    test_color: str = JmsColors.YELLOW,
+    scoring: str = &#34;accuracy&#34;,
+    ylim: Union[None, tuple] = None,
+    cv: Union[None, int] = None,
+    n_jobs: int = -1,
+    train_sizes: np.array = np.linspace(0.1, 1.0, 40),
+    figsize: tuple = (10, 5),
+):
+    &#34;&#34;&#34;
+    Generate a simple plot of the test and training learning curve.
+    Parameters
+    ----------
+    estimator : object type that implements the &#34;fit&#34; and &#34;predict&#34; methods
+        An object of that type which is cloned for each validation.
+    title : string
+        Title for the chart.
+    X : array-like, shape (n_samples, n_features)
+        Training vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples) or (n_samples, n_features), optional
+        Target relative to X for classification or regression;
+        None for unsupervised learning.
+
+    cross_color : string
+        Signifies the color of the cross validation in the plot
+
+    test_color : string
+        Signifies the color of the test set in the plot
+
+    scoring : string
+        Signifies a scoring to evaluate the cross validation
+    ylim : tuple, shape (ymin, ymax), optional
+        Defines minimum and maximum yvalues plotted.
+    cv : int, cross-validation generator or an iterable, optional
+        Determines the cross-validation splitting strategy.
+        Possible inputs for cv are:
+          - None, to use the default 3-fold cross-validation,
+          - integer, to specify the number of folds.
+          - :term:`CV splitter`,
+          - An iterable yielding (train, test) splits as arrays of indices.
+        For integer/None inputs, if ``y`` is binary or multiclass,
+        :param groups:
+        :class:`StratifiedKFold` used. If the estimator is not a classifier
+        or if ``y`` is neither binary nor multiclass, :class:`KFold` is used.
+        Refer :ref:`User Guide &lt;cross_validation&gt;` for the various
+        cross-validators that can be used here.
+    n_jobs : int or None, optional (default=None)
+        Number of jobs to run in parallel.
+        ``None`` means 1 unless in a :obj:`joblib.parallel_backend` context.
+        ``-1`` means using all processors. See :term:`Glossary &lt;n_jobs&gt;`
+        for more details.
+    train_sizes : array-like, shape (n_ticks,), dtype float or int
+        Relative or absolute numbers of training examples that will be used to
+        generate the learning curve. If the dtype is float, it is regarded as a
+        fraction of the maximum size of the training set (that is determined
+        by the selected validation method), i.e. it has to be within (0, 1].
+        Otherwise it is interpreted as absolute sizes of the training sets.
+        Note that for classification the number of samples usually have to
+        be big enough to contain at least one sample from each class.
+        (default: np.linspace(0.1, 1.0, 5))
+    &#34;&#34;&#34;
+    fig, ax = plt.subplots(figsize=figsize)
+    plt.title(title)
+    if ylim is not None:
+        plt.ylim(*ylim)
+    plt.xlabel(&#34;Training examples&#34;)
+    plt.ylabel(scoring)
+    train_sizes, train_scores, test_scores = learning_curve(
+        estimator,
+        X,
+        y,
+        groups=groups,
+        cv=cv,
+        scoring=scoring,
+        n_jobs=n_jobs,
+        train_sizes=train_sizes,
+        random_state=42,
+    )
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    test_scores_mean = np.mean(test_scores, axis=1)
+    test_scores_std = np.std(test_scores, axis=1)
+    _ = plt.grid()
+
+    _ = plt.fill_between(
+        train_sizes,
+        train_scores_mean - train_scores_std,
+        train_scores_mean + train_scores_std,
+        alpha=0.1,
+        color=test_color,
+    )
+    _ = plt.fill_between(
+        train_sizes,
+        test_scores_mean - test_scores_std,
+        test_scores_mean + test_scores_std,
+        alpha=0.1,
+        color=cross_color,
+    )
+    _ = plt.plot(
+        train_sizes, train_scores_mean, &#34;o-&#34;, color=test_color, label=&#34;Training score&#34;
+    )
+    _ = plt.plot(
+        train_sizes,
+        test_scores_mean,
+        &#34;o-&#34;,
+        color=cross_color,
+        label=&#34;Cross-validation score&#34;,
+    )
+
+    _ = plt.legend(loc=&#34;best&#34;)
+    return fig, ax</code></pre>
+</details>
+</dd>
+<dt id="jmspack.ml_utils.summary_performance_metrics_classification"><code class="name flex">
+<span>def <span class="ident">summary_performance_metrics_classification</span></span>(<span>model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Summary of different evaluation metrics specific to a single class classification learning problem.
+Notes</p>
+<hr>
+<p>The function returns the following metrics:
+- true positive (TP): The model classifies the example as positive, and the actual label also positive.
+- false positive (FP): The model classifies the example as positive, but the actual label is negative.
+- true negative (TN): The model classifies the example as negative, and the actual label is also negative.
+- false negative (FN): The model classifies the example as negative, but the label is actually positive.
+- accuracy: The fractions of predictions the model got right.
+- prevalance: The proportion of positive examples. Where y=1.
+- sensitivity: The probability that our test outputs positive given that the case is actually positive.
+- specificity: The probability that the test outputs negative given that the case is actually negative.
+- positive predictive value: The proportion of positive predictions that are true positives.
+- negative predictive value: The proportion of negative predictions that are true negatives.
+- auc: A measure of goodness of fit.
+- bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
+- F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
+Examples</p>
+<hr>
+<pre><code class="language-python">&gt;&gt;&gt; from sklearn import datasets
+&gt;&gt;&gt; from sklearn.model_selection import train_test_split
+&gt;&gt;&gt; from sklearn.neighbors import KNeighborsClassifier
+&gt;&gt;&gt; import pandas as pd
+&gt;&gt;&gt; data = datasets.load_breast_cancer()
+&gt;&gt;&gt; df = pd.DataFrame(data.data, columns=data.feature_names)
+&gt;&gt;&gt; df['target'] = data.target
+&gt;&gt;&gt; X = data.data
+&gt;&gt;&gt; y = data.target
+&gt;&gt;&gt; X_train, X_test, y_train, y_test = train_test_split(X, y)
+&gt;&gt;&gt; clf = KNeighborsClassifier(n_neighbors=6)
+&gt;&gt;&gt; clf.fit(X_train, y_train)
+&gt;&gt;&gt; y_pred = clf.predict(X_test)
+&gt;&gt;&gt; summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
+Parameters
+-----
+**```model```** :&amp;ensp;&lt;code&gt;sklearn.model&lt;/code&gt;
+:   A fitted sklearn model with predict() and predict_proba() methods.
+
+
+**```X_test```** :&amp;ensp;&lt;code&gt;pd.DataFrame&lt;/code&gt;
+:   A data frame used to run predict the target values (y_pred).
+
+
+**```y_true```** :&amp;ensp;&lt;code&gt;pd.Series&lt;/code&gt; or &lt;code&gt;np.arrays&lt;/code&gt;
+:   Binary true values.
+
+
+**```bootstraps```** :&amp;ensp;&lt;code&gt;int&lt;/code&gt;
+:   &amp;nbsp;
+
+
+**```fold_size```** :&amp;ensp;&lt;code&gt;int&lt;/code&gt;
+:   &amp;nbsp;
+
+Returns
+-----
+&lt;code&gt;pd.DataFrame&lt;/code&gt;
+:   &amp;nbsp;
+
+
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def summary_performance_metrics_classification(
+    model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420
+):
+    &#34;&#34;&#34;Summary of different evaluation metrics specific to a single class classification learning problem.
+    Notes
+    -----
+    The function returns the following metrics:
+    - true positive (TP): The model classifies the example as positive, and the actual label also positive.
+    - false positive (FP): The model classifies the example as positive, but the actual label is negative.
+    - true negative (TN): The model classifies the example as negative, and the actual label is also negative.
+    - false negative (FN): The model classifies the example as negative, but the label is actually positive.
+    - accuracy: The fractions of predictions the model got right.
+    - prevalance: The proportion of positive examples. Where y=1.
+    - sensitivity: The probability that our test outputs positive given that the case is actually positive.
+    - specificity: The probability that the test outputs negative given that the case is actually negative.
+    - positive predictive value: The proportion of positive predictions that are true positives.
+    - negative predictive value: The proportion of negative predictions that are true negatives.
+    - auc: A measure of goodness of fit.
+    - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
+    - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
+    Examples
+    --------
+    &gt;&gt;&gt; from sklearn import datasets
+    &gt;&gt;&gt; from sklearn.model_selection import train_test_split
+    &gt;&gt;&gt; from sklearn.neighbors import KNeighborsClassifier
+    &gt;&gt;&gt; import pandas as pd
+    &gt;&gt;&gt; data = datasets.load_breast_cancer()
+    &gt;&gt;&gt; df = pd.DataFrame(data.data, columns=data.feature_names)
+    &gt;&gt;&gt; df[&#39;target&#39;] = data.target
+    &gt;&gt;&gt; X = data.data
+    &gt;&gt;&gt; y = data.target
+    &gt;&gt;&gt; X_train, X_test, y_train, y_test = train_test_split(X, y)
+    &gt;&gt;&gt; clf = KNeighborsClassifier(n_neighbors=6)
+    &gt;&gt;&gt; clf.fit(X_train, y_train)
+    &gt;&gt;&gt; y_pred = clf.predict(X_test)
+    &gt;&gt;&gt; summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
+    Parameters
+    ----------
+    model: sklearn.model
+        A fitted sklearn model with predict() and predict_proba() methods.
+    X_test: pd.DataFrame
+        A data frame used to run predict the target values (y_pred).
+    y_true: pd.Series or np.arrays
+        Binary true values.
+    bootstraps: int
+    fold_size: int
+    Returns
+    -------
+    pd.DataFrame
+    &#34;&#34;&#34;
+
+    y_pred = model.predict(X_test)
+
+    # check if the fitted model has the &#34;predict_proba&#34; attribute
+    if &#34;predict_proba&#34; in dir(model):
+        # check that the fitted model has the &#34;probability&#34; attribute
+        if &#34;probability&#34; in dir(model):
+            # and that it is set to True (this can be the case for SVC)
+            if model.probability:
+                predict_proba_bool = True
+                y_pred_proba = model.predict_proba(X_test)[:, 1]
+                # auc
+                fpr, tpr, thresholds = metrics.roc_curve(
+                    y_true, y_pred_proba, pos_label=1
+                )
+                auc_score = metrics.auc(fpr, tpr)
+            else:
+                predict_proba_bool = False
+                warnings.warn(
+                    f&#34;The classifier {model.__class__} does have the &#39;predict_proba&#39; method, however it does not have&#34;
+                    f&#34; the &#39;probability&#39; parameter set to True, hence model evaluation metrics will be based on &#34;
+                    f&#34;binary predictions&#34;
+                )
+                auc_score = metrics.roc_auc_score(y_true, y_pred)
+        else:
+            # the model has &#34;predict_proba and no &#34;probability&#34; boolean so it 100% has &#34;predict_proba&#34;
+            predict_proba_bool = True
+            y_pred_proba = model.predict_proba(X_test)[:, 1]
+            # auc
+            fpr, tpr, thresholds = metrics.roc_curve(y_true, y_pred_proba, pos_label=1)
+            auc_score = metrics.auc(fpr, tpr)
+    else:
+        # the model has no &#34;predict_proba&#34; attribute so probabilities are not used
+        predict_proba_bool = False
+        warnings.warn(
+            f&#34;The classifier {model.__class__} does not have the &#39;predict_proba&#39; method, hence &#34;
+            f&#34;model evaluation metrics will be based on binary predictions&#34;
+        )
+        auc_score = metrics.roc_auc_score(y_true, y_pred)
+
+    # bootstrapped auc
+    bootstrap_auc_metric = _bootstrap_auc(
+        model,
+        X_test,
+        y_true,
+        use_probabilities=predict_proba_bool,
+        bootstraps=bootstraps,
+        fold_size=fold_size,
+        random_state=random_state,
+    )
+
+    # TP, TN, FP, FN
+    confusion_matrix_metric = metrics.confusion_matrix(y_true, y_pred)
+    TN = confusion_matrix_metric[0][0]
+    FP = confusion_matrix_metric[0][1]
+    FN = confusion_matrix_metric[1][0]
+    TP = confusion_matrix_metric[1][1]
+
+    # accuracy
+    accuracy_score_metric = metrics.accuracy_score(y_true, y_pred)
+
+    # balanced accuracy
+    balanced_accuracy_score_metric = metrics.balanced_accuracy_score(y_true, y_pred)
+
+    # prevalance
+    prevalence = np.mean(y_true == 1)
+
+    # sensitivity
+    sensitivity = TP / (TP + FN)
+
+    # specificity
+    specificity = TN / (TN + FP)
+
+    # positive predictive value
+    PPV = TP / (TP + FP)
+
+    # negative predictive value
+    NPV = TN / (TN + FN)
+
+    # F1
+    f1 = metrics.f1_score(y_true, y_pred)
+
+    df_metrics = pd.DataFrame(
+        {
+            &#34;TN&#34;: TN,
+            &#34;FP&#34;: FP,
+            &#34;FN&#34;: FN,
+            &#34;TP&#34;: TP,
+            &#34;Accuracy&#34;: accuracy_score_metric,
+            &#34;Balanced Accuracy&#34;: balanced_accuracy_score_metric,
+            &#34;Prevalence&#34;: prevalence,
+            &#34;Sensitivity&#34;: sensitivity,
+            &#34;Specificity&#34;: specificity,
+            &#34;PPV&#34;: PPV,
+            &#34;NPV&#34;: NPV,
+            &#34;auc&#34;: auc_score,
+            &#34;Mean AUC (CI 5%-95%)&#34;: bootstrap_auc_metric,
+            &#34;F1&#34;: f1,
+        },
+        index=[&#34;scores&#34;],
+    )
+
+    return df_metrics.round(3)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="jmspack" href="index.html">jmspack</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="jmspack.ml_utils.multi_roc_auc_plot" href="#jmspack.ml_utils.multi_roc_auc_plot">multi_roc_auc_plot</a></code></li>
+<li><code><a title="jmspack.ml_utils.optimize_model" href="#jmspack.ml_utils.optimize_model">optimize_model</a></code></li>
+<li><code><a title="jmspack.ml_utils.plot_confusion_matrix" href="#jmspack.ml_utils.plot_confusion_matrix">plot_confusion_matrix</a></code></li>
+<li><code><a title="jmspack.ml_utils.plot_cv_indices" href="#jmspack.ml_utils.plot_cv_indices">plot_cv_indices</a></code></li>
+<li><code><a title="jmspack.ml_utils.plot_decision_boundary" href="#jmspack.ml_utils.plot_decision_boundary">plot_decision_boundary</a></code></li>
+<li><code><a title="jmspack.ml_utils.plot_learning_curve" href="#jmspack.ml_utils.plot_learning_curve">plot_learning_curve</a></code></li>
+<li><code><a title="jmspack.ml_utils.summary_performance_metrics_classification" href="#jmspack.ml_utils.summary_performance_metrics_classification">summary_performance_metrics_classification</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
