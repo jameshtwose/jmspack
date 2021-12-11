@@ -1,10 +1,18 @@
 r"""Submodule utils.py includes the following functions and classes: <br>
-- **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
-    <br>
-- **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
-    seperately. <br>
-- **flatten():** a utility function used to flatten a list of lists to a single list. <br>
+
+    - **silence_stdout():** tmp <br>
+    - **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
+        <br>
+    - **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
+        seperately. <br>
+    - **flatten():** a utility function used to flatten a list of lists to a single list. <br>
+
 """
+import os
+import sys
+from contextlib import (
+    contextmanager,
+)  # these three are needed to create the silence output function
 from typing import Callable
 from typing import Dict
 from typing import Optional
@@ -14,6 +22,18 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
+
+
+# Create a function which will silence printing when called
+@contextmanager
+def silence_stdout():
+    new_target = open(os.devnull, "w")
+    old_target = sys.stdout
+    sys.stdout = new_target
+    try:
+        yield new_target
+    finally:
+        sys.stdout = old_target
 
 
 class JmsColors:
