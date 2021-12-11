@@ -5,8 +5,8 @@
   - `$ git checkout develop`
   - `$ git pull origin develop`
 
-- activate conda environment neuropy-dev
-  - `$ conda activate neuropy-dev`
+- activate conda environment jmspack-dev
+  - `$ conda activate jmspack-dev`
   - if the environment is not installed execute: `$ conda env create --file requirements.txt`
   - make sure pre-commit is installed
 
@@ -21,7 +21,7 @@
 - run `$ python setup.py develop` in the terminal of the directory which includes `setup.py`.
 - Test new functions by importing and running examples.
 - Build Documentation
-  - `pdoc --html neuropy --force --output-dir documentation`
+  - `pdoc --html jmspack --force --output-dir documentation`
   - If you do not have pdoc installed run `conda install pdoc3`
 - Once you have built the documentation you should find an “index.html” file in the “documentation“
 - Commit changes
@@ -38,7 +38,7 @@ consider removing them prior to the build)_
 - For MacOS case the builds are found in `/Users/{USER}/opt/anaconda3/conda-bld/osx-64/`
 - For linux systems it is suggested to specify the render folder
 you can specify the render folder using `--croot`.
-- The package name is `neuropy-#.#.#-py{PYTHON_VERSION}.tar.bz2`
+- The package name is `jmspack-#.#.#-py{PYTHON_VERSION}.tar.bz2`
 
 ## Push to pypi
 - `python3 -m build`
