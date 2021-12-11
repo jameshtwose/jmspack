@@ -18,3 +18,4 @@ The package can be installed via [pip](https://pypi.org/project/jmspack/) using 
 
 [![PyPI version](https://badge.fury.io/py/jmspack.svg)](https://badge.fury.io/py/jmspack)
 [![PyPI download month](https://img.shields.io/pypi/dm/jmspack.svg)](https://pypi.python.org/pypi/jmspack/)
+
