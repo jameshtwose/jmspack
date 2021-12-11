@@ -28,7 +28,9 @@ Kolmogrov-Smirnov test <br>
 - <strong>correlations_as_sample_increases():</strong> Run correlations for subparts of the data to check robustness <br>
 - <strong>multiple_univariate_OLSs():</strong> Tmp <br>
 - <strong>potential_for_change_index():</strong> Calculate the potential for change index based on either variants of the r-squared
-(from linear regression) or the r-value (pearson correlation) <br></p>
+(from linear regression) or the r-value (pearson correlation) <br>
+- <strong>correct_pvalues():</strong> function to correct for multiple testing <br>
+- <strong>partial_correlation():</strong> function to calculate the partial correlations whilst correcting for other variables <br></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -41,6 +43,8 @@ Kolmogrov-Smirnov test <br>
 - **multiple_univariate_OLSs():** Tmp &lt;br&gt;
 - **potential_for_change_index():** Calculate the potential for change index based on either variants of the r-squared
     (from linear regression) or the r-value (pearson correlation) &lt;br&gt;
+- **correct_pvalues():** function to correct for multiple testing &lt;br&gt;
+- **partial_correlation():** function to calculate the partial correlations whilst correcting for other variables &lt;br&gt;
 &#34;&#34;&#34;
 from itertools import combinations
 from itertools import product
@@ -52,7 +56,10 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import statsmodels.api as sm
+from matplotlib.lines import Line2D
 from scipy import stats
+from sklearn.linear_model import LinearRegression
+from statsmodels.stats.multitest import multipletests
 
 from .utils import apply_scaling
 
@@ -593,7 +600,202 @@ def potential_for_change_index(
             weight_df.loc[:, [weight_measure, &#34;p-value&#34;]],
             left_index=True,
             right_index=True,
-        )</code></pre>
+        )
+
+
+def correct_pvalues(
+    pvals,
+    alpha: float = 0.05,
+    method: str = &#34;fdr_bh&#34;,
+    plot: bool = False,
+    labels=None,
+    title: str = &#34;&#34;,
+    figsize: tuple = (10, 5),
+):
+    r&#34;&#34;&#34;
+    Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`
+    Parameters
+    ----------
+    pvals: array-like, 1d
+        uncorrected pvalues
+    alpha: float
+        FWER, family-wise error rate
+    method: str, one of {&#39;bonferroni&#39;, &#39;sidak&#39;, &#39;holm-sidak&#39;, &#39;holm&#39;, &#39;simes-hochberg&#39;, &#39;hommel&#39;, &#39;fdr_bh&#39;,
+    &#39;fdr_by&#39;, &#39;fdr_tsbh&#39;, &#39;fdr_tsbky&#39;}
+    plot: bool
+        whether to plot the results
+    title: str
+        title to show above the plot
+    labels: array-like, 1d
+        labels for the uncorrected pvalues
+    figsize: tuple
+        size for the Figure
+    Returns
+    ----------
+    reject: numpy.array, bool
+        true for hypothesis that can be rejected for given alpha
+    corrected_p: numpy.array
+        p-values corrected for multiple tests
+    pvalues_plot: matplotlib.figure.Figure (optional)
+        Figure if plot == True, else None
+    &#34;&#34;&#34;
+
+    if isinstance(pvals, pd.Series):
+        pvals = pvals.values
+
+    if labels is not None:
+        if len(pvals) != len(labels):
+            raise ValueError(&#34;Lengths of the pvals and the pvals_labels does not match&#34;)
+        if isinstance(labels, pd.Series):
+            labels = labels.values
+
+    reject, corrected_p, _, _ = multipletests(
+        pvals=pvals, alpha=alpha, method=method, returnsorted=True
+    )
+
+    # Sort the pvalues and the labels (correct pvalues are sorted already)
+    sort_order = pvals.argsort()
+    pvals = pvals[sort_order]
+    if labels is not None:
+        labels = labels[sort_order]
+        labels = np.insert(labels, [0], [&#34;&#34;])
+
+    # Get colors for all pvalues
+    colors = [&#34;#2167C5&#34; if i else &#34;#EB5E23&#34; for i in reject]
+
+    pvalues_plot = None
+
+    if plot:
+        pvalues_plot, ax = plt.subplots(figsize=figsize)
+        x = 1
+        # Plot pvalues and corrected pvalues, color dependent on &#39;reject&#39;
+        for p, cp, c in zip(pvals, corrected_p, colors):
+            _ = plt.plot(x, p, &#34;o&#34;, c=c)
+            _ = plt.plot(x, cp, &#34;x&#34;, c=c)
+            x += 1
+
+        # Variable for pvalues length and number of pvalue
+        n = len(pvals)
+        i = np.arange(n) + 1
+
+        # Plot line at familywise p value
+        familywise_p = np.repeat(alpha, n)
+        _ = plt.plot(i, familywise_p, &#34;k--&#34;)
+
+        # Add legend elements
+        legend_elements = [
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;o&#34;,
+                color=&#34;k&#34;,
+                label=&#34;Original p-values&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;x&#34;,
+                color=&#34;k&#34;,
+                label=&#34;Corrected p-values&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;X&#34;,
+                color=&#34;#EB5E23&#34;,
+                label=&#34;Non-significant&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;X&#34;,
+                color=&#34;#2167C5&#34;,
+                label=&#34;Significant&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0], [0], marker=&#34;&#34;, color=&#34;k&#34;, label=f&#34;Alpha = {alpha}&#34;, linestyle=&#34;--&#34;
+            ),
+        ]
+
+        if method == &#34;fdr_bh&#34;:
+            # Plot a diagonal line to show the boundary pvalue
+            optimum_p = alpha * i / n
+            _ = plt.plot(i, optimum_p, &#34;k-&#34;)
+            legend_elements.append(
+                Line2D(
+                    [0],
+                    [0],
+                    marker=&#34;&#34;,
+                    color=&#34;k&#34;,
+                    label=&#34;Benjamini-Hochberg decision line&#34;,
+                    linestyle=&#34;-&#34;,
+                )
+            )
+
+        # Add labels and legend
+        _ = plt.xlabel(&#34;$i$&#34;)
+        _ = plt.ylabel(&#34;$p$&#34;)
+        _ = plt.title(title)
+
+        _ = ax.legend(handles=legend_elements)
+
+        if labels is not None:
+            _ = plt.xticks(plt.xticks()[0], labels)
+
+    return reject, corrected_p, pvalues_plot
+
+
+def partial_correlation(df: pd.DataFrame):
+    &#34;&#34;&#34;
+    Returns the sample linear partial correlation coefficients between pairs of variables,
+    controlling for all other remaining variables
+    Parameters
+    ----------
+    df : array-like, shape (n, p)
+        Array with the different variables. Each column is taken as a variable.
+    Returns
+    -------
+    P : array-like, shape (p, p)
+        P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
+        controlling for all other remaining variables.
+    &#34;&#34;&#34;
+    partial_corr_matrix_rvals = np.zeros((df.shape[1], df.shape[1]))
+    partial_corr_matrix_pvals = np.zeros((df.shape[1], df.shape[1]))
+
+    for i, column1 in enumerate(df):
+        for j, column2 in enumerate(df):
+            control_variables = np.delete(np.arange(df.shape[1]), [i, j])
+            if i == j:
+                partial_corr_matrix_rvals[i, j] = 1
+                partial_corr_matrix_pvals[i, j] = 1
+                continue
+            data_control_variable = df.iloc[:, control_variables]
+            data_column1 = df[column1].values
+            data_column2 = df[column2].values
+            fit1 = LinearRegression(fit_intercept=True)
+            fit2 = LinearRegression(fit_intercept=True)
+            fit1.fit(data_control_variable, data_column1)
+            fit2.fit(data_control_variable, data_column2)
+            residual1 = data_column1 - (
+                np.dot(data_control_variable, fit1.coef_) + fit1.intercept_
+            )
+            residual2 = data_column2 - (
+                np.dot(data_control_variable, fit2.coef_) + fit2.intercept_
+            )
+            partial_corr_matrix_rvals[i, j] = stats.pearsonr(residual1, residual2)[0]
+            partial_corr_matrix_pvals[i, j] = stats.pearsonr(residual1, residual2)[1]
+            partial_corr_matrix_rvals_df = pd.DataFrame(
+                partial_corr_matrix_rvals, columns=df.columns, index=df.columns
+            )
+            partial_corr_matrix_pvals_df = pd.DataFrame(
+                partial_corr_matrix_pvals, columns=df.columns, index=df.columns
+            )
+
+    return partial_corr_matrix_rvals_df, partial_corr_matrix_pvals_df</code></pre>
 </details>
 </section>
 <section>
@@ -603,6 +805,189 @@ def potential_for_change_index(
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
+<dt id="jmspack.frequentist_statistics.correct_pvalues"><code class="name flex">
+<span>def <span class="ident">correct_pvalues</span></span>(<span>pvals, alpha: float = 0.05, method: str = 'fdr_bh', plot: bool = False, labels=None, title: str = '', figsize: tuple = (10, 5))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Correct an array-like with pvalues using <code>method</code>, wrapper for <code>statsmodels.stats.multitest.multipletests</code>
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>pvals</code></strong> :&ensp;<code>array-like, 1d</code></dt>
+<dd>uncorrected pvalues</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>float</code></dt>
+<dd>FWER, family-wise error rate</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str, one</code> of <code>{'bonferroni', 'sidak', 'holm-sidak', 'holm', 'simes-hochberg', 'hommel', 'fdr_bh',</code></dt>
+<dd>&nbsp;</dd>
+<dt>'fdr_by', 'fdr_tsbh', 'fdr_tsbky'}</dt>
+<dt><strong><code>plot</code></strong> :&ensp;<code>bool</code></dt>
+<dd>whether to plot the results</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>title to show above the plot</dd>
+<dt><strong><code>labels</code></strong> :&ensp;<code>array-like, 1d</code></dt>
+<dd>labels for the uncorrected pvalues</dd>
+<dt><strong><code>figsize</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>size for the Figure</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>reject</code></strong> :&ensp;<code>numpy.array, bool</code></dt>
+<dd>true for hypothesis that can be rejected for given alpha</dd>
+<dt><strong><code>corrected_p</code></strong> :&ensp;<code>numpy.array</code></dt>
+<dd>p-values corrected for multiple tests</dd>
+<dt><strong><code>pvalues_plot</code></strong> :&ensp;<code>matplotlib.figure.Figure (optional)</code></dt>
+<dd>Figure if plot == True, else None</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def correct_pvalues(
+    pvals,
+    alpha: float = 0.05,
+    method: str = &#34;fdr_bh&#34;,
+    plot: bool = False,
+    labels=None,
+    title: str = &#34;&#34;,
+    figsize: tuple = (10, 5),
+):
+    r&#34;&#34;&#34;
+    Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`
+    Parameters
+    ----------
+    pvals: array-like, 1d
+        uncorrected pvalues
+    alpha: float
+        FWER, family-wise error rate
+    method: str, one of {&#39;bonferroni&#39;, &#39;sidak&#39;, &#39;holm-sidak&#39;, &#39;holm&#39;, &#39;simes-hochberg&#39;, &#39;hommel&#39;, &#39;fdr_bh&#39;,
+    &#39;fdr_by&#39;, &#39;fdr_tsbh&#39;, &#39;fdr_tsbky&#39;}
+    plot: bool
+        whether to plot the results
+    title: str
+        title to show above the plot
+    labels: array-like, 1d
+        labels for the uncorrected pvalues
+    figsize: tuple
+        size for the Figure
+    Returns
+    ----------
+    reject: numpy.array, bool
+        true for hypothesis that can be rejected for given alpha
+    corrected_p: numpy.array
+        p-values corrected for multiple tests
+    pvalues_plot: matplotlib.figure.Figure (optional)
+        Figure if plot == True, else None
+    &#34;&#34;&#34;
+
+    if isinstance(pvals, pd.Series):
+        pvals = pvals.values
+
+    if labels is not None:
+        if len(pvals) != len(labels):
+            raise ValueError(&#34;Lengths of the pvals and the pvals_labels does not match&#34;)
+        if isinstance(labels, pd.Series):
+            labels = labels.values
+
+    reject, corrected_p, _, _ = multipletests(
+        pvals=pvals, alpha=alpha, method=method, returnsorted=True
+    )
+
+    # Sort the pvalues and the labels (correct pvalues are sorted already)
+    sort_order = pvals.argsort()
+    pvals = pvals[sort_order]
+    if labels is not None:
+        labels = labels[sort_order]
+        labels = np.insert(labels, [0], [&#34;&#34;])
+
+    # Get colors for all pvalues
+    colors = [&#34;#2167C5&#34; if i else &#34;#EB5E23&#34; for i in reject]
+
+    pvalues_plot = None
+
+    if plot:
+        pvalues_plot, ax = plt.subplots(figsize=figsize)
+        x = 1
+        # Plot pvalues and corrected pvalues, color dependent on &#39;reject&#39;
+        for p, cp, c in zip(pvals, corrected_p, colors):
+            _ = plt.plot(x, p, &#34;o&#34;, c=c)
+            _ = plt.plot(x, cp, &#34;x&#34;, c=c)
+            x += 1
+
+        # Variable for pvalues length and number of pvalue
+        n = len(pvals)
+        i = np.arange(n) + 1
+
+        # Plot line at familywise p value
+        familywise_p = np.repeat(alpha, n)
+        _ = plt.plot(i, familywise_p, &#34;k--&#34;)
+
+        # Add legend elements
+        legend_elements = [
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;o&#34;,
+                color=&#34;k&#34;,
+                label=&#34;Original p-values&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;x&#34;,
+                color=&#34;k&#34;,
+                label=&#34;Corrected p-values&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;X&#34;,
+                color=&#34;#EB5E23&#34;,
+                label=&#34;Non-significant&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker=&#34;X&#34;,
+                color=&#34;#2167C5&#34;,
+                label=&#34;Significant&#34;,
+                linestyle=&#34;none&#34;,
+            ),
+            Line2D(
+                [0], [0], marker=&#34;&#34;, color=&#34;k&#34;, label=f&#34;Alpha = {alpha}&#34;, linestyle=&#34;--&#34;
+            ),
+        ]
+
+        if method == &#34;fdr_bh&#34;:
+            # Plot a diagonal line to show the boundary pvalue
+            optimum_p = alpha * i / n
+            _ = plt.plot(i, optimum_p, &#34;k-&#34;)
+            legend_elements.append(
+                Line2D(
+                    [0],
+                    [0],
+                    marker=&#34;&#34;,
+                    color=&#34;k&#34;,
+                    label=&#34;Benjamini-Hochberg decision line&#34;,
+                    linestyle=&#34;-&#34;,
+                )
+            )
+
+        # Add labels and legend
+        _ = plt.xlabel(&#34;$i$&#34;)
+        _ = plt.ylabel(&#34;$p$&#34;)
+        _ = plt.title(title)
+
+        _ = ax.legend(handles=legend_elements)
+
+        if labels is not None:
+            _ = plt.xticks(plt.xticks()[0], labels)
+
+    return reject, corrected_p, pvalues_plot</code></pre>
+</details>
+</dd>
 <dt id="jmspack.frequentist_statistics.correlation_analysis"><code class="name flex">
 <span>def <span class="ident">correlation_analysis</span></span>(<span>data: pandas.core.frame.DataFrame, col_list=None, row_list=None, check_norm=False, method: str = 'pearson', dropna: str = 'pairwise', permutation_test: bool = False, n_permutations: int = 1000, random_state=None)</span>
 </code></dt>
@@ -1183,6 +1568,77 @@ Parameters</p>
     return df_normality_check</code></pre>
 </details>
 </dd>
+<dt id="jmspack.frequentist_statistics.partial_correlation"><code class="name flex">
+<span>def <span class="ident">partial_correlation</span></span>(<span>df: pandas.core.frame.DataFrame)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the sample linear partial correlation coefficients between pairs of variables,
+controlling for all other remaining variables
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>df</code></strong> :&ensp;<code>array-like, shape (n, p)</code></dt>
+<dd>Array with the different variables. Each column is taken as a variable.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>P</code></strong> :&ensp;<code>array-like, shape (p, p)</code></dt>
+<dd>P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
+controlling for all other remaining variables.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def partial_correlation(df: pd.DataFrame):
+    &#34;&#34;&#34;
+    Returns the sample linear partial correlation coefficients between pairs of variables,
+    controlling for all other remaining variables
+    Parameters
+    ----------
+    df : array-like, shape (n, p)
+        Array with the different variables. Each column is taken as a variable.
+    Returns
+    -------
+    P : array-like, shape (p, p)
+        P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
+        controlling for all other remaining variables.
+    &#34;&#34;&#34;
+    partial_corr_matrix_rvals = np.zeros((df.shape[1], df.shape[1]))
+    partial_corr_matrix_pvals = np.zeros((df.shape[1], df.shape[1]))
+
+    for i, column1 in enumerate(df):
+        for j, column2 in enumerate(df):
+            control_variables = np.delete(np.arange(df.shape[1]), [i, j])
+            if i == j:
+                partial_corr_matrix_rvals[i, j] = 1
+                partial_corr_matrix_pvals[i, j] = 1
+                continue
+            data_control_variable = df.iloc[:, control_variables]
+            data_column1 = df[column1].values
+            data_column2 = df[column2].values
+            fit1 = LinearRegression(fit_intercept=True)
+            fit2 = LinearRegression(fit_intercept=True)
+            fit1.fit(data_control_variable, data_column1)
+            fit2.fit(data_control_variable, data_column2)
+            residual1 = data_column1 - (
+                np.dot(data_control_variable, fit1.coef_) + fit1.intercept_
+            )
+            residual2 = data_column2 - (
+                np.dot(data_control_variable, fit2.coef_) + fit2.intercept_
+            )
+            partial_corr_matrix_rvals[i, j] = stats.pearsonr(residual1, residual2)[0]
+            partial_corr_matrix_pvals[i, j] = stats.pearsonr(residual1, residual2)[1]
+            partial_corr_matrix_rvals_df = pd.DataFrame(
+                partial_corr_matrix_rvals, columns=df.columns, index=df.columns
+            )
+            partial_corr_matrix_pvals_df = pd.DataFrame(
+                partial_corr_matrix_pvals, columns=df.columns, index=df.columns
+            )
+
+    return partial_corr_matrix_rvals_df, partial_corr_matrix_pvals_df</code></pre>
+</details>
+</dd>
 <dt id="jmspack.frequentist_statistics.permute_test"><code class="name flex">
 <span>def <span class="ident">permute_test</span></span>(<span>a, test_type, test, **kwargs)</span>
 </code></dt>
@@ -1368,10 +1824,12 @@ Returns</p>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
+<li><code><a title="jmspack.frequentist_statistics.correct_pvalues" href="#jmspack.frequentist_statistics.correct_pvalues">correct_pvalues</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.correlation_analysis" href="#jmspack.frequentist_statistics.correlation_analysis">correlation_analysis</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.correlations_as_sample_increases" href="#jmspack.frequentist_statistics.correlations_as_sample_increases">correlations_as_sample_increases</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.multiple_univariate_OLSs" href="#jmspack.frequentist_statistics.multiple_univariate_OLSs">multiple_univariate_OLSs</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.normal_check" href="#jmspack.frequentist_statistics.normal_check">normal_check</a></code></li>
+<li><code><a title="jmspack.frequentist_statistics.partial_correlation" href="#jmspack.frequentist_statistics.partial_correlation">partial_correlation</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.permute_test" href="#jmspack.frequentist_statistics.permute_test">permute_test</a></code></li>
 <li><code><a title="jmspack.frequentist_statistics.potential_for_change_index" href="#jmspack.frequentist_statistics.potential_for_change_index">potential_for_change_index</a></code></li>
 </ul>

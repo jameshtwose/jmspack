@@ -1,3 +1,19 @@
+Version 0.1.1:
+ - Update build_instructions.md
+ - Merge pull request #4 from jameshtwose/develop
+ - Adding correct_pvalues() and partial_correlation() functions
+ - Looking into different sliding window options to try to elucidate changes in time series e.g. using windowed PCA to identify Early Warning Signals
+ - Beginning to write tests for the ml_utils functions
+ - Cleaning up the ml_utils and utils modules
+ - Cleaning up the ml_utils and utils modules
+ - updating some of the machine learning utility functions to be more flexible and creating a notebook showing the use of the currently implemented ml_utils
+ - beginning the ml_utils module
+ - Update README.md
+ - Adding new badges to the README
+ - Merge pull request #3 from jameshtwose/release-0.1.0
+ - updating the build_instructions
+ - Bumping to version 0.1.0
+
 Version 0.1.0
  - adding build instructions and a bump-version shell script to make life a bit easier when creating new package versions
  - Merge pull request #2 from jameshtwose/making_tests
