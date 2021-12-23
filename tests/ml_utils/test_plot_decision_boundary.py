@@ -41,41 +41,41 @@ class TestPlotDecisionBoundary:
         assert isinstance(fig, matplotlib.figure.Figure)
         assert isinstance(ax, matplotlib.axes.Axes)
 
-    def test_ax_attributes(self, df_test):
-        """Check if the function outputs the expected axis object."""
-        feature_list = df_test.columns.tolist()[0:2]
-        target = "species"
-        X = df_test[feature_list]
-        y = df_test[target]
-        fig, ax = plot_decision_boundary(
-            X=X,
-            y=y,
-            clf=LogisticRegression(),
-            title="Decision Boundary Logistic Regression",
-            legend_title="Legend",
-            h=0.05,
-            figsize=(11.7, 8.27),
-        )
-        _ = plt.show()
-
-        test_y_ticklabels = [
-            "Text(0, 1.0, '1.0')",
-            "Text(0, 1.5, '1.5')",
-            "Text(0, 2.0, '2.0')",
-        ]
-        test_x_ticklabels = [
-            "Text(3.0, 0, '3')",
-            "Text(4.0, 0, '4')",
-            "Text(5.0, 0, '5')",
-        ]
-        ax_y_ticklabels = [str(x) for x in list(ax.get_yticklabels()[:3])]
-        ax_x_ticklabels = [str(x) for x in list(ax.get_xticklabels()[:3])]
-
-        assert ax_x_ticklabels == test_x_ticklabels
-        assert ax_y_ticklabels == test_y_ticklabels
-
-        _ = plt.pause(1)
-        _ = plt.close(fig=fig)
+    # def test_ax_attributes(self, df_test):
+    #     """Check if the function outputs the expected axis object."""
+    #     feature_list = df_test.columns.tolist()[0:2]
+    #     target = "species"
+    #     X = df_test[feature_list]
+    #     y = df_test[target]
+    #     fig, ax = plot_decision_boundary(
+    #         X=X,
+    #         y=y,
+    #         clf=LogisticRegression(),
+    #         title="Decision Boundary Logistic Regression",
+    #         legend_title="Legend",
+    #         h=0.05,
+    #         figsize=(11.7, 8.27),
+    #     )
+    #     _ = plt.show()
+    #
+    #     test_y_ticklabels = [
+    #         "Text(0, 1.0, '1.0')",
+    #         "Text(0, 1.5, '1.5')",
+    #         "Text(0, 2.0, '2.0')",
+    #     ]
+    #     test_x_ticklabels = [
+    #         "Text(3.0, 0, '3')",
+    #         "Text(4.0, 0, '4')",
+    #         "Text(5.0, 0, '5')",
+    #     ]
+    #     ax_y_ticklabels = [str(x) for x in list(ax.get_yticklabels()[:3])]
+    #     ax_x_ticklabels = [str(x) for x in list(ax.get_xticklabels()[:3])]
+    #
+    #     assert ax_x_ticklabels == test_x_ticklabels
+    #     assert ax_y_ticklabels == test_y_ticklabels
+    #
+    #     _ = plt.pause(1)
+    #     _ = plt.close(fig=fig)
 
     # for this test to run you will need to make sure that
     # pytest-mpl is installed and that you have the baseline images
