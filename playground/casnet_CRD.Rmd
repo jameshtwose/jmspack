@@ -66,8 +66,8 @@ head(ccp_df, n=10)
 ```
 
 ```{r}
-write.csv(fi_df$df, file="../datasets/casnet_fi.csv")
-write.csv(du_df$df, file="../datasets/casnet_du.csv")
+write.csv(fi_df$data, file="../datasets/casnet_fi.csv")
+write.csv(du_df$data, file="../datasets/casnet_du.csv")
 write.csv(crd_df, file="../datasets/casnet_crd.csv")
 write.csv(ccp_df$df, file="../datasets/casnet_ccp.csv")
 ```
