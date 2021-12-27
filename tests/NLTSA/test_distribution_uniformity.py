@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from jmspack.NLTSA import fluctuation_intensity
+from jmspack.NLTSA import distribution_uniformity
 
 
 @pytest.fixture
@@ -16,21 +16,21 @@ def df_test():
 
 
 @pytest.fixture
-def df_casnet_fi():
+def df_casnet_du():
     """200 rows of casnet data"""
     return pd.read_csv(
-        "https://raw.githubusercontent.com/jameshtwose/jmspack/develop/datasets/casnet_fi.csv",
+        "https://raw.githubusercontent.com/jameshtwose/jmspack/develop/datasets/casnet_du.csv",
         index_col=0,
     )
 
 
-class TestFluctuationIntensity:
+class TestDistributionUniformity:
     """Testing class to test the ts_levels function."""
 
     def test_if_dataframe_not_affected(self, df_test):
         """Check if the function leaves the data frame the same."""
         df_original = df_test.copy()
-        _ = fluctuation_intensity(
+        _ = distribution_uniformity(
             df=df_test,
             win=7,
             xmin=df_test.min().min(),
@@ -42,7 +42,7 @@ class TestFluctuationIntensity:
 
     def test_returns_expected_objects(self, df_test):
         """Check if the function returns the expected output objects."""
-        fluctuation_intensity_df = fluctuation_intensity(
+        distribution_uniformity_df = distribution_uniformity(
             df=df_test,
             win=7,
             xmin=df_test.min().min(),
@@ -50,11 +50,11 @@ class TestFluctuationIntensity:
             col_first=1,
             col_last=df_test.shape[1],
         )
-        assert isinstance(fluctuation_intensity_df, pd.DataFrame)
+        assert isinstance(distribution_uniformity_df, pd.DataFrame)
 
-    def test_compare_fi_df_casnet_fi_df(self, df_test, df_casnet_fi):
+    def test_compare_du_df_casnet_du_df(self, df_test, df_casnet_du):
         """Check if the python version of the df is sufficiently similar to the casnet R version."""
-        fluctuation_intensity_df = fluctuation_intensity(
+        distribution_uniformity_df = distribution_uniformity(
             df=df_test,
             win=7,
             xmin=df_test.min().min(),
@@ -64,7 +64,7 @@ class TestFluctuationIntensity:
         )
 
         np.testing.assert_allclose(
-            fluctuation_intensity_df.replace(0, np.nan).values,
-            df_casnet_fi.values,
+            distribution_uniformity_df.replace(0, np.nan).values,
+            df_casnet_du.values,
             rtol=0.05,
         )
