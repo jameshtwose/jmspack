@@ -1,0 +1,73 @@
+---
+title: "Casnet dynamic complexity"
+output: html_notebook
+---
+
+
+```{r}
+library(casnet)
+```
+
+```{r}
+sessionInfo()
+```
+
+
+```{r}
+df <- read.csv("https://raw.githubusercontent.com/jameshtwose/jmspack/main/datasets/time_series_dataset.csv",
+               row.names = "X", nrows = 200)
+min(df)
+```
+
+```{r}
+fi_df <- dc_f(df,
+     win=7,
+     scale_min=min(df),
+     scale_max = max(df),
+     doPlot = TRUE)
+
+head(fi_df, n=10)
+```
+
+
+```{r}
+du_df <- dc_d(df,
+     win=7,
+     scale_min=min(df),
+     scale_max = max(df),
+     doPlot = TRUE)
+
+head(du_df, n=10)
+```
+
+
+```{r}
+crd_df <- dc_win(df,
+     win=7,
+     scale_min=min(df),
+     scale_max = max(df),
+     doPlot = TRUE)
+
+head(crd_df, n=10)
+```
+
+
+```{r}
+ccp_df <- dc_ccp(
+  df_win=crd_df,
+  alpha_item = 0.05,
+  alpha_time = 0.05,
+  doPlot = TRUE,
+  useVarNames = TRUE,
+)
+
+head(ccp_df, n=10)
+
+```
+
+```{r}
+write.csv(fi_df$data, file="../datasets/casnet_fi.csv")
+write.csv(du_df$data, file="../datasets/casnet_du.csv")
+write.csv(crd_df, file="../datasets/casnet_crd.csv")
+write.csv(ccp_df$df, file="../datasets/casnet_ccp.csv")
+```

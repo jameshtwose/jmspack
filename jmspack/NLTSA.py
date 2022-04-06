@@ -1,13 +1,21 @@
-r"""Submodule NLTSA.py includes the following functions: <br>
-- **fluctuation_intensity():** run fluctuation intensity on a time series to detect non linear change <br>
-- **distribution_uniformity():** run distribution uniformity on a time series to detect non linear change <br>
-- **complexity_resonance():** the product of fluctuation_intensity and distribution_uniformity <br>
-- **complexity_resonance_diagram():** plots a heatmap of the complexity_resonance <br>
-- **ts_levels():** defines distinct levels in a time series based on decision tree regressor <br>
-- **cmaps_options[]:** a list of possible colour maps that may be used when plotting <br>
-- **cumulative_complexity_peaks():** a function which will calculate the significant peaks in the dynamic
-complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs) <br>
-- **cumulative_complexity_peaks_plot():** plots a heatmap of the cumulative_complexity_peaks <br>
+r"""Submodule NLTSA.py includes the following functions:
+
+- **fluctuation_intensity():** run fluctuation intensity on a time series to detect non linear change.
+
+- **distribution_uniformity():** run distribution uniformity on a time series to detect non linear change.
+
+- **complexity_resonance():** the product of fluctuation_intensity and distribution_uniformity.
+
+- **complexity_resonance_diagram():** plots a heatmap of the complexity_resonance.
+
+- **ts_levels():** defines distinct levels in a time series based on decision tree regressor.
+
+- **cmaps_options[]:** a list of possible colour maps that may be used when plotting.
+
+- **cumulative_complexity_peaks():** a function which will calculate the significant peaks in the dynamic complexity of a set of time series (these peaks are known as cumulative complexity peaks; CCPs).
+
+- **cumulative_complexity_peaks_plot():** plots a heatmap of the cumulative_complexity_peaks.
+
 """
 import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
@@ -55,13 +63,14 @@ def ts_levels(
     n_x_ticks=10,
     figsize=(20, 5),
 ):
-    r"""Use recursive partitioning (DecisionTreeRegressor) to perform a 'classification' of relatively stable levels in a timeseries.
+    """Use recursive partitioning (DecisionTreeRegressor) to perform a 'classification' of relatively stable levels in a timeseries.
+    
     Parameters
-    ---------
-    ts: pandas DataFrame (column)
+    ----------
+    ts: pd.DataFrame (column)
         A dataframe column containing a univariate time series from 1 person.
         Rows should indicate time, column should indicate the time series variable.
-    ts_x: pandas DataFrame (column; Default=None)
+    ts_x: pd.DataFrame (column; Default=None)
         A dataframe column containing the corresponding timestamps to the aforementioned time series.
         If None is passed, the index of the time series will be used (Default = None).
     criterion: str (Default="mse")
@@ -98,13 +107,13 @@ def ts_levels(
         The tuple used to specify the size of the plot if plot = True.
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> from jmspack.NLTSA import ts_levels
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> ts = ts_df["lorenz"]
     >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
-    >>>                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)
+    ...                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)
+    
     """
     # Change ts to a numpy array
     if not isinstance(ts, np.ndarray):
@@ -207,10 +216,11 @@ def ts_levels(
 
 
 def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
-    r"""Run distribution uniformity on a time series to detect non linear change
+    """Run distribution uniformity on a time series to detect non linear change
+    
     Parameters
-    ---------
-    df: pandas DataFrame
+    ----------
+    df: pd.DataFrame
         A dataframe containing multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the time series variables.
         All time series in df should be on the same scale. Otherwise the comparisons across
@@ -228,13 +238,13 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
         The last column index you wish to be included in the calculation (index starts at 1!)
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
     >>> distribution_uniformity_df = pd.DataFrame(distribution_uniformity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> distribution_uniformity_df.columns=scaled_ts_df.columns.tolist()
+    
     """
 
     col_first = int(col_first)
@@ -280,10 +290,11 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
 
 
 def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
-    r"""Run fluctuation intensity on a time series to detect non linear change
+    """Run fluctuation intensity on a time series to detect non linear change
+    
     Parameters
-    ---------
-    df: pandas DataFrame
+    ----------
+    df: pd.DataFrame
         A dataframe containing multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the time series variables.
         All time series in df should be on the same scale. Otherwise the comparisons across
@@ -301,13 +312,13 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
         The last column index you wish to be included in the calculation (index starts at 1!)
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
     >>> fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
+    
     """
 
     col_first = int(col_first)
@@ -385,9 +396,10 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
 
 
 def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
-    r"""Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    
     Parameters
-    ---------
+    ----------
     distribution_uniformity_df: pandas DataFrame
         A dataframe containing distribution uniformity values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the distribution uniformity.
@@ -396,8 +408,7 @@ def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
         Rows should indicate time, columns should indicate the fluctuation intensity.
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
@@ -406,7 +417,9 @@ def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
     >>> fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
+    
     """
+
     complexity_resonance_df = distribution_uniformity_df * fluctuation_intensity_df
     return complexity_resonance_df
 
@@ -418,9 +431,10 @@ def complexity_resonance_diagram(
     labels_n=10,
     figsize=(20, 7),
 ):
-    r"""Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    
     Parameters
-    ---------
+    ----------
     df: pandas DataFrame
         A dataframe containing complexity resonance values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the complexity resonance.
@@ -437,8 +451,7 @@ def complexity_resonance_diagram(
         x-axis of the plot.
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
@@ -448,6 +461,7 @@ def complexity_resonance_diagram(
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> complexity_resonance_diagram(complexity_resonance_df, cmap_n=12, labels_n=30)
+    
     """
 
     df_for_plot = df.copy()
@@ -492,10 +506,11 @@ def cumulative_complexity_peaks(
     significant_level_item: float = 0.05,
     significant_level_time: float = 0.05,
 ):
-    r"""Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
+    
     Parameters
-    ---------
-    df: pandas DataFrame
+    ----------
+    df: pd.DataFrame
         A dataframe containing complexity resonance values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the complexity resonance.
     significant_level_item: float (Default=0.05)
@@ -506,8 +521,7 @@ def cumulative_complexity_peaks(
         (i.e. is this day different than all the other days).
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
@@ -517,6 +531,7 @@ def cumulative_complexity_peaks(
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)
+    
     """
 
     ## Creating CCP data frame
@@ -552,13 +567,14 @@ def cumulative_complexity_peaks_plot(
     height_ratios: list = [1, 3],
     labels_n: int = 10,
 ):
-    r"""Create a cumulative complexity peaks plot based on the cumulative_complexity_peaks_df and the significant_peaks_df
+    """Create a cumulative complexity peaks plot based on the cumulative_complexity_peaks_df and the significant_peaks_df
+    
     Parameters
-    ---------
-    cumulative_complexity_peaks_df: pandas DataFrame
+    ----------
+    cumulative_complexity_peaks_df: pdDataFrame
         A dataframe containing cumulative complexity peaks values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the cumulative complexity peaks.
-    significant_peaks_df: pandas DataFrame
+    significant_peaks_df: pd.DataFrame
         A dataframe containing one column of significant complexity peaks values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the significant cumulative complexity peaks.
     plot_title: str
@@ -573,8 +589,7 @@ def cumulative_complexity_peaks_plot(
         x-axis of the plot.
 
     Examples
-    ---------
-    Demonstration of the function using time series data
+    --------
     >>> ts_df = pd.read_csv("datasets/time_series_dataset.csv", index_col=0)
     >>> scaler = MinMaxScaler()
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
@@ -585,6 +600,7 @@ def cumulative_complexity_peaks_plot(
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)
     >>> _ = cumulative_complexity_peaks_plot(cumulative_complexity_peaks_df=cumulative_complexity_peaks_df, significant_peaks_df=significant_peaks_df)
+    
     """
     custom_cmap = sns.color_palette(["#FFFFFF", "#000000"])
 

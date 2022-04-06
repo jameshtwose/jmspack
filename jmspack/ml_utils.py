@@ -1,13 +1,20 @@
 r"""Submodule ml_utils.py includes the following functions:
 
-  - plot_decision_boundary(): Generate a simple plot of the decision boundary of a classifier. <br>
-  - plot_cv_indices(): tmp <br>
-  - plot_learning_curve(): tmp <br>
-  - dict_of_models: tmp <br>
-  - multi_roc_auc_plot(): tmp <br>
-  - RFE_opt_rf(): tmp <br>
-  - make_confusion_matrix(): tmp <br>
-  - summary_performance_metrics_classification(): tmp <br>
+- plot_decision_boundary(): Generate a simple plot of the decision boundary of a classifier.
+
+- plot_cv_indices(): Visualise the inputted cross validation method in chunks.
+
+- plot_learning_curve(): Plot the learning curve of an estimator as samples increase to evaluate overfitting.
+
+- dict_of_models: A dictionary of useful models.
+
+- multi_roc_auc_plot(): A utility to plot the ROC curves of multiple classifiers (suggested to use in conjunction with the dict_of_models).
+
+- optimize_model(): A utility to run gridsearch and Recursive Feature Elimination on a classifier to return a model with the best parameters.
+
+- plot_confusion_matrix(): Visualise a confusion matrix.
+
+- summary_performance_metrics_classification(): A utility to return a selection of regularly used classification performance metrics.
 
 """
 import warnings
@@ -53,8 +60,8 @@ def plot_decision_boundary(
     h: float = 0.05,
     figsize: tuple = (11.7, 8.27),
 ):
-    r"""
-    Generate a simple plot of the decision boundary of a classifier.
+    """Generate a simple plot of the decision boundary of a classifier.
+    
     Parameters
     ----------
     X : array-like, shape (n_samples, n_features)
@@ -72,14 +79,16 @@ def plot_decision_boundary(
         Legend title for the plot.
     figsize: tuple (default: (11.7, 8.27))
         Width and height of the figure in inches
+    
     Returns
-    ----------
+    -------
     boundaries: Figure
         Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim
     ax: Axes
         The axes associated with the boundaries Figure.
+    
     Examples
-    ----------
+    --------
     >>> import seaborn as sns
     >>> from sklearn.svm import SVC
     >>> data = sns.load_dataset("iris")
@@ -88,7 +97,7 @@ def plot_decision_boundary(
     >>> X = data[["sepal_length", "sepal_width"]]
     >>> clf = SVC(kernel="rbf", gamma=2, C=1, probability=True)
     >>> _ = plot_decision_boundary(X=X, y=y, clf=clf, title = 'Decision Boundary', legend_title = "Species")
-    >>> # plt.show()
+
     """
 
     if X.shape[1] != 2:
@@ -191,7 +200,22 @@ def plot_decision_boundary(
 
 
 def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
-    """Create a sample plot for indices of a cross-validation object."""
+    """Create an example plot for indices of a cross-validation object.
+    
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
 
     # set plotting options
     cmap_data = plt.cm.Paired
@@ -266,8 +290,8 @@ def plot_learning_curve(
     train_sizes: np.array = np.linspace(0.1, 1.0, 40),
     figsize: tuple = (10, 5),
 ):
-    """
-    Generate a simple plot of the test and training learning curve.
+    """Generate a simple plot of the test and training learning curve.
+    
     Parameters
     ----------
     estimator : object type that implements the "fit" and "predict" methods
@@ -280,13 +304,10 @@ def plot_learning_curve(
     y : array-like, shape (n_samples) or (n_samples, n_features), optional
         Target relative to X for classification or regression;
         None for unsupervised learning.
-
     cross_color : string
         Signifies the color of the cross validation in the plot
-
     test_color : string
         Signifies the color of the test set in the plot
-
     scoring : string
         Signifies a scoring to evaluate the cross validation
     ylim : tuple, shape (ymin, ymax), optional
@@ -318,13 +339,15 @@ def plot_learning_curve(
         Note that for classification the number of samples usually have to
         be big enough to contain at least one sample from each class.
         (default: np.linspace(0.1, 1.0, 5))
+    
     """
+    
     fig, ax = plt.subplots(figsize=figsize)
-    plt.title(title)
+    _ = plt.title(title)
     if ylim is not None:
         plt.ylim(*ylim)
-    plt.xlabel("Training examples")
-    plt.ylabel(scoring)
+    _ = plt.xlabel("Training examples")
+    _ = plt.ylabel(scoring)
     train_sizes, train_scores, test_scores = learning_curve(
         estimator,
         X,
@@ -431,6 +454,23 @@ def multi_roc_auc_plot(
     figsize: tuple = (7, 7),
 ):
 
+    """tmp
+
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
+
     # scale the data and create training and test sets of the data
     X = StandardScaler().fit_transform(X)
     X_train, X_test, y_train, y_test = train_test_split(
@@ -477,10 +517,28 @@ def optimize_model(
     gridsearch_kwargs: dict = {"scoring": "roc_auc", "cv": 3, "n_jobs": -2},
     rfe_kwargs: dict = {"n_features_to_select": 2, "verbose": 1},
 ):
+    
+    """tmp
 
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
     # Perform a 75% training and 25% test data split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, stratify=y, random_state=42
+        X, y, test_size=0.3,
+        # stratify=y,
+        random_state=42
     )
 
     # Instantiate grid_dt
@@ -515,7 +573,7 @@ def optimize_model(
     )
 
     # Calculates the test set accuracy
-    acc = metrics.accuracy_score(y_test, rfe.predict(X_test))
+    # acc = metrics.accuracy_score(y_test, rfe.predict(X_test))
 
     print("\n- Sizes :")
     print(f"- X shape = {X.shape}")
@@ -528,7 +586,7 @@ def optimize_model(
     print("\n- Model info :")
     print(f"- Optimal Parameters = {optimized_estimator.get_params()}")
     print(f"- Selected feature list = {feature_selected}")
-    print("- Accuracy score on test set = {0:.1%}".format(acc))
+    # print("- Accuracy score on test set = {0:.1%}".format(acc))
 
     return (
         optimized_estimator,
@@ -553,25 +611,36 @@ def plot_confusion_matrix(
     cmap="Blues",
     title=None,
 ):
-    """
-    This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
-    Arguments
-    ---------
-    cf:            confusion matrix to be passed in
-    group_names:   List of strings that represent the labels row by row to be shown in each square.
-    categories:    List of strings containing the categories to be displayed on the x,y axis. Default is 'auto'
-    count:         If True, show the raw number in the confusion matrix. Default is True.
-    normalize:     If True, show the proportions for each category. Default is True.
-    cbar:          If True, show the color bar. The cbar values are based off the values in the confusion matrix.
-                   Default is True.
-    xyticks:       If True, show x and y ticks. Default is True.
-    xyplotlabels:  If True, show 'True Label' and 'Predicted Label' on the figure. Default is True.
-    sum_stats:     If True, display summary statistics below the figure. Default is True.
-    figsize:       Tuple representing the figure size. Default will be the matplotlib rcParams value.
-    cmap:          Colormap of the values displayed from matplotlib.pyplot.cm. Default is 'Blues'
-                   See http://matplotlib.org/examples/color/colormaps_reference.html
-
-    title:         Title for the heatmap. Default is None.
+    """This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
+    
+    Parameters
+    ----------
+    cf:            
+        confusion matrix to be passed in
+    group_names:
+        List of strings that represent the labels row by row to be shown in each square.
+    categories:
+        List of strings containing the categories to be displayed on the x,y axis. Default is 'auto'
+    count:
+        If True, show the raw number in the confusion matrix. Default is True.
+    normalize:
+        If True, show the proportions for each category. Default is True.
+    cbar:
+        If True, show the color bar. The cbar values are based off the values in the confusion matrix. Default is True.
+    xyticks:
+        If True, show x and y ticks. Default is True.
+    xyplotlabels:
+        If True, show 'True Label' and 'Predicted Label' on the figure. Default is True.
+    sum_stats:
+        If True, display summary statistics below the figure. Default is True.
+    figsize:
+        Tuple representing the figure size. Default will be the matplotlib rcParams value.
+    cmap:
+        Colormap of the values displayed from matplotlib.pyplot.cm. Default is 'Blues'
+        See http://matplotlib.org/examples/color/colormaps_reference.html
+    title:
+        Title for the heatmap. Default is None.
+    
     """
 
     fig, ax = plt.subplots(figsize=figsize)
@@ -653,6 +722,7 @@ def _bootstrap_auc(
 ):
     """Internal function to bootstrap auc.
     Originates from the AI in healthcare specialization of coursera. https://www.coursera.org/specializations/ai-healthcare
+    
     Parameters
     ----------
     model:
@@ -667,9 +737,11 @@ def _bootstrap_auc(
         The number of bootstraps.
     fold_size: int
         The number of folds.
+    
     Returns
     -------
     list
+    
     """
 
     if use_probabilities:
@@ -719,22 +791,39 @@ def summary_performance_metrics_classification(
     model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420
 ):
     """Summary of different evaluation metrics specific to a single class classification learning problem.
+    
+    Parameters
+    ----------
+    model: sklearn.model
+        A fitted sklearn model with predict() and predict_proba() methods.
+    X_test: pd.DataFrame
+        A data frame used to run predict the target values (y_pred).
+    y_true: pd.Series or np.arrays
+        Binary true values.
+    bootstraps: int
+    fold_size: int
+    
+    Returns
+    -------
+    pd.DataFrame
+    
     Notes
     -----
     The function returns the following metrics:
-    - true positive (TP): The model classifies the example as positive, and the actual label also positive.
-    - false positive (FP): The model classifies the example as positive, but the actual label is negative.
-    - true negative (TN): The model classifies the example as negative, and the actual label is also negative.
-    - false negative (FN): The model classifies the example as negative, but the label is actually positive.
-    - accuracy: The fractions of predictions the model got right.
-    - prevalance: The proportion of positive examples. Where y=1.
-    - sensitivity: The probability that our test outputs positive given that the case is actually positive.
-    - specificity: The probability that the test outputs negative given that the case is actually negative.
-    - positive predictive value: The proportion of positive predictions that are true positives.
-    - negative predictive value: The proportion of negative predictions that are true negatives.
-    - auc: A measure of goodness of fit.
-    - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
-    - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
+        - true positive (TP): The model classifies the example as positive, and the actual label also positive.
+        - false positive (FP): The model classifies the example as positive, but the actual label is negative.
+        - true negative (TN): The model classifies the example as negative, and the actual label is also negative.
+        - false negative (FN): The model classifies the example as negative, but the label is actually positive.
+        - accuracy: The fractions of predictions the model got right.
+        - prevalance: The proportion of positive examples. Where y=1.
+        - sensitivity: The probability that our test outputs positive given that the case is actually positive.
+        - specificity: The probability that the test outputs negative given that the case is actually negative.
+        - positive predictive value: The proportion of positive predictions that are true positives.
+        - negative predictive value: The proportion of negative predictions that are true negatives.
+        - auc: A measure of goodness of fit.
+        - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
+        - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
+    
     Examples
     --------
     >>> from sklearn import datasets
@@ -751,19 +840,7 @@ def summary_performance_metrics_classification(
     >>> clf.fit(X_train, y_train)
     >>> y_pred = clf.predict(X_test)
     >>> summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
-    Parameters
-    ----------
-    model: sklearn.model
-        A fitted sklearn model with predict() and predict_proba() methods.
-    X_test: pd.DataFrame
-        A data frame used to run predict the target values (y_pred).
-    y_true: pd.Series or np.arrays
-        Binary true values.
-    bootstraps: int
-    fold_size: int
-    Returns
-    -------
-    pd.DataFrame
+    
     """
 
     y_pred = model.predict(X_test)
