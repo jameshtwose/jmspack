@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jmspack.utils &#8212; jmspack 0.1.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          jmspack</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#jmspack-internal-utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for jmspack.utils</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Submodule utils.py includes the following functions and classes:</span>
+
+<span class="sd">- **silence_stdout():** A utility function used to stop other functions from printing to console (use with `with()`).</span>
+
+<span class="sd">- **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.</span>
+
+<span class="sd">- **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame seperately.</span>
+
+<span class="sd">- **flatten():** a utility function used to flatten a list of lists to a single list.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">contextmanager</span><span class="p">,</span>
+<span class="p">)</span>  <span class="c1"># these three are needed to create the silence output function</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">MinMaxScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+
+<span class="c1"># Create a function which will silence printing when called</span>
+<div class="viewcode-block" id="silence_stdout"><a class="viewcode-back" href="../../usage.html#jmspack.utils.silence_stdout">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">silence_stdout</span><span class="p">():</span>
+
+    <span class="sd">&quot;&quot;&quot;tmp</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tmp: </span>
+<span class="sd">        TODO</span>
+<span class="sd"> </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    TODO</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; #TODO</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">new_target</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="n">old_target</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">new_target</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">new_target</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">old_target</span></div>
+
+
+<div class="viewcode-block" id="JmsColors"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors">[docs]</a><span class="k">class</span> <span class="nc">JmsColors</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Utility class for James Twose&#39;s color codes.</span>
+<span class="sd">    </span>
+<span class="sd">    Functions</span>
+<span class="sd">    ---------</span>
+<span class="sd">    - get_names(): returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]</span>
+<span class="sd">    - to_dict(): returns a dictionary of format {color name: hexcode}</span>
+<span class="sd">    - to_list(): returns a list of hexcodes</span>
+<span class="sd">    - plot_colors(): returns a lineplot of all the available colours (like a color swatch)</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.utils import JmsColors</span>
+<span class="sd">    &gt;&gt;&gt; x = np.linspace(0, 10, 100)</span>
+<span class="sd">    &gt;&gt;&gt; fig = plt.figure()</span>
+<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.sin(x), color=JmsColors.ORANGE)</span>
+<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.cos(x), color=JmsColors.LIGHTBLUE)</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">PURPLE</span> <span class="o">=</span> <span class="s2">&quot;#8f0fd4&quot;</span>
+    <span class="n">DARKBLUE</span> <span class="o">=</span> <span class="s2">&quot;#0072e8&quot;</span>
+    <span class="n">BLUEGREEN</span> <span class="o">=</span> <span class="s2">&quot;#009cdc&quot;</span>
+    <span class="n">GREENBLUE</span> <span class="o">=</span> <span class="s2">&quot;#00c7b1&quot;</span>
+    <span class="n">GREENYELLOW</span> <span class="o">=</span> <span class="s2">&quot;#71db5c&quot;</span>
+    <span class="n">YELLOW</span> <span class="o">=</span> <span class="s2">&quot;#fcdd14&quot;</span>
+
+    <span class="n">DARKGREY</span> <span class="o">=</span> <span class="s2">&quot;#282d32&quot;</span>
+    <span class="n">MEDIUMGREY</span> <span class="o">=</span> <span class="s2">&quot;#808080&quot;</span>
+    <span class="n">LIGHTGREY</span> <span class="o">=</span> <span class="s2">&quot;#b1b1b1&quot;</span>
+    <span class="n">OFFWHITE</span> <span class="o">=</span> <span class="s2">&quot;#d5d5d5&quot;</span>
+
+<div class="viewcode-block" id="JmsColors.get_names"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.get_names">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_names</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">k</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="JmsColors.to_dict"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="JmsColors.to_list"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_list">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">to_list</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">v</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="JmsColors.plot_colors"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.plot_colors">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">plot_colors</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">JmsColors</span><span class="o">.</span><span class="n">to_list</span><span class="p">()):</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Available Jms Colors&quot;</span><span class="p">)</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="apply_scaling"><a class="viewcode-back" href="../../usage.html#jmspack.utils.apply_scaling">[docs]</a><span class="k">def</span> <span class="nf">apply_scaling</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;MinMax&quot;</span><span class="p">,</span>
+    <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{},</span>
+<span class="p">):</span>
+
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function to be used in conjunction with pandas pipe()</span>
+<span class="sd">    to scale columns of a data frame seperately.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: pd.DataFrame</span>
+<span class="sd">        The data frame you want to scale.</span>
+<span class="sd">    method: Callable, str</span>
+<span class="sd">        The name of the method you wish to use [method options: &quot;MinMax&quot;,</span>
+<span class="sd">        &quot;Standard&quot;], or an Sklearn transformer,</span>
+<span class="sd">        see: https://scikit-learn.org/stable/modules/preprocessing.html</span>
+<span class="sd">    kwargs: Dict</span>
+<span class="sd">        Dictionary containing additional keywords to be added to the Scaler.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; df = sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; scaled_df = (df</span>
+<span class="sd">    ...             .select_dtypes(&quot;number&quot;)</span>
+<span class="sd">    ...             .pipe(apply_scaling)</span>
+<span class="sd">    ...             )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MinMax&quot;</span><span class="p">:</span>
+        <span class="n">scal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">MinMaxScaler</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;Standard&quot;</span><span class="p">:</span>
+        <span class="n">scal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">StandardScaler</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">scal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">method</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>  <span class="c1"># type: ignore</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">scal_df</span></div>
+
+
+<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../usage.html#jmspack.utils.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">list_of_lists</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function used to flatten a list of list into a single list.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    l: list</span>
+<span class="sd">        A list of lists.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.utils import flatten</span>
+<span class="sd">    &gt;&gt;&gt; list_of_lists = [[f&quot;p_{x}&quot; for x in range(10)],</span>
+<span class="sd">    ...                 [f&quot;p_{x}&quot; for x in range(10, 20)],</span>
+<span class="sd">    ...                 [f&quot;p_{x}&quot; for x in range(20, 30)]]</span>
+<span class="sd">    &gt;&gt;&gt; flatten(list_of_lists)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">list_of_lists</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2022, James Twose.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
