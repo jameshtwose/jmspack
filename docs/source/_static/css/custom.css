@@ -1,0 +1,94 @@
+body {
+    --darkgrey: grey;
+    --yellow: #fcdd14;
+    --yellowgradient: #fcdd1462;
+    --white: #ffffff;
+    --purple: #8f0fd4;
+    --purplegradient: #8f0fd4ce;
+}
+
+
+h1 {
+    color: var(--darkgrey);
+}
+
+h1 code {
+    color: var(--darkgrey);
+}
+
+h2 {
+    color: var(--darkgrey);
+}
+
+#navbar {
+    background-color: var(--purplegradient);
+    padding: 5px;
+}
+
+li {
+    color: var(--purple);
+}
+
+li.toctree-l1 a.reference.internal code {
+    color: var(--purple);
+}
+
+li .reference.internal {
+    color: var(--purple);
+}
+
+.nav.navbar-nav li a {
+    color: var(--darkgrey);
+}
+
+.nav.navbar-nav li a:hover {
+    color: var(--white);
+}
+
+#dLabelGlobalToc {
+    color: var(--white);
+}
+
+#dLabelLocalToc {
+    color: var(--white);
+}
+
+.genindex-jumpbox a {
+    color: var(--purple);
+}
+
+table td li a {
+    color: var(--purple);
+}
+
+.footer a {
+    color: var(--purple);
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    color: var(--purple);
+    text-decoration: none;
+    background-color: var(--yellow);
+}
+
+code {
+    color: var(--purple);
+}
+
+a {
+    color: var(--purple);
+}
+
+a.headerlink:hover {
+    color: var(--darkgrey);
+}
+
+.navbar-default .navbar-brand {
+    color: var(--white);
+    /* background-color: transparent; */
+}
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: var(--white);
+    background-color: transparent;
+    }

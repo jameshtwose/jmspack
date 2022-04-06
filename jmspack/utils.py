@@ -1,11 +1,12 @@
-r"""Submodule utils.py includes the following functions and classes: <br>
+r"""Submodule utils.py includes the following functions and classes:
 
-    - **silence_stdout():** tmp <br>
-    - **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
-        <br>
-    - **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame
-        seperately. <br>
-    - **flatten():** a utility function used to flatten a list of lists to a single list. <br>
+- **silence_stdout():** A utility function used to stop other functions from printing to console (use with `with()`).
+
+- **JmsColors:** a class containing useful colours according to Jms and functions to show these colors in various forms.
+
+- **apply_scaling():** a utility function to be used in conjunction with pandas pipe() to scale columns of a data frame seperately.
+
+- **flatten():** a utility function used to flatten a list of lists to a single list.
 
 """
 import os
@@ -27,6 +28,24 @@ from sklearn.preprocessing import StandardScaler
 # Create a function which will silence printing when called
 @contextmanager
 def silence_stdout():
+
+    """tmp
+
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
+
     new_target = open(os.devnull, "w")
     old_target = sys.stdout
     sys.stdout = new_target
@@ -37,13 +56,14 @@ def silence_stdout():
 
 
 class JmsColors:
-    r"""Utility class for James Twose's color codes.
-    Available Functions
-    --------
-    get_names(): returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]
-    to_dict(): returns a dictionary of format {color name: hexcode}
-    to_list(): returns a list of hexcodes
-    plot_colors(): returns a lineplot of all the available colours (like a color swatch)
+    """Utility class for James Twose's color codes.
+    
+    Functions
+    ---------
+    - get_names(): returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]
+    - to_dict(): returns a dictionary of format {color name: hexcode}
+    - to_list(): returns a list of hexcodes
+    - plot_colors(): returns a lineplot of all the available colours (like a color swatch)
 
     Examples
     --------
@@ -54,7 +74,7 @@ class JmsColors:
     >>> fig = plt.figure()
     >>> _ = plt.plot(x, np.sin(x), color=JmsColors.ORANGE)
     >>> _ = plt.plot(x, np.cos(x), color=JmsColors.LIGHTBLUE)
-    >>> # plt.show()
+    
     """
 
     PURPLE = "#8f0fd4"

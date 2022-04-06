@@ -1,13 +1,19 @@
-r"""Submodule frequentist_statistics.py includes the following functions: <br>
-- **normal_check():** compare the distribution of numeric variables to a normal distribution using the
-    Kolmogrov-Smirnov test <br>
-- **correlation_analysis():** Run correlations for numerical features and return output in different formats <br>
-- **correlations_as_sample_increases():** Run correlations for subparts of the data to check robustness <br>
-- **multiple_univariate_OLSs():** Tmp <br>
-- **potential_for_change_index():** Calculate the potential for change index based on either variants of the r-squared
-    (from linear regression) or the r-value (pearson correlation) <br>
-- **correct_pvalues():** function to correct for multiple testing <br>
-- **partial_correlation():** function to calculate the partial correlations whilst correcting for other variables <br>
+r"""Submodule frequentist_statistics.py includes the following functions:
+
+- **normal_check():** compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test.
+
+- **correlation_analysis():** Run correlations for numerical features and return output in different formats.
+
+- **correlations_as_sample_increases():** Run correlations for subparts of the data to check robustness.
+
+- **multiple_univariate_OLSs():** A function used to compute multiple univariate ordinary least squares regression (i.e. not a multivariate OLS).
+
+- **potential_for_change_index():** Calculate the potential for change index based on either variants of the r-squared (from linear regression) or the r-value (pearson correlation).
+
+- **correct_pvalues():** function to correct for multiple testing.
+
+- **partial_correlation():** function to calculate the partial correlations whilst correcting for other variables.
+
 """
 from itertools import combinations
 from itertools import product
@@ -32,18 +38,22 @@ def normal_check(data: pd.DataFrame) -> pd.DataFrame:
     Wrapper for `scipy.stats.kstest`: the empircal data is compared to a normally distributed variable with the
     same mean and standard deviation. A significant result (p < 0.05) in the goodness of fit test means that the
     data is not normally distributed.
+    
     Parameters
     ----------
-    data: pandas.DataFrame
+    data: pd.DataFrame
         Dataframe including the columns of interest
+    
     Returns
-    ----------
+    -------
     df_normality_check: pd.DataFrame
         Dataframe with column names, p-values and an indication of normality
+    
     Examples
-    ----------
+    --------
     >>> tips = sns.load_dataset("tips")
     >>> df_normality_check = normal_check(tips)
+    
     """
     # Select numeric columns only
     num_features = data.select_dtypes(include="number").columns.tolist()
@@ -65,6 +75,7 @@ def normal_check(data: pd.DataFrame) -> pd.DataFrame:
 
 def permute_test(a, test_type, test, **kwargs):
     r"""Helper function to run tests for permutations
+    
     Parameters
     ----------
     a : np.array
@@ -75,10 +86,12 @@ def permute_test(a, test_type, test, **kwargs):
     **kwargs:
         Additional keywords to be added to `test`
         - `a2` for the second feature if test_type = 'correlation'
+    
     Returns
-    ----------
+    -------
     float:
         p value for permutation
+    
     """
     if test_type == "correlation":
         a2 = kwargs["a2"]
@@ -99,12 +112,13 @@ def correlation_analysis(
     n_permutations: int = 1000,
     random_state=None,
 ):
-    r"""Run correlations for numerical features and return output in different formats
+    """Run correlations for numerical features and return output in different formats
     Different methods to compute correlations and to handle missing values are implemented.
     Inspired by `researchpy.corr_case` and `researchpy.corr_pair`.
+    
     Parameters
     ----------
-    data : pandas.DataFrame
+    data : pd.DataFrame
         Dataframe with variables in columns, cases in rows
     row_list: list or None (default: None)
         List with names of columns in `data` that should be in the rows of the correlogram.
@@ -133,38 +147,42 @@ def correlation_analysis(
         Whether to plot the results of the permutation test
     figsize: tuple (default: (11.7, 8.27))
         Width and height of the figure in inches
+    
     Returns
-    ----------
+    -------
     result_dict: dict
         Dictionary containing with the following keys:
-        info : pandas.DataFrame
+        info: pd.DataFrame
             Description of correlation method, missing values handling and number of observations
-        r-values : pandas.DataFrame
+        r-values: pd.DataFrame
             Dataframe with correlation coefficients. Indices and columns are column names from `data`. Only lower
             triangle is filled.
-        p-values : pandas.DataFrame
+        p-values: pd.DataFrame
             Dataframe with p-values. Indices and columns are column names from `data`. Only lower triangle is filled.
-        N        : pandas.DataFrame
+        N: pd.DataFrame
             Dataframe with numbers of observations. Indices and columns are column names from `data`. Only lower
             triangle is filled. If dropna ='listwise', every correlation will have the same number of observations.
-        summary : pandas.DataFrame
+        summary: pd.DataFrame
             Dataframe with columns ['analysis', 'feature1', 'feature2', 'r-value', 'p-value', 'N', 'stat-sign']
             which indicate the type of test used for the correlation, the pair of columns, the correlation coefficient,
             the p-value, the number of observations for each combination of columns in `data` and whether the r-value is
             statistically significant.
     plotted_permuations: Figure
+    
     Examples
-    ----------
+    --------
     >>> from jmspack.frequentist_statistics import correlation_analysis
     >>> import seaborn as sns
     >>> iris = sns.load_dataset('iris')
     >>> dict_results = correlation_analysis(iris, method='pearson', dropna='listwise', permutation_test=True,
-    >>>                                        n_permutations=100, check_norm=True)
+    ...                                        n_permutations=100, check_norm=True)
     >>> dict_results['summary']
+    
     References
     ----------
     Bryant, C (2018). researchpy's documentation [Revision 9ae5ed63]. Retrieved from
     https://researchpy.readthedocs.io/en/latest/
+    
     """
 
     # Settings test
@@ -329,9 +347,10 @@ def correlations_as_sample_increases(
 ):
     r"""Plot changes in r-value and p-value from correlation between two features when sample size increases.
     Different methods to compute correlations are implemented. Data is shuffled first, to prevent any order effects.
+    
     Parameters
     ----------
-    data : pandas.DataFrame
+    data : pd.DataFrame
         Dataframe with variables in columns, cases in rows
     feature1: str
         Name of column with first feature to be included in correlation
@@ -358,20 +377,23 @@ def correlations_as_sample_increases(
         followed by the addition (e.g. to describe a dataset).
     alpha: float (default: 0.05)
         Threshold for p-value that should be shown in the plot
+    
     Returns
-    ----------
+    -------
     cor_results: pd.DataFrame
         Dataframe with the results for all ran analyses
     fig: Figure
         Figure will be returned if plot=True, otherwise None. This allows you to change properties of the figure
         afterwards, e.g. fig.axes[0].set_title('This is my new title')
+    
     Examples
-    ----------
+    --------
     >>> import seaborn as sns
     >>> from jmspack.frequentist_statistics import correlations_as_sample_increases
     >>> iris = sns.load_dataset('iris')
     >>> summary,  fig = correlations_as_sample_increases(data=iris,feature1='petal_width',feature2='sepal_length',
-    >>> starting_N=20)
+    ... starting_N=20)
+    
     """
 
     data = (
@@ -447,6 +469,24 @@ def multiple_univariate_OLSs(
     y: pd.Series,
     features_list: list,
 ):
+
+    """tmp
+
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
+    
     all_coefs_df = pd.DataFrame()
     for feature in features_list:
         mod = sm.OLS(endog=y, exog=sm.add_constant(X[[feature]]))
@@ -473,6 +513,23 @@ def potential_for_change_index(
     pci_heatmap: bool = True,
     pci_heatmap_figsize: Tuple[float, float] = (1.0, 4.0),
 ):
+    """tmp
+
+    Parameters
+    ----------
+    tmp: 
+        TODO
+ 
+    Returns
+    -------
+    TODO
+
+    Examples
+    --------
+    >>> #TODO
+    
+    """
+
     if scale_data:
         data = data.pipe(apply_scaling)
 
@@ -575,32 +632,35 @@ def correct_pvalues(
     title: str = "",
     figsize: tuple = (10, 5),
 ):
-    r"""
-    Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`
+    r"""Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`
+    
     Parameters
     ----------
-    pvals: array-like, 1d
+    pvals: array-like
         uncorrected pvalues
     alpha: float
         FWER, family-wise error rate
-    method: str, one of {'bonferroni', 'sidak', 'holm-sidak', 'holm', 'simes-hochberg', 'hommel', 'fdr_bh',
-    'fdr_by', 'fdr_tsbh', 'fdr_tsbky'}
+    method: str
+        one of {'bonferroni', 'sidak', 'holm-sidak', 'holm', 'simes-hochberg', 'hommel', 'fdr_bh',
+        'fdr_by', 'fdr_tsbh', 'fdr_tsbky'}
     plot: bool
         whether to plot the results
     title: str
         title to show above the plot
-    labels: array-like, 1d
+    labels: array-like
         labels for the uncorrected pvalues
     figsize: tuple
         size for the Figure
+    
     Returns
-    ----------
+    -------
     reject: numpy.array, bool
         true for hypothesis that can be rejected for given alpha
     corrected_p: numpy.array
         p-values corrected for multiple tests
     pvalues_plot: matplotlib.figure.Figure (optional)
         Figure if plot == True, else None
+    
     """
 
     if isinstance(pvals, pd.Series):
@@ -713,18 +773,20 @@ def correct_pvalues(
 
 
 def partial_correlation(df: pd.DataFrame):
-    """
-    Returns the sample linear partial correlation coefficients between pairs of variables,
+    """Returns the sample linear partial correlation coefficients between pairs of variables,
     controlling for all other remaining variables
+    
     Parameters
     ----------
     df : array-like, shape (n, p)
         Array with the different variables. Each column is taken as a variable.
+    
     Returns
     -------
     P : array-like, shape (p, p)
         P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
         controlling for all other remaining variables.
+    
     """
     partial_corr_matrix_rvals = np.zeros((df.shape[1], df.shape[1]))
     partial_corr_matrix_pvals = np.zeros((df.shape[1], df.shape[1]))
