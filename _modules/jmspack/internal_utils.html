@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jmspack.internal_utils &#8212; jmspack 0.1.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          jmspack</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Example Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../NLTSA.html">Using <code class="docutils literal notranslate"><span class="pre">NLTSA</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ml_utils.html">Using <code class="docutils literal notranslate"><span class="pre">ml_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../internal_utils.html">Using <code class="docutils literal notranslate"><span class="pre">internal_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../frequentist_statistics.html">Using <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <h1>Source code for jmspack.internal_utils</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Submodule internal_utils.py includes the following functions:</span>
+
+<span class="sd">- **postgresql_data_extraction():** importing data from a table of a postgresql database.</span>
+
+<span class="sd">- **postgresql_table_names_list():** extract the table names from a specified postgresql database.</span>
+
+<span class="sd">- **create_postgresql_table_based_on_df():** create a new table in a specified postgresql database based on the columns of a pandas data frame.</span>
+
+<span class="sd">- **add_data_to_postgresql_table():** add new data to an existing table in a specified postgresql database.</span>
+
+<span class="sd">- **delete_postgresql_table():** delete a table from a postgresql database.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">psycopg2</span>
+
+<span class="c1"># INFO: for all of postgresql based functions, you will need to specify your</span>
+<span class="c1"># credentials in a &quot;.env&quot; locally. The two required parameters are:</span>
+<span class="c1"># postgresql_host=&quot;BLA&quot; (the host value for the postgresql database)</span>
+<span class="c1"># postgresql_password=&quot;BLA2&quot; (the password value for the postgresql database)</span>
+
+
+<div class="viewcode-block" id="postgresql_data_extraction"><a class="viewcode-back" href="../../usage.html#jmspack.internal_utils.postgresql_data_extraction">[docs]</a><span class="k">def</span> <span class="nf">postgresql_data_extraction</span><span class="p">(</span>
+    <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;suggested_energy_intake&quot;</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Load data from a specified postgresql database.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    table_name: str</span>
+<span class="sd">        The name of the table to extract from the postgresql database.</span>
+<span class="sd">    database_name: str</span>
+<span class="sd">        The name of the postgresql database.</span>
+<span class="sd">    user: str</span>
+<span class="sd">        The name of the user.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from dotenv import load_dotenv, find_dotenv</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.internal_utils import postgresql_data_extraction</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="sd">    &gt;&gt;&gt; # labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; load_dotenv(find_dotenv())</span>
+<span class="sd">    &gt;&gt;&gt; df = postgresql_data_extraction(table_name = &#39;iris_test&#39;,</span>
+<span class="sd">    ...                            database_name = &#39;tracker&#39;,</span>
+<span class="sd">    ...                            user=&#39;tracker&#39;)</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_host&quot;</span><span class="p">),</span>
+            <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_password&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT * from </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="s2">&quot;08006&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;I am unable to connect to the database&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+<div class="viewcode-block" id="postgresql_table_names_list"><a class="viewcode-back" href="../../usage.html#jmspack.internal_utils.postgresql_table_names_list">[docs]</a><span class="k">def</span> <span class="nf">postgresql_table_names_list</span><span class="p">(</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+    <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Extract the table names from a specified postgresql database.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    database_name: str</span>
+<span class="sd">        The name of the postgresql database.</span>
+<span class="sd">    user: str</span>
+<span class="sd">        The name of the user.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from dotenv import load_dotenv, find_dotenv</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.internal_utils import postgresql_table_names_list</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="sd">    &gt;&gt;&gt; # labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; load_dotenv(find_dotenv())</span>
+<span class="sd">    &gt;&gt;&gt; table_names = postgresql_table_names_list()</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">table_list</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_host&quot;</span><span class="p">),</span>
+            <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_password&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="s2">&quot;select relname from pg_class where relkind=&#39;r&#39; and relname !~ &#39;^(pg_|sql_)&#39;;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">table_list</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table_list</span></div>
+
+
+<div class="viewcode-block" id="create_postgresql_table_based_on_df"><a class="viewcode-back" href="../../usage.html#jmspack.internal_utils.create_postgresql_table_based_on_df">[docs]</a><span class="k">def</span> <span class="nf">create_postgresql_table_based_on_df</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Create a new table in a specified postgresql database based on the columns of a pandas data frame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: pd.DataFrame</span>
+<span class="sd">        The pandas dataframe object you wish to use the columns and data types</span>
+<span class="sd">        to create the table from in postgresql</span>
+<span class="sd">    database_name: str</span>
+<span class="sd">        The name of the postgresql database.</span>
+<span class="sd">    user: str</span>
+<span class="sd">        The name of the user.</span>
+<span class="sd">    table_name: str</span>
+<span class="sd">        A string specifying the name of the newly created table.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from dotenv import load_dotenv, find_dotenv</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.internal_utils import add_data_to_postgresql_table</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="sd">    &gt;&gt;&gt; # labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; load_dotenv(find_dotenv())</span>
+<span class="sd">    &gt;&gt;&gt; iris_df = sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _ = create_postgresql_table_based_on_df(df=iris_df,</span>
+<span class="sd">    ...                                         database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         table_name=&quot;iris_test&quot;,</span>
+<span class="sd">    ...                                         )</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">python_to_sql_dtypes_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;float64&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;float32&quot;</span><span class="p">:</span> <span class="s2">&quot;float&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;int8&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;int32&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;int64&quot;</span><span class="p">:</span> <span class="s2">&quot;int&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;datetime64[ns]&quot;</span><span class="p">:</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">df_dtypes_dict</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+    <span class="n">columns_dtypes_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">python_to_sql_dtypes_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">df_dtypes_dict</span><span class="p">[</span><span class="n">column</span><span class="p">])]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="p">]</span>
+    <span class="n">columns_dtypes_str</span> <span class="o">=</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">columns_dtypes_list</span><span class="p">)</span>
+    <span class="n">table_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;CREATE TABLE </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> (</span>
+<span class="s2">                </span><span class="si">{</span><span class="n">columns_dtypes_str</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">    )&quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_host&quot;</span><span class="p">),</span>
+            <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_password&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">table_string</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">table_string</span></div>
+
+
+<div class="viewcode-block" id="add_data_to_postgresql_table"><a class="viewcode-back" href="../../usage.html#jmspack.internal_utils.add_data_to_postgresql_table">[docs]</a><span class="k">def</span> <span class="nf">add_data_to_postgresql_table</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Add new data to an existing table in a specified postgresql database.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df: pd.DataFrame</span>
+<span class="sd">        The pandas dataframe object you wish to use the columns and data types</span>
+<span class="sd">        to create the table from in postgresql</span>
+<span class="sd">    database_name: str</span>
+<span class="sd">        The name of the postgresql database.</span>
+<span class="sd">    user: str</span>
+<span class="sd">        The name of the user.</span>
+<span class="sd">    table_name: str</span>
+<span class="sd">        A string specifying the name of the newly created table.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from dotenv import load_dotenv, find_dotenv</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.internal_utils import add_data_to_postgresql_table</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="sd">    &gt;&gt;&gt; # labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; load_dotenv(find_dotenv())</span>
+<span class="sd">    &gt;&gt;&gt; iris_df = sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _ = create_postgresql_table_based_on_df(df=iris_df,</span>
+<span class="sd">    ...                                         database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         table_name=&quot;iris_test&quot;,</span>
+<span class="sd">    ...                                         )</span>
+<span class="sd">    &gt;&gt;&gt; _ = add_data_to_postgresql_table(df=iris_df,</span>
+<span class="sd">    ...                                 database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                 user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                 table_name=&quot;iris_test&quot;,</span>
+<span class="sd">    ...                                 )</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">columns_string</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="n">value_placeholder_string</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+    <span class="n">insert_string</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;INSERT INTO </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">columns_string</span><span class="si">}</span><span class="s2">) VALUES (</span><span class="si">{</span><span class="n">value_placeholder_string</span><span class="si">}</span><span class="s2">)&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_host&quot;</span><span class="p">),</span>
+            <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_password&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">oid</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">value_tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">oid</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">col_number</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">col_number</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="n">_</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">insert_string</span><span class="p">,</span> <span class="n">value_tuple</span><span class="p">)</span>
+
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">insert_string</span></div>
+
+
+<div class="viewcode-block" id="delete_postgresql_table"><a class="viewcode-back" href="../../usage.html#jmspack.internal_utils.delete_postgresql_table">[docs]</a><span class="k">def</span> <span class="nf">delete_postgresql_table</span><span class="p">(</span>
+    <span class="n">database_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">user</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Delete a table from a postgresql database.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    database_name: str</span>
+<span class="sd">        The name of the postgresql database.</span>
+<span class="sd">    user: str</span>
+<span class="sd">        The name of the user.</span>
+<span class="sd">    table_name: str</span>
+<span class="sd">        A string specifying the name of the newly created table.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from dotenv import load_dotenv, find_dotenv</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.internal_utils import add_data_to_postgresql_table</span>
+<span class="sd">    &gt;&gt;&gt; # Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="sd">    &gt;&gt;&gt; # labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="sd">    &gt;&gt;&gt; load_dotenv(find_dotenv())</span>
+<span class="sd">    &gt;&gt;&gt; iris_df = sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; _ = create_postgresql_table_based_on_df(df=iris_df,</span>
+<span class="sd">    ...                                         database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                         table_name=&quot;iris_test&quot;,</span>
+<span class="sd">    ...                                         )</span>
+<span class="sd">    &gt;&gt;&gt; _ = add_data_to_postgresql_table(df=iris_df,</span>
+<span class="sd">    ...                                 database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                 user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                                 table_name=&quot;iris_test&quot;,</span>
+<span class="sd">    ...                                 )</span>
+<span class="sd">    &gt;&gt;&gt; _ = delete_postgresql_table(database_name=&quot;tracker&quot;,</span>
+<span class="sd">    ...                             user=&quot;tracker&quot;,</span>
+<span class="sd">    ...                             table_name=&quot;iris_test&quot;</span>
+<span class="sd">    ...                             )</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="n">host</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_host&quot;</span><span class="p">),</span>
+            <span class="n">database</span><span class="o">=</span><span class="n">database_name</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+            <span class="n">password</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;postgresql_password&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DROP TABLE iris_test;&quot;</span><span class="p">)</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">_</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> has been deleted from </span><span class="si">{</span><span class="n">database_name</span><span class="si">}</span><span class="s2">&quot;</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+      
+    </p>
+    <p>
+        &copy; Copyright 2022, James Twose.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

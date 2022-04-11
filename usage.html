@@ -10,14 +10,17 @@
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using NLTSA functions from the jmspack package" href="NLTSA.html" />
     <link rel="prev" title="Welcome to jmspack’s documentation!" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -58,10 +61,17 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="#jmspack-internal-utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Example Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NLTSA.html">Using <code class="docutils literal notranslate"><span class="pre">NLTSA</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml_utils.html">Using <code class="docutils literal notranslate"><span class="pre">ml_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internal_utils.html">Using <code class="docutils literal notranslate"><span class="pre">internal_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frequentist_statistics.html">Using <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
 </ul>
 </ul>
 </li>
@@ -76,7 +86,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
-<li><a class="reference internal" href="#jmspack-internal-utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
+<li><a class="reference internal" href="#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
 <li><a class="reference internal" href="#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
 <li><a class="reference internal" href="#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
 <li><a class="reference internal" href="#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
@@ -419,8 +429,214 @@ controlling for all other remaining variables.</p>
 </dd></dl>
 
 </section>
-<section id="jmspack-internal-utils">
-<h1><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code><a class="headerlink" href="#jmspack-internal-utils" title="Permalink to this headline">¶</a></h1>
+<section id="module-jmspack.internal_utils">
+<span id="jmspack-internal-utils"></span><h1><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code><a class="headerlink" href="#module-jmspack.internal_utils" title="Permalink to this headline">¶</a></h1>
+<p>Submodule internal_utils.py includes the following functions:</p>
+<ul class="simple">
+<li><p><strong>postgresql_data_extraction():</strong> importing data from a table of a postgresql database.</p></li>
+<li><p><strong>postgresql_table_names_list():</strong> extract the table names from a specified postgresql database.</p></li>
+<li><p><strong>create_postgresql_table_based_on_df():</strong> create a new table in a specified postgresql database based on the columns of a pandas data frame.</p></li>
+<li><p><strong>add_data_to_postgresql_table():</strong> add new data to an existing table in a specified postgresql database.</p></li>
+<li><p><strong>delete_postgresql_table():</strong> delete a table from a postgresql database.</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.internal_utils.add_data_to_postgresql_table">
+<span class="sig-prename descclassname"><span class="pre">jmspack.internal_utils.</span></span><span class="sig-name descname"><span class="pre">add_data_to_postgresql_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/internal_utils.html#add_data_to_postgresql_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.internal_utils.add_data_to_postgresql_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new data to an existing table in a specified postgresql database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df: pd.DataFrame</strong></dt><dd><p>The pandas dataframe object you wish to use the columns and data types
+to create the table from in postgresql</p>
+</dd>
+<dt><strong>database_name: str</strong></dt><dd><p>The name of the postgresql database.</p>
+</dd>
+<dt><strong>user: str</strong></dt><dd><p>The name of the user.</p>
+</dd>
+<dt><strong>table_name: str</strong></dt><dd><p>A string specifying the name of the newly created table.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.internal_utils</span> <span class="kn">import</span> <span class="n">add_data_to_postgresql_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">create_postgresql_table_based_on_df</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">add_data_to_postgresql_table</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.internal_utils.create_postgresql_table_based_on_df">
+<span class="sig-prename descclassname"><span class="pre">jmspack.internal_utils.</span></span><span class="sig-name descname"><span class="pre">create_postgresql_table_based_on_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/internal_utils.html#create_postgresql_table_based_on_df"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.internal_utils.create_postgresql_table_based_on_df" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new table in a specified postgresql database based on the columns of a pandas data frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>df: pd.DataFrame</strong></dt><dd><p>The pandas dataframe object you wish to use the columns and data types
+to create the table from in postgresql</p>
+</dd>
+<dt><strong>database_name: str</strong></dt><dd><p>The name of the postgresql database.</p>
+</dd>
+<dt><strong>user: str</strong></dt><dd><p>The name of the user.</p>
+</dd>
+<dt><strong>table_name: str</strong></dt><dd><p>A string specifying the name of the newly created table.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.internal_utils</span> <span class="kn">import</span> <span class="n">add_data_to_postgresql_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">create_postgresql_table_based_on_df</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.internal_utils.delete_postgresql_table">
+<span class="sig-prename descclassname"><span class="pre">jmspack.internal_utils.</span></span><span class="sig-name descname"><span class="pre">delete_postgresql_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/internal_utils.html#delete_postgresql_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.internal_utils.delete_postgresql_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a table from a postgresql database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>database_name: str</strong></dt><dd><p>The name of the postgresql database.</p>
+</dd>
+<dt><strong>user: str</strong></dt><dd><p>The name of the user.</p>
+</dd>
+<dt><strong>table_name: str</strong></dt><dd><p>A string specifying the name of the newly created table.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>str</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.internal_utils</span> <span class="kn">import</span> <span class="n">add_data_to_postgresql_table</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris_df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">create_postgresql_table_based_on_df</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                        <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">add_data_to_postgresql_table</span><span class="p">(</span><span class="n">df</span><span class="o">=</span><span class="n">iris_df</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                                <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">delete_postgresql_table</span><span class="p">(</span><span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">user</span><span class="o">=</span><span class="s2">&quot;tracker&quot;</span><span class="p">,</span>
+<span class="gp">... </span>                            <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;iris_test&quot;</span>
+<span class="gp">... </span>                            <span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.internal_utils.postgresql_data_extraction">
+<span class="sig-prename descclassname"><span class="pre">jmspack.internal_utils.</span></span><span class="sig-name descname"><span class="pre">postgresql_data_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'suggested_energy_intake'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tracker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tracker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/internal_utils.html#postgresql_data_extraction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.internal_utils.postgresql_data_extraction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load data from a specified postgresql database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>table_name: str</strong></dt><dd><p>The name of the table to extract from the postgresql database.</p>
+</dd>
+<dt><strong>database_name: str</strong></dt><dd><p>The name of the postgresql database.</p>
+</dd>
+<dt><strong>user: str</strong></dt><dd><p>The name of the user.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>pd.DataFrame</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.internal_utils</span> <span class="kn">import</span> <span class="n">postgresql_data_extraction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">postgresql_data_extraction</span><span class="p">(</span><span class="n">table_name</span> <span class="o">=</span> <span class="s1">&#39;iris_test&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">database_name</span> <span class="o">=</span> <span class="s1">&#39;tracker&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                           <span class="n">user</span><span class="o">=</span><span class="s1">&#39;tracker&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.internal_utils.postgresql_table_names_list">
+<span class="sig-prename descclassname"><span class="pre">jmspack.internal_utils.</span></span><span class="sig-name descname"><span class="pre">postgresql_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tracker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tracker'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/internal_utils.html#postgresql_table_names_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.internal_utils.postgresql_table_names_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the table names from a specified postgresql database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>database_name: str</strong></dt><dd><p>The name of the postgresql database.</p>
+</dd>
+<dt><strong>user: str</strong></dt><dd><p>The name of the user.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>list</dt><dd></dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span><span class="p">,</span> <span class="n">find_dotenv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.internal_utils</span> <span class="kn">import</span> <span class="n">postgresql_table_names_list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Make sure you have a .env file somewhere with your postgresql credentials</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># labelled as postgresql_host=&quot;BLA&quot;, and postgresql_password=&quot;BLA2&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_dotenv</span><span class="p">(</span><span class="n">find_dotenv</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">table_names</span> <span class="o">=</span> <span class="n">postgresql_table_names_list</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 <section id="module-jmspack.ml_utils">
 <span id="jmspack-ml-utils"></span><h1><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code><a class="headerlink" href="#module-jmspack.ml_utils" title="Permalink to this headline">¶</a></h1>

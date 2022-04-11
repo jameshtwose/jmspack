@@ -9,11 +9,13 @@
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -56,10 +58,17 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="usage.html"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#jmspack-internal-utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Example Notebooks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NLTSA.html">Using <code class="docutils literal notranslate"><span class="pre">NLTSA</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ml_utils.html">Using <code class="docutils literal notranslate"><span class="pre">ml_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="internal_utils.html">Using <code class="docutils literal notranslate"><span class="pre">internal_utils</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="frequentist_statistics.html">Using <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package</a></li>
 </ul>
 </ul>
 </li>
@@ -124,6 +133,10 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="usage.html#jmspack.internal_utils.add_data_to_postgresql_table">add_data_to_postgresql_table() (in module jmspack.internal_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.utils.apply_scaling">apply_scaling() (in module jmspack.utils)</a>
 </li>
   </ul></td>
@@ -146,11 +159,13 @@
 </li>
       <li><a href="usage.html#jmspack.frequentist_statistics.correct_pvalues">correct_pvalues() (in module jmspack.frequentist_statistics)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.frequentist_statistics.correlation_analysis">correlation_analysis() (in module jmspack.frequentist_statistics)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.frequentist_statistics.correlations_as_sample_increases">correlations_as_sample_increases() (in module jmspack.frequentist_statistics)</a>
+</li>
+      <li><a href="usage.html#jmspack.internal_utils.create_postgresql_table_based_on_df">create_postgresql_table_based_on_df() (in module jmspack.internal_utils)</a>
 </li>
       <li><a href="usage.html#jmspack.NLTSA.cumulative_complexity_peaks">cumulative_complexity_peaks() (in module jmspack.NLTSA)</a>
 </li>
@@ -164,9 +179,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.utils.JmsColors.DARKBLUE">DARKBLUE (jmspack.utils.JmsColors attribute)</a>
 </li>
+      <li><a href="usage.html#jmspack.utils.JmsColors.DARKGREY">DARKGREY (jmspack.utils.JmsColors attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="usage.html#jmspack.utils.JmsColors.DARKGREY">DARKGREY (jmspack.utils.JmsColors attribute)</a>
+      <li><a href="usage.html#jmspack.internal_utils.delete_postgresql_table">delete_postgresql_table() (in module jmspack.internal_utils)</a>
 </li>
       <li><a href="usage.html#jmspack.NLTSA.distribution_uniformity">distribution_uniformity() (in module jmspack.NLTSA)</a>
 </li>
@@ -212,14 +229,21 @@
 </li>
       </ul></li>
       <li>
+    jmspack.internal_utils
+
+      <ul>
+        <li><a href="usage.html#module-jmspack.internal_utils">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
     jmspack.ml_utils
 
       <ul>
         <li><a href="usage.html#module-jmspack.ml_utils">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     jmspack.NLTSA
 
@@ -255,6 +279,8 @@
 
       <ul>
         <li><a href="usage.html#module-jmspack.frequentist_statistics">jmspack.frequentist_statistics</a>
+</li>
+        <li><a href="usage.html#module-jmspack.internal_utils">jmspack.internal_utils</a>
 </li>
         <li><a href="usage.html#module-jmspack.ml_utils">jmspack.ml_utils</a>
 </li>
@@ -303,13 +329,17 @@
 </li>
       <li><a href="usage.html#jmspack.ml_utils.plot_confusion_matrix">plot_confusion_matrix() (in module jmspack.ml_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.ml_utils.plot_cv_indices">plot_cv_indices() (in module jmspack.ml_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="usage.html#jmspack.ml_utils.plot_decision_boundary">plot_decision_boundary() (in module jmspack.ml_utils)</a>
 </li>
       <li><a href="usage.html#jmspack.ml_utils.plot_learning_curve">plot_learning_curve() (in module jmspack.ml_utils)</a>
+</li>
+      <li><a href="usage.html#jmspack.internal_utils.postgresql_data_extraction">postgresql_data_extraction() (in module jmspack.internal_utils)</a>
+</li>
+      <li><a href="usage.html#jmspack.internal_utils.postgresql_table_names_list">postgresql_table_names_list() (in module jmspack.internal_utils)</a>
 </li>
       <li><a href="usage.html#jmspack.frequentist_statistics.potential_for_change_index">potential_for_change_index() (in module jmspack.frequentist_statistics)</a>
 </li>
