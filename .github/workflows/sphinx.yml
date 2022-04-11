@@ -19,7 +19,7 @@ jobs:
       with:
         docs-folder: "docs/"
         build-command: "sphinx-build -b html docs/source/ docs/build/html"
-        pre-build-command: "sudo apt install pandoc"
+        pre-build-command: "apt-get update -y && apt-get install -y pandoc"
     - name: Upload artifacts
       uses: actions/upload-artifact@v1
       with:
