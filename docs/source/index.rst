@@ -10,11 +10,25 @@ Welcome to jmspack's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-Contents
---------
+Functions
+---------
 
 .. toctree::
    usage
+
+Example Notebooks jmspack Functions
+-----------------------------------
+.. nbgallery::
+   :caption: Example Notebooks
+   :name: notebook-gallery
+   :glob:
+   :reversed:
+
+   frequentist_statistics.ipynb
+   internal_utils.ipynb
+   ml_utils.ipynb
+   NLTSA.ipynb
+
 
 Indices and tables
 ==================
