@@ -10,6 +10,10 @@ Welcome to jmspack's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+.. image:: _static/jmspack_logo.png
+   :width: 200
+   :align: right
+
 Functions
 ---------
 
