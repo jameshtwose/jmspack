@@ -1,5 +1,9 @@
 # jmspack
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/jameshtwose/jmspack/main/docs/source/_static/jmspack_logo.png" alt="drawing" width="150"/>
+</p>
+
 ## Python package of functions that James finds useful
 
 [![codecov](https://img.shields.io/codecov/c/github/jameshtwose/jmspack)](https://app.codecov.io/gh/jameshtwose/jmspack)
