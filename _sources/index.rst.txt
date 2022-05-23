@@ -29,6 +29,7 @@ Example Notebooks jmspack Functions
    :reversed:
 
    frequentist_statistics.ipynb
+   imputation_utils.ipynb
    internal_utils.ipynb
    ml_utils.ipynb
    NLTSA.ipynb
