@@ -46,7 +46,6 @@ packages = find_packages()
 setup(
     name="jmspack",
     version=get_version("jmspack/__init__.py"),
-    # version="1.4.0",
     description="James Data Science package",
     url="https://github.com/jameshtwose/jmspack",
     author="James Twose",
