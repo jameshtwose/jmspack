@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Welcome to jmspack’s documentation! &#8212; jmspack 0.1.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -11,13 +11,13 @@
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nbsphinx-gallery.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/copybutton.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="jmspack.frequentist_statistics" href="usage.html" />
@@ -41,7 +41,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><span><img src="_static/jmspack_logo.png"></span>
+        <a class="navbar-brand" href="#">
           jmspack</a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -121,90 +121,110 @@
     <div class="body col-md-12 content" role="main">
       
   <section id="welcome-to-jmspack-s-documentation">
-<h1>Welcome to jmspack’s documentation!<a class="headerlink" href="#welcome-to-jmspack-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to jmspack’s documentation!<a class="headerlink" href="#welcome-to-jmspack-s-documentation" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <a class="reference internal image-reference" href="_images/jmspack_logo.png"><img alt="_images/jmspack_logo.png" class="align-right" src="_images/jmspack_logo.png" style="width: 200px;" /></a>
 <section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="usage.html"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.correct_pvalues"><code class="docutils literal notranslate"><span class="pre">correct_pvalues()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.correlation_analysis"><code class="docutils literal notranslate"><span class="pre">correlation_analysis()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.correlations_as_sample_increases"><code class="docutils literal notranslate"><span class="pre">correlations_as_sample_increases()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.multiple_univariate_OLSs"><code class="docutils literal notranslate"><span class="pre">multiple_univariate_OLSs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.normal_check"><code class="docutils literal notranslate"><span class="pre">normal_check()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.partial_correlation"><code class="docutils literal notranslate"><span class="pre">partial_correlation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.permute_test"><code class="docutils literal notranslate"><span class="pre">permute_test()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.frequentist_statistics.potential_for_change_index"><code class="docutils literal notranslate"><span class="pre">potential_for_change_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.internal_utils.add_data_to_postgresql_table"><code class="docutils literal notranslate"><span class="pre">add_data_to_postgresql_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.internal_utils.create_postgresql_table_based_on_df"><code class="docutils literal notranslate"><span class="pre">create_postgresql_table_based_on_df()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.internal_utils.delete_postgresql_table"><code class="docutils literal notranslate"><span class="pre">delete_postgresql_table()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.internal_utils.postgresql_data_extraction"><code class="docutils literal notranslate"><span class="pre">postgresql_data_extraction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.internal_utils.postgresql_table_names_list"><code class="docutils literal notranslate"><span class="pre">postgresql_table_names_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.multi_roc_auc_plot"><code class="docutils literal notranslate"><span class="pre">multi_roc_auc_plot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.optimize_model"><code class="docutils literal notranslate"><span class="pre">optimize_model()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.plot_confusion_matrix"><code class="docutils literal notranslate"><span class="pre">plot_confusion_matrix()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.plot_cv_indices"><code class="docutils literal notranslate"><span class="pre">plot_cv_indices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.plot_decision_boundary"><code class="docutils literal notranslate"><span class="pre">plot_decision_boundary()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.plot_learning_curve"><code class="docutils literal notranslate"><span class="pre">plot_learning_curve()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.ml_utils.summary_performance_metrics_classification"><code class="docutils literal notranslate"><span class="pre">summary_performance_metrics_classification()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.NLTSA"><code class="docutils literal notranslate"><span class="pre">jmspack.NLTSA</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.complexity_resonance"><code class="docutils literal notranslate"><span class="pre">complexity_resonance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.complexity_resonance_diagram"><code class="docutils literal notranslate"><span class="pre">complexity_resonance_diagram()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.cumulative_complexity_peaks"><code class="docutils literal notranslate"><span class="pre">cumulative_complexity_peaks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.cumulative_complexity_peaks_plot"><code class="docutils literal notranslate"><span class="pre">cumulative_complexity_peaks_plot()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.distribution_uniformity"><code class="docutils literal notranslate"><span class="pre">distribution_uniformity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.fluctuation_intensity"><code class="docutils literal notranslate"><span class="pre">fluctuation_intensity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.NLTSA.ts_levels"><code class="docutils literal notranslate"><span class="pre">ts_levels()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html#module-jmspack.utils"><code class="docutils literal notranslate"><span class="pre">jmspack.utils</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors"><code class="docutils literal notranslate"><span class="pre">JmsColors</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.BLUEGREEN"><code class="docutils literal notranslate"><span class="pre">JmsColors.BLUEGREEN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.DARKBLUE"><code class="docutils literal notranslate"><span class="pre">JmsColors.DARKBLUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.DARKGREY"><code class="docutils literal notranslate"><span class="pre">JmsColors.DARKGREY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.GREENBLUE"><code class="docutils literal notranslate"><span class="pre">JmsColors.GREENBLUE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.GREENYELLOW"><code class="docutils literal notranslate"><span class="pre">JmsColors.GREENYELLOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.LIGHTGREY"><code class="docutils literal notranslate"><span class="pre">JmsColors.LIGHTGREY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.MEDIUMGREY"><code class="docutils literal notranslate"><span class="pre">JmsColors.MEDIUMGREY</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.OFFWHITE"><code class="docutils literal notranslate"><span class="pre">JmsColors.OFFWHITE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.PURPLE"><code class="docutils literal notranslate"><span class="pre">JmsColors.PURPLE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.YELLOW"><code class="docutils literal notranslate"><span class="pre">JmsColors.YELLOW</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.get_names"><code class="docutils literal notranslate"><span class="pre">JmsColors.get_names()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.plot_colors"><code class="docutils literal notranslate"><span class="pre">JmsColors.plot_colors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.to_dict"><code class="docutils literal notranslate"><span class="pre">JmsColors.to_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="usage.html#jmspack.utils.JmsColors.to_list"><code class="docutils literal notranslate"><span class="pre">JmsColors.to_list()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.utils.apply_scaling"><code class="docutils literal notranslate"><span class="pre">apply_scaling()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.utils.flatten"><code class="docutils literal notranslate"><span class="pre">flatten()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#jmspack.utils.silence_stdout"><code class="docutils literal notranslate"><span class="pre">silence_stdout()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
 <section id="example-notebooks-jmspack-functions">
-<h2>Example Notebooks jmspack Functions<a class="headerlink" href="#example-notebooks-jmspack-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Example Notebooks jmspack Functions<a class="headerlink" href="#example-notebooks-jmspack-functions" title="Permalink to this heading">¶</a></h2>
 <div class="toctree-wrapper compound" id="notebook-gallery">
+<p class="caption" role="heading"><span class="caption-text">Example Notebooks</span></p>
+<div class="nbsphinx-gallery">
+<a class="reference internal" href="NLTSA.html">
+  <div><img alt="" src="./_images/NLTSA_22_0.png"></div>
+  <div>Using NLTSA functions from the jmspack package</div>
+</a>
+<a class="reference internal" href="ml_utils.html">
+  <div><img alt="" src="./_images/ml_utils_28_0.png"></div>
+  <div>Using ml_utils functions from the jmspack package</div>
+</a>
+<a class="reference internal" href="internal_utils.html">
+  <div><img alt="" src="./_static/nbsphinx-no-thumbnail.svg"></div>
+  <div>Using internal_utils functions from the jmspack package</div>
+</a>
+<a class="reference internal" href="imputation_utils.html">
+  <div><img alt="" src="./_images/imputation_utils_19_1.png"></div>
+  <div>Using imputation_utils functions from the jmspack package</div>
+</a>
+<a class="reference internal" href="frequentist_statistics.html">
+  <div><img alt="" src="./_images/frequentist_statistics_29_0.png"></div>
+  <div>Using frequentist_statistics functions from the jmspack package</div>
+</a>
 </div>
-<div class="sphx-glr-thumbcontainer">
-  <div class="figure align-center">
-    <img alt="thumbnail" src="./_static/no_image.png" />
-    <p class="caption">
-      <span class="caption-text">
-        <a class="reference internal" href="NLTSA.html">
-          <span class="std std-ref">Using NLTSA functions from the jmspack package</span>
-        </a>
-      </span>
-    </p>
-  </div>
 </div>
-<div class="sphx-glr-thumbcontainer">
-  <div class="figure align-center">
-    <img alt="thumbnail" src="./_static/no_image.png" />
-    <p class="caption">
-      <span class="caption-text">
-        <a class="reference internal" href="ml_utils.html">
-          <span class="std std-ref">Using ml_utils functions from the jmspack package</span>
-        </a>
-      </span>
-    </p>
-  </div>
-</div>
-<div class="sphx-glr-thumbcontainer">
-  <div class="figure align-center">
-    <img alt="thumbnail" src="./_static/no_image.png" />
-    <p class="caption">
-      <span class="caption-text">
-        <a class="reference internal" href="internal_utils.html">
-          <span class="std std-ref">Using internal_utils functions from the jmspack package</span>
-        </a>
-      </span>
-    </p>
-  </div>
-</div>
-<div class="sphx-glr-thumbcontainer">
-  <div class="figure align-center">
-    <img alt="thumbnail" src="./_static/no_image.png" />
-    <p class="caption">
-      <span class="caption-text">
-        <a class="reference internal" href="imputation_utils.html">
-          <span class="std std-ref">Using imputation_utils functions from the jmspack package</span>
-        </a>
-      </span>
-    </p>
-  </div>
-</div>
-<div class="sphx-glr-thumbcontainer">
-  <div class="figure align-center">
-    <img alt="thumbnail" src="./_static/no_image.png" />
-    <p class="caption">
-      <span class="caption-text">
-        <a class="reference internal" href="frequentist_statistics.html">
-          <span class="std std-ref">Using frequentist_statistics functions from the jmspack package</span>
-        </a>
-      </span>
-    </p>
-  </div>
-</div>
-<div class="sphx-glr-clear"></div></section>
+</section>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
@@ -232,7 +252,7 @@
     </p>
     <p>
         &copy; Copyright 2022, James Twose.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.0.<br/>
     </p>
   </div>
 </footer>

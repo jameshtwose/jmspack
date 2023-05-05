@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
@@ -39,7 +38,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/jmspack_logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           jmspack</a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -142,13 +141,13 @@
 <div class="viewcode-block" id="silence_stdout"><a class="viewcode-back" href="../../usage.html#jmspack.utils.silence_stdout">[docs]</a><span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">silence_stdout</span><span class="p">():</span>
 
-    <span class="sd">&quot;&quot;&quot;tmp</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
+<span class="sd">    tmp:</span>
 <span class="sd">        TODO</span>
-<span class="sd"> </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    TODO</span>
@@ -156,7 +155,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">new_target</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">devnull</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span>
@@ -169,8 +168,8 @@
 
 
 <div class="viewcode-block" id="JmsColors"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors">[docs]</a><span class="k">class</span> <span class="nc">JmsColors</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Utility class for James Twose&#39;s color codes.</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Utility class for James Twose&#39;s color codes.</span>
+
 <span class="sd">    Functions</span>
 <span class="sd">    ---------</span>
 <span class="sd">    - get_names(): returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]</span>
@@ -185,9 +184,9 @@
 <span class="sd">    &gt;&gt;&gt; from jmspack.utils import JmsColors</span>
 <span class="sd">    &gt;&gt;&gt; x = np.linspace(0, 10, 100)</span>
 <span class="sd">    &gt;&gt;&gt; fig = plt.figure()</span>
-<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.sin(x), color=JmsColors.ORANGE)</span>
-<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.cos(x), color=JmsColors.LIGHTBLUE)</span>
-<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.sin(x), color=JmsColors.YELLOW)</span>
+<span class="sd">    &gt;&gt;&gt; _ = plt.plot(x, np.cos(x), color=JmsColors.DARKBLUE)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">PURPLE</span> <span class="o">=</span> <span class="s2">&quot;#8f0fd4&quot;</span>
@@ -207,7 +206,7 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">k</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="p">]</span></div>
 
 <div class="viewcode-block" id="JmsColors.to_dict"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -215,7 +214,7 @@
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="p">}</span></div>
 
 <div class="viewcode-block" id="JmsColors.to_list"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_list">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -223,7 +222,7 @@
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">v</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">JmsColors</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="p">]</span></div>
 
 <div class="viewcode-block" id="JmsColors.plot_colors"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.plot_colors">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -239,7 +238,7 @@
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{},</span>
 <span class="p">):</span>
 
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function to be used in conjunction with pandas pipe()</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function to be used in conjunction with pandas pipe()</span>
 <span class="sd">    to scale columns of a data frame seperately.</span>
 
 <span class="sd">    Parameters</span>
@@ -288,7 +287,7 @@
 
 
 <div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../usage.html#jmspack.utils.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">list_of_lists</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function used to flatten a list of list into a single list.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function used to flatten a list of list into a single list.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -327,7 +326,7 @@
     </p>
     <p>
         &copy; Copyright 2022, James Twose.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.0.<br/>
     </p>
   </div>
 </footer>

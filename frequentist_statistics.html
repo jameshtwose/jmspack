@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Using frequentist_statistics functions from the jmspack package &#8212; jmspack 0.1.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -11,15 +11,15 @@
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/copybutton.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Using imputation_utils functions from the jmspack package" href="imputation_utils.html" />
@@ -43,7 +43,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"><span><img src="_static/jmspack_logo.png"></span>
+        <a class="navbar-brand" href="index.html">
           jmspack</a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -140,258 +140,10 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  
-<style>
-/* CSS for nbsphinx extension */
-
-/* remove conflicting styling from Sphinx themes */
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt *,
-div.nbinput.container div.input_area pre,
-div.nboutput.container div.output_area pre,
-div.nbinput.container div.input_area .highlight,
-div.nboutput.container div.output_area .highlight {
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: none;
-}
-
-div.nbinput.container > div[class*=highlight],
-div.nboutput.container > div[class*=highlight] {
-    margin: 0;
-}
-
-div.nbinput.container div.prompt *,
-div.nboutput.container div.prompt * {
-    background: none;
-}
-
-div.nboutput.container div.output_area .highlight,
-div.nboutput.container div.output_area pre {
-    background: unset;
-}
-
-div.nboutput.container div.output_area div.highlight {
-    color: unset;  /* override Pygments text color */
-}
-
-/* avoid gaps between output lines */
-div.nboutput.container div[class*=highlight] pre {
-    line-height: normal;
-}
-
-/* input/output containers */
-div.nbinput.container,
-div.nboutput.container {
-    display: -webkit-flex;
-    display: flex;
-    align-items: flex-start;
-    margin: 0;
-    width: 100%;
-}
-@media (max-width: 540px) {
-    div.nbinput.container,
-    div.nboutput.container {
-        flex-direction: column;
-    }
-}
-
-/* input container */
-div.nbinput.container {
-    padding-top: 5px;
-}
-
-/* last container */
-div.nblast.container {
-    padding-bottom: 5px;
-}
-
-/* input prompt */
-div.nbinput.container div.prompt pre {
-    color: #307FC1;
-}
-
-/* output prompt */
-div.nboutput.container div.prompt pre {
-    color: #BF5B3D;
-}
-
-/* all prompts */
-div.nbinput.container div.prompt,
-div.nboutput.container div.prompt {
-    width: 4.5ex;
-    padding-top: 5px;
-    position: relative;
-    user-select: none;
-}
-
-div.nbinput.container div.prompt > div,
-div.nboutput.container div.prompt > div {
-    position: absolute;
-    right: 0;
-    margin-right: 0.3ex;
-}
-
-@media (max-width: 540px) {
-    div.nbinput.container div.prompt,
-    div.nboutput.container div.prompt {
-        width: unset;
-        text-align: left;
-        padding: 0.4em;
-    }
-    div.nboutput.container div.prompt.empty {
-        padding: 0;
-    }
-
-    div.nbinput.container div.prompt > div,
-    div.nboutput.container div.prompt > div {
-        position: unset;
-    }
-}
-
-/* disable scrollbars on prompts */
-div.nbinput.container div.prompt pre,
-div.nboutput.container div.prompt pre {
-    overflow: hidden;
-}
-
-/* input/output area */
-div.nbinput.container div.input_area,
-div.nboutput.container div.output_area {
-    -webkit-flex: 1;
-    flex: 1;
-    overflow: auto;
-}
-@media (max-width: 540px) {
-    div.nbinput.container div.input_area,
-    div.nboutput.container div.output_area {
-        width: 100%;
-    }
-}
-
-/* input area */
-div.nbinput.container div.input_area {
-    border: 1px solid #e0e0e0;
-    border-radius: 2px;
-    /*background: #f5f5f5;*/
-}
-
-/* override MathJax center alignment in output cells */
-div.nboutput.container div[class*=MathJax] {
-    text-align: left !important;
-}
-
-/* override sphinx.ext.imgmath center alignment in output cells */
-div.nboutput.container div.math p {
-    text-align: left;
-}
-
-/* standard error */
-div.nboutput.container div.output_area.stderr {
-    background: #fdd;
-}
-
-/* ANSI colors */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-default-inverse-fg { color: #FFFFFF; }
-.ansi-default-inverse-bg { background-color: #000000; }
-
-.ansi-bold { font-weight: bold; }
-.ansi-underline { text-decoration: underline; }
-
-
-div.nbinput.container div.input_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight] > pre,
-div.nboutput.container div.output_area div[class*=highlight].math,
-div.nboutput.container div.output_area.rendered_html,
-div.nboutput.container div.output_area > div.output_javascript,
-div.nboutput.container div.output_area:not(.rendered_html) > img{
-    padding: 5px;
-    margin: 0;
-}
-
-/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
-div.nbinput.container div.input_area > div[class^='highlight'],
-div.nboutput.container div.output_area > div[class^='highlight']{
-    overflow-y: hidden;
-}
-
-/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt .copybtn {
-    display: none;
-}
-
-/* Some additional styling taken form the Jupyter notebook CSS */
-div.rendered_html table {
-  border: none;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: black;
-  font-size: 12px;
-  table-layout: fixed;
-}
-div.rendered_html thead {
-  border-bottom: 1px solid black;
-  vertical-align: bottom;
-}
-div.rendered_html tr,
-div.rendered_html th,
-div.rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
-div.rendered_html th {
-  font-weight: bold;
-}
-div.rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.rendered_html tbody tr:hover {
-  background: rgba(66, 165, 245, 0.2);
-}
-</style>
-<section id="Using-frequentist_statistics-functions-from-the-jmspack-package">
-<h1>Using <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package<a class="headerlink" href="#Using-frequentist_statistics-functions-from-the-jmspack-package" title="Permalink to this headline">¶</a></h1>
+  <section id="Using-frequentist_statistics-functions-from-the-jmspack-package">
+<h1>Using <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions from the <code class="docutils literal notranslate"><span class="pre">jmspack</span></code> package<a class="headerlink" href="#Using-frequentist_statistics-functions-from-the-jmspack-package" title="Permalink to this heading">¶</a></h1>
 <section id="Showing-the-usage-of-the-following-frequentist_statistics-functions">
-<h2>Showing the usage of the following <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions<a class="headerlink" href="#Showing-the-usage-of-the-following-frequentist_statistics-functions" title="Permalink to this headline">¶</a></h2>
+<h2>Showing the usage of the following <code class="docutils literal notranslate"><span class="pre">frequentist_statistics</span></code> functions<a class="headerlink" href="#Showing-the-usage-of-the-following-frequentist_statistics-functions" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>normal_check()</p></li>
 <li><p>correlation_analysis()</p></li>
@@ -457,9 +209,9 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="normal_check()">
-<h2>normal_check()<a class="headerlink" href="#normal_check()" title="Permalink to this headline">¶</a></h2>
+<h2>normal_check()<a class="headerlink" href="#normal_check()" title="Permalink to this heading">¶</a></h2>
 <section id="compare-the-distribution-of-numeric-variables-to-a-normal-distribution-using-the-Kolmogrov-Smirnov-test">
-<h3>compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test<a class="headerlink" href="#compare-the-distribution-of-numeric-variables-to-a-normal-distribution-using-the-Kolmogrov-Smirnov-test" title="Permalink to this headline">¶</a></h3>
+<h3>compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test<a class="headerlink" href="#compare-the-distribution-of-numeric-variables-to-a-normal-distribution-using-the-Kolmogrov-Smirnov-test" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
@@ -528,9 +280,9 @@ div.rendered_html tbody tr:hover {
 </section>
 </section>
 <section id="correlation_analysis()">
-<h2>correlation_analysis()<a class="headerlink" href="#correlation_analysis()" title="Permalink to this headline">¶</a></h2>
+<h2>correlation_analysis()<a class="headerlink" href="#correlation_analysis()" title="Permalink to this heading">¶</a></h2>
 <section id="Run-correlations-for-numerical-features-and-return-output-in-different-formats">
-<h3>Run correlations for numerical features and return output in different formats<a class="headerlink" href="#Run-correlations-for-numerical-features-and-return-output-in-different-formats" title="Permalink to this headline">¶</a></h3>
+<h3>Run correlations for numerical features and return output in different formats<a class="headerlink" href="#Run-correlations-for-numerical-features-and-return-output-in-different-formats" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -670,9 +422,9 @@ div.rendered_html tbody tr:hover {
 </section>
 </section>
 <section id="correlations_as_sample_increases()">
-<h2>correlations_as_sample_increases()<a class="headerlink" href="#correlations_as_sample_increases()" title="Permalink to this headline">¶</a></h2>
+<h2>correlations_as_sample_increases()<a class="headerlink" href="#correlations_as_sample_increases()" title="Permalink to this heading">¶</a></h2>
 <section id="Run-correlations-for-subparts-of-the-data-to-check-robustness">
-<h3>Run correlations for subparts of the data to check robustness<a class="headerlink" href="#Run-correlations-for-subparts-of-the-data-to-check-robustness" title="Permalink to this headline">¶</a></h3>
+<h3>Run correlations for subparts of the data to check robustness<a class="headerlink" href="#Run-correlations-for-subparts-of-the-data-to-check-robustness" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -711,9 +463,9 @@ findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu S
 </section>
 </section>
 <section id="multiple_univariate_OLSs()">
-<h2>multiple_univariate_OLSs()<a class="headerlink" href="#multiple_univariate_OLSs()" title="Permalink to this headline">¶</a></h2>
+<h2>multiple_univariate_OLSs()<a class="headerlink" href="#multiple_univariate_OLSs()" title="Permalink to this heading">¶</a></h2>
 <section id="Tmp">
-<h3>Tmp<a class="headerlink" href="#Tmp" title="Permalink to this headline">¶</a></h3>
+<h3>Tmp<a class="headerlink" href="#Tmp" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
@@ -858,9 +610,9 @@ findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu S
 </section>
 </section>
 <section id="potential_for_change_index()">
-<h2>potential_for_change_index()<a class="headerlink" href="#potential_for_change_index()" title="Permalink to this headline">¶</a></h2>
+<h2>potential_for_change_index()<a class="headerlink" href="#potential_for_change_index()" title="Permalink to this heading">¶</a></h2>
 <section id="Calculate-the-potential-for-change-index-based-on-either-variants-of-the-r-squared-(from-linear-regression)-or-the-r-value-(pearson-correlation)">
-<h3>Calculate the potential for change index based on either variants of the r-squared (from linear regression) or the r-value (pearson correlation)<a class="headerlink" href="#Calculate-the-potential-for-change-index-based-on-either-variants-of-the-r-squared-(from-linear-regression)-or-the-r-value-(pearson-correlation)" title="Permalink to this headline">¶</a></h3>
+<h3>Calculate the potential for change index based on either variants of the r-squared (from linear regression) or the r-value (pearson correlation)<a class="headerlink" href="#Calculate-the-potential-for-change-index-based-on-either-variants-of-the-r-squared-(from-linear-regression)-or-the-r-value-(pearson-correlation)" title="Permalink to this heading">¶</a></h3>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
@@ -1289,7 +1041,7 @@ findfont: Font family [&#39;sans-serif&#39;] not found. Falling back to DejaVu S
     </p>
     <p>
         &copy; Copyright 2022, James Twose.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.0.<br/>
     </p>
   </div>
 </footer>

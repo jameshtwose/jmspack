@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +11,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/copybutton.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
 <meta charset='utf-8'>
@@ -39,7 +38,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../../index.html"><span><img src="../../_static/jmspack_logo.png"></span>
+        <a class="navbar-brand" href="../../index.html">
           jmspack</a>
         <span class="navbar-text navbar-version pull-left"><b></b></span>
       </div>
@@ -147,26 +146,26 @@
 
 
 <div class="viewcode-block" id="normal_check"><a class="viewcode-back" href="../../usage.html#jmspack.frequentist_statistics.normal_check">[docs]</a><span class="k">def</span> <span class="nf">normal_check</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test</span>
 <span class="sd">    Wrapper for `scipy.stats.kstest`: the empircal data is compared to a normally distributed variable with the</span>
 <span class="sd">    same mean and standard deviation. A significant result (p &lt; 0.05) in the goodness of fit test means that the</span>
 <span class="sd">    data is not normally distributed.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data: pd.DataFrame</span>
 <span class="sd">        Dataframe including the columns of interest</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    df_normality_check: pd.DataFrame</span>
 <span class="sd">        Dataframe with column names, p-values and an indication of normality</span>
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; tips = sns.load_dataset(&quot;tips&quot;)</span>
 <span class="sd">    &gt;&gt;&gt; df_normality_check = normal_check(tips)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Select numeric columns only</span>
     <span class="n">num_features</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -187,8 +186,8 @@
 
 
 <div class="viewcode-block" id="permute_test"><a class="viewcode-back" href="../../usage.html#jmspack.frequentist_statistics.permute_test">[docs]</a><span class="k">def</span> <span class="nf">permute_test</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Helper function to run tests for permutations</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Helper function to run tests for permutations</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    a : np.array</span>
@@ -199,12 +198,12 @@
 <span class="sd">    **kwargs:</span>
 <span class="sd">        Additional keywords to be added to `test`</span>
 <span class="sd">        - `a2` for the second feature if test_type = &#39;correlation&#39;</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    float:</span>
 <span class="sd">        p value for permutation</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">test_type</span> <span class="o">==</span> <span class="s2">&quot;correlation&quot;</span><span class="p">:</span>
         <span class="n">a2</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;a2&quot;</span><span class="p">]</span>
@@ -225,10 +224,10 @@
     <span class="n">n_permutations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
     <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Run correlations for numerical features and return output in different formats</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run correlations for numerical features and return output in different formats</span>
 <span class="sd">    Different methods to compute correlations and to handle missing values are implemented.</span>
 <span class="sd">    Inspired by `researchpy.corr_case` and `researchpy.corr_pair`.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : pd.DataFrame</span>
@@ -260,7 +259,7 @@
 <span class="sd">        Whether to plot the results of the permutation test</span>
 <span class="sd">    figsize: tuple (default: (11.7, 8.27))</span>
 <span class="sd">        Width and height of the figure in inches</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    result_dict: dict</span>
@@ -281,7 +280,7 @@
 <span class="sd">            the p-value, the number of observations for each combination of columns in `data` and whether the r-value is</span>
 <span class="sd">            statistically significant.</span>
 <span class="sd">    plotted_permuations: Figure</span>
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from jmspack.frequentist_statistics import correlation_analysis</span>
@@ -290,12 +289,12 @@
 <span class="sd">    &gt;&gt;&gt; dict_results = correlation_analysis(iris, method=&#39;pearson&#39;, dropna=&#39;listwise&#39;, permutation_test=True,</span>
 <span class="sd">    ...                                        n_permutations=100, check_norm=True)</span>
 <span class="sd">    &gt;&gt;&gt; dict_results[&#39;summary&#39;]</span>
-<span class="sd">    </span>
+
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
 <span class="sd">    Bryant, C (2018). researchpy&#39;s documentation [Revision 9ae5ed63]. Retrieved from</span>
 <span class="sd">    https://researchpy.readthedocs.io/en/latest/</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Settings test</span>
@@ -334,18 +333,28 @@
     <span class="k">if</span> <span class="n">dropna</span> <span class="o">==</span> <span class="s2">&quot;listwise&quot;</span><span class="p">:</span>
         <span class="c1"># Remove rows with missing values</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">how</span><span class="o">=</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> correlation test using </span><span class="si">{</span><span class="n">dropna</span><span class="si">}</span><span class="s2"> deletion&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Total observations used = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">},</span>
-            <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">info</span><span class="p">,</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> correlation test using </span><span class="si">{</span><span class="n">dropna</span><span class="si">}</span><span class="s2"> deletion&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Total observations used = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">},</span>
+                    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">]</span>
         <span class="p">)</span>
     <span class="k">elif</span> <span class="n">dropna</span> <span class="o">==</span> <span class="s2">&quot;pairwise&quot;</span><span class="p">:</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-            <span class="p">{</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> correlation test using </span><span class="si">{</span><span class="n">dropna</span><span class="si">}</span><span class="s2"> deletion&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Observations in the data = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="p">},</span>
-            <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">info</span><span class="p">,</span>
+                <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">test_name</span><span class="si">}</span><span class="s2"> correlation test using </span><span class="si">{</span><span class="n">dropna</span><span class="si">}</span><span class="s2"> deletion&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Observations in the data = </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">},</span>
+                    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="p">),</span>
+            <span class="p">]</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;dropna not in {&#39;listwise&#39;, &#39;pairwise&#39;}&quot;</span><span class="p">)</span>
@@ -458,9 +467,9 @@
     <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
     <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot changes in r-value and p-value from correlation between two features when sample size increases.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Plot changes in r-value and p-value from correlation between two features when sample size increases.</span>
 <span class="sd">    Different methods to compute correlations are implemented. Data is shuffled first, to prevent any order effects.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : pd.DataFrame</span>
@@ -490,7 +499,7 @@
 <span class="sd">        followed by the addition (e.g. to describe a dataset).</span>
 <span class="sd">    alpha: float (default: 0.05)</span>
 <span class="sd">        Threshold for p-value that should be shown in the plot</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    cor_results: pd.DataFrame</span>
@@ -498,7 +507,7 @@
 <span class="sd">    fig: Figure</span>
 <span class="sd">        Figure will be returned if plot=True, otherwise None. This allows you to change properties of the figure</span>
 <span class="sd">        afterwards, e.g. fig.axes[0].set_title(&#39;This is my new title&#39;)</span>
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
@@ -506,7 +515,7 @@
 <span class="sd">    &gt;&gt;&gt; iris = sns.load_dataset(&#39;iris&#39;)</span>
 <span class="sd">    &gt;&gt;&gt; summary,  fig = correlations_as_sample_increases(data=iris,feature1=&#39;petal_width&#39;,feature2=&#39;sepal_length&#39;,</span>
 <span class="sd">    ... starting_N=20)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
@@ -582,14 +591,13 @@
     <span class="n">y</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span>
     <span class="n">features_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
 <span class="p">):</span>
-
-    <span class="sd">&quot;&quot;&quot;tmp</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
+<span class="sd">    tmp:</span>
 <span class="sd">        TODO</span>
-<span class="sd"> </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    TODO</span>
@@ -597,9 +605,9 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="n">all_coefs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features_list</span><span class="p">:</span>
         <span class="n">mod</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">endog</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">exog</span><span class="o">=</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="n">feature</span><span class="p">]]))</span>
@@ -626,13 +634,13 @@
     <span class="n">pci_heatmap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">pci_heatmap_figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">),</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;tmp</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
+<span class="sd">    tmp:</span>
 <span class="sd">        TODO</span>
-<span class="sd"> </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    TODO</span>
@@ -640,7 +648,7 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">scale_data</span><span class="p">:</span>
@@ -671,7 +679,6 @@
         <span class="n">negative_list</span> <span class="o">=</span> <span class="n">weight_df</span><span class="p">[</span><span class="n">weight_df</span><span class="p">[</span><span class="s2">&quot;r-value&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">negative_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-
         <span class="n">pci_df</span> <span class="o">=</span> <span class="p">(</span>
             <span class="c1"># room for improvement calculation (series)</span>
             <span class="p">(</span>
@@ -745,8 +752,8 @@
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="p">):</span>
-    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`</span>
-<span class="sd">    </span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    pvals: array-like</span>
@@ -764,7 +771,7 @@
 <span class="sd">        labels for the uncorrected pvalues</span>
 <span class="sd">    figsize: tuple</span>
 <span class="sd">        size for the Figure</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    reject: numpy.array, bool</span>
@@ -773,7 +780,7 @@
 <span class="sd">        p-values corrected for multiple tests</span>
 <span class="sd">    pvalues_plot: matplotlib.figure.Figure (optional)</span>
 <span class="sd">        Figure if plot == True, else None</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pvals</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
@@ -886,20 +893,20 @@
 
 
 <div class="viewcode-block" id="partial_correlation"><a class="viewcode-back" href="../../usage.html#jmspack.frequentist_statistics.partial_correlation">[docs]</a><span class="k">def</span> <span class="nf">partial_correlation</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the sample linear partial correlation coefficients between pairs of variables,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the sample linear partial correlation coefficients between pairs of variables,</span>
 <span class="sd">    controlling for all other remaining variables</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df : array-like, shape (n, p)</span>
 <span class="sd">        Array with the different variables. Each column is taken as a variable.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    P : array-like, shape (p, p)</span>
 <span class="sd">        P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]</span>
 <span class="sd">        controlling for all other remaining variables.</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">partial_corr_matrix_rvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">partial_corr_matrix_pvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
@@ -951,7 +958,7 @@
     </p>
     <p>
         &copy; Copyright 2022, James Twose.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.0.0.<br/>
     </p>
   </div>
 </footer>
