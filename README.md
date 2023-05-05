@@ -28,3 +28,12 @@ The package can be installed via [pip](https://pypi.org/project/jmspack/) using 
 [![PyPI version](https://badge.fury.io/py/jmspack.svg)](https://badge.fury.io/py/jmspack)
 [![PyPI download month](https://img.shields.io/pypi/dm/jmspack.svg)](https://pypi.python.org/pypi/jmspack/)
 
+### Installation from github
+- Clone the repository
+- `git clone git@github.com:jameshtwose/jmspack.git`
+- Create a virtual environment
+- `python3 -m venv venv`
+- Activate the virtual environment
+- `source venv/bin/activate`
+- Install the requirements
+- `pip install -r requirements.txt`

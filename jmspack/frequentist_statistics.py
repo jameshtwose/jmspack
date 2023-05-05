@@ -38,22 +38,22 @@ def normal_check(data: pd.DataFrame) -> pd.DataFrame:
     Wrapper for `scipy.stats.kstest`: the empircal data is compared to a normally distributed variable with the
     same mean and standard deviation. A significant result (p < 0.05) in the goodness of fit test means that the
     data is not normally distributed.
-    
+
     Parameters
     ----------
     data: pd.DataFrame
         Dataframe including the columns of interest
-    
+
     Returns
     -------
     df_normality_check: pd.DataFrame
         Dataframe with column names, p-values and an indication of normality
-    
+
     Examples
     --------
     >>> tips = sns.load_dataset("tips")
     >>> df_normality_check = normal_check(tips)
-    
+
     """
     # Select numeric columns only
     num_features = data.select_dtypes(include="number").columns.tolist()
@@ -75,7 +75,7 @@ def normal_check(data: pd.DataFrame) -> pd.DataFrame:
 
 def permute_test(a, test_type, test, **kwargs):
     r"""Helper function to run tests for permutations
-    
+
     Parameters
     ----------
     a : np.array
@@ -86,12 +86,12 @@ def permute_test(a, test_type, test, **kwargs):
     **kwargs:
         Additional keywords to be added to `test`
         - `a2` for the second feature if test_type = 'correlation'
-    
+
     Returns
     -------
     float:
         p value for permutation
-    
+
     """
     if test_type == "correlation":
         a2 = kwargs["a2"]
@@ -115,7 +115,7 @@ def correlation_analysis(
     """Run correlations for numerical features and return output in different formats
     Different methods to compute correlations and to handle missing values are implemented.
     Inspired by `researchpy.corr_case` and `researchpy.corr_pair`.
-    
+
     Parameters
     ----------
     data : pd.DataFrame
@@ -147,7 +147,7 @@ def correlation_analysis(
         Whether to plot the results of the permutation test
     figsize: tuple (default: (11.7, 8.27))
         Width and height of the figure in inches
-    
+
     Returns
     -------
     result_dict: dict
@@ -168,7 +168,7 @@ def correlation_analysis(
             the p-value, the number of observations for each combination of columns in `data` and whether the r-value is
             statistically significant.
     plotted_permuations: Figure
-    
+
     Examples
     --------
     >>> from jmspack.frequentist_statistics import correlation_analysis
@@ -177,12 +177,12 @@ def correlation_analysis(
     >>> dict_results = correlation_analysis(iris, method='pearson', dropna='listwise', permutation_test=True,
     ...                                        n_permutations=100, check_norm=True)
     >>> dict_results['summary']
-    
+
     References
     ----------
     Bryant, C (2018). researchpy's documentation [Revision 9ae5ed63]. Retrieved from
     https://researchpy.readthedocs.io/en/latest/
-    
+
     """
 
     # Settings test
@@ -221,18 +221,28 @@ def correlation_analysis(
     if dropna == "listwise":
         # Remove rows with missing values
         data = data.dropna(how="any", axis="index")
-        info = info.append(
-            {
-                f"{test_name} correlation test using {dropna} deletion": f"Total observations used = {len(data)}"
-            },
-            ignore_index=True,
+        info = pd.concat(
+            [
+                info,
+                pd.DataFrame(
+                    {
+                        f"{test_name} correlation test using {dropna} deletion": f"Total observations used = {len(data)}"
+                    },
+                    index=[0],
+                ),
+            ]
         )
     elif dropna == "pairwise":
-        info = info.append(
-            {
-                f"{test_name} correlation test using {dropna} deletion": f"Observations in the data = {len(data)}"
-            },
-            ignore_index=True,
+        info = pd.concat(
+            [
+                info,
+                pd.DataFrame(
+                    {
+                        f"{test_name} correlation test using {dropna} deletion": f"Observations in the data = {len(data)}"
+                    },
+                    index=[0],
+                ),
+            ]
         )
     else:
         raise ValueError("dropna not in {'listwise', 'pairwise'}")
@@ -347,7 +357,7 @@ def correlations_as_sample_increases(
 ):
     r"""Plot changes in r-value and p-value from correlation between two features when sample size increases.
     Different methods to compute correlations are implemented. Data is shuffled first, to prevent any order effects.
-    
+
     Parameters
     ----------
     data : pd.DataFrame
@@ -377,7 +387,7 @@ def correlations_as_sample_increases(
         followed by the addition (e.g. to describe a dataset).
     alpha: float (default: 0.05)
         Threshold for p-value that should be shown in the plot
-    
+
     Returns
     -------
     cor_results: pd.DataFrame
@@ -385,7 +395,7 @@ def correlations_as_sample_increases(
     fig: Figure
         Figure will be returned if plot=True, otherwise None. This allows you to change properties of the figure
         afterwards, e.g. fig.axes[0].set_title('This is my new title')
-    
+
     Examples
     --------
     >>> import seaborn as sns
@@ -393,7 +403,7 @@ def correlations_as_sample_increases(
     >>> iris = sns.load_dataset('iris')
     >>> summary,  fig = correlations_as_sample_increases(data=iris,feature1='petal_width',feature2='sepal_length',
     ... starting_N=20)
-    
+
     """
 
     data = (
@@ -469,14 +479,13 @@ def multiple_univariate_OLSs(
     y: pd.Series,
     features_list: list,
 ):
-
     """tmp
 
     Parameters
     ----------
-    tmp: 
+    tmp:
         TODO
- 
+
     Returns
     -------
     TODO
@@ -484,9 +493,9 @@ def multiple_univariate_OLSs(
     Examples
     --------
     >>> #TODO
-    
+
     """
-    
+
     all_coefs_df = pd.DataFrame()
     for feature in features_list:
         mod = sm.OLS(endog=y, exog=sm.add_constant(X[[feature]]))
@@ -517,9 +526,9 @@ def potential_for_change_index(
 
     Parameters
     ----------
-    tmp: 
+    tmp:
         TODO
- 
+
     Returns
     -------
     TODO
@@ -527,7 +536,7 @@ def potential_for_change_index(
     Examples
     --------
     >>> #TODO
-    
+
     """
 
     if scale_data:
@@ -558,7 +567,6 @@ def potential_for_change_index(
         negative_list = weight_df[weight_df["r-value"] < 0].index.tolist()
 
     if len(negative_list) < 0:
-
         pci_df = (
             # room for improvement calculation (series)
             (
@@ -633,7 +641,7 @@ def correct_pvalues(
     figsize: tuple = (10, 5),
 ):
     r"""Correct an array-like with pvalues using `method`, wrapper for `statsmodels.stats.multitest.multipletests`
-    
+
     Parameters
     ----------
     pvals: array-like
@@ -651,7 +659,7 @@ def correct_pvalues(
         labels for the uncorrected pvalues
     figsize: tuple
         size for the Figure
-    
+
     Returns
     -------
     reject: numpy.array, bool
@@ -660,7 +668,7 @@ def correct_pvalues(
         p-values corrected for multiple tests
     pvalues_plot: matplotlib.figure.Figure (optional)
         Figure if plot == True, else None
-    
+
     """
 
     if isinstance(pvals, pd.Series):
@@ -775,18 +783,18 @@ def correct_pvalues(
 def partial_correlation(df: pd.DataFrame):
     """Returns the sample linear partial correlation coefficients between pairs of variables,
     controlling for all other remaining variables
-    
+
     Parameters
     ----------
     df : array-like, shape (n, p)
         Array with the different variables. Each column is taken as a variable.
-    
+
     Returns
     -------
     P : array-like, shape (p, p)
         P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
         controlling for all other remaining variables.
-    
+
     """
     partial_corr_matrix_rvals = np.zeros((df.shape[1], df.shape[1]))
     partial_corr_matrix_pvals = np.zeros((df.shape[1], df.shape[1]))

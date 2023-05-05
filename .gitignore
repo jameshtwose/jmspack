@@ -66,3 +66,4 @@ data/
 # config file
 .config
 .Rproj.user
+scratch*

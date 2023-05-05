@@ -33,9 +33,9 @@ def silence_stdout():
 
     Parameters
     ----------
-    tmp: 
+    tmp:
         TODO
- 
+
     Returns
     -------
     TODO
@@ -43,7 +43,7 @@ def silence_stdout():
     Examples
     --------
     >>> #TODO
-    
+
     """
 
     new_target = open(os.devnull, "w")
@@ -57,7 +57,7 @@ def silence_stdout():
 
 class JmsColors:
     """Utility class for James Twose's color codes.
-    
+
     Functions
     ---------
     - get_names(): returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]
@@ -72,9 +72,9 @@ class JmsColors:
     >>> from jmspack.utils import JmsColors
     >>> x = np.linspace(0, 10, 100)
     >>> fig = plt.figure()
-    >>> _ = plt.plot(x, np.sin(x), color=JmsColors.ORANGE)
-    >>> _ = plt.plot(x, np.cos(x), color=JmsColors.LIGHTBLUE)
-    
+    >>> _ = plt.plot(x, np.sin(x), color=JmsColors.YELLOW)
+    >>> _ = plt.plot(x, np.cos(x), color=JmsColors.DARKBLUE)
+
     """
 
     PURPLE = "#8f0fd4"
