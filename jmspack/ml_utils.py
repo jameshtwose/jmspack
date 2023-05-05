@@ -16,6 +16,8 @@ r"""Submodule ml_utils.py includes the following functions:
 
 - summary_performance_metrics_classification(): A utility to return a selection of regularly used classification performance metrics.
 
+- RMSE(): Root Mean Squared Error.
+
 """
 import warnings
 from typing import Union
@@ -38,6 +40,7 @@ from sklearn.feature_selection import RFE
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import learning_curve
 from sklearn.model_selection import train_test_split
@@ -61,7 +64,7 @@ def plot_decision_boundary(
     figsize: tuple = (11.7, 8.27),
 ):
     """Generate a simple plot of the decision boundary of a classifier.
-    
+
     Parameters
     ----------
     X : array-like, shape (n_samples, n_features)
@@ -79,14 +82,14 @@ def plot_decision_boundary(
         Legend title for the plot.
     figsize: tuple (default: (11.7, 8.27))
         Width and height of the figure in inches
-    
+
     Returns
     -------
     boundaries: Figure
         Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim
     ax: Axes
         The axes associated with the boundaries Figure.
-    
+
     Examples
     --------
     >>> import seaborn as sns
@@ -151,7 +154,7 @@ def plot_decision_boundary(
     boundaries, ax = plt.subplots(figsize=figsize)
     _ = ax.contour(xx, yy, Z, cmap=cmap_bold)
     _ = ax.scatter(
-        xx, yy, s=(Z_max ** 2 / h), c=Z, cmap=cmap_bold, alpha=1, edgecolors="none"
+        xx, yy, s=(Z_max**2 / h), c=Z, cmap=cmap_bold, alpha=1, edgecolors="none"
     )
 
     # Plot also the training points
@@ -176,10 +179,10 @@ def plot_decision_boundary(
     )
 
     # Add legend sizes
-    l1 = plt.scatter([], [], c="black", s=0.4 ** 2 / h, edgecolors="none")
-    l2 = plt.scatter([], [], c="black", s=0.6 ** 2 / h, edgecolors="none")
-    l3 = plt.scatter([], [], c="black", s=0.8 ** 2 / h, edgecolors="none")
-    l4 = plt.scatter([], [], c="black", s=1 ** 2 / h, edgecolors="none")
+    l1 = plt.scatter([], [], c="black", s=0.4**2 / h, edgecolors="none")
+    l2 = plt.scatter([], [], c="black", s=0.6**2 / h, edgecolors="none")
+    l3 = plt.scatter([], [], c="black", s=0.8**2 / h, edgecolors="none")
+    l4 = plt.scatter([], [], c="black", s=1**2 / h, edgecolors="none")
 
     labels = ["0.4", "0.6", "0.8", "1"]
     _ = plt.legend(
@@ -201,20 +204,45 @@ def plot_decision_boundary(
 
 def plot_cv_indices(cv, X, y, group, n_splits, lw=10, figsize=(6, 3)):
     """Create an example plot for indices of a cross-validation object.
-    
+
     Parameters
     ----------
-    tmp: 
-        TODO
- 
+    cv : cross-validation generator
+        A scikit-learn cross-validation object with a split method.
+    X : array-like
+        Training vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like
+        Target relative to X for classification or regression.
+    group : array-like
+        Group relative to X for classification or regression.
+    n_splits : int
+        Number of splits in the cross-validation object.
+    lw : int
+        Line width for the plots.
+    figsize : tuple
+        Width and height of the figure in inches
+
     Returns
     -------
-    TODO
+    fig: matplotlib.figure.Figure
+        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim
+    ax: matplotlib.axes._subplots.AxesSubplot
+        The axes associated with the fig Figure.
 
     Examples
     --------
-    >>> #TODO
-    
+    >>> import numpy as np
+    >>> from sklearn.model_selection import GroupKFold
+    >>> import matplotlib.pyplot as plt
+    >>> from jmspack.ml_utils import plot_cv_indices
+    >>> X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])
+    >>> y = np.array([1, 2, 1, 2])
+    >>> groups = np.array([0, 0, 2, 2])
+    >>> group_kfold = GroupKFold(n_splits=2)
+    >>> _ = plot_cv_indices(cv=group_kfold, X=X, y=y, group=groups, n_splits=2, lw=10, figsize=(6, 3))
+    >>> _ = plt.show()
+
     """
 
     # set plotting options
@@ -291,7 +319,7 @@ def plot_learning_curve(
     figsize: tuple = (10, 5),
 ):
     """Generate a simple plot of the test and training learning curve.
-    
+
     Parameters
     ----------
     estimator : object type that implements the "fit" and "predict" methods
@@ -339,9 +367,9 @@ def plot_learning_curve(
         Note that for classification the number of samples usually have to
         be big enough to contain at least one sample from each class.
         (default: np.linspace(0.1, 1.0, 5))
-    
+
     """
-    
+
     fig, ax = plt.subplots(figsize=figsize)
     _ = plt.title(title)
     if ylim is not None:
@@ -454,21 +482,40 @@ def multi_roc_auc_plot(
     figsize: tuple = (7, 7),
 ):
 
-    """tmp
+    """Plot the ROC curves of multiple classifiers.
 
     Parameters
     ----------
-    tmp: 
-        TODO
- 
+    X : array-like, shape (n_samples, n_features)
+        Classifier vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples)
+        Target relative to X for classification. Datatype should be integers.
+    models : list
+        A list of dictionaries containing the model and the label to be used in the plot.
+    figsize: tuple (default: (7, 7))
+        Width and height of the figure in inches
+
     Returns
     -------
-    TODO
+    fig: matplotlib.figure.Figure
+        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim
+    ax: matplotlib.axes._subplots.AxesSubplot
+        The axes associated with the fig Figure.
 
     Examples
     --------
-    >>> #TODO
-    
+    >>> import seaborn as sns
+    >>> from jmspack.ml_utils import multi_roc_auc_plot, dict_of_models
+    >>> data = (
+    ...     sns.load_dataset("iris")
+    ...     .loc[lambda df: df["species"].isin(["setosa", "virginica"])]
+    ...     .replace({"virginica": 0, "setosa": 1})
+    ... )
+    >>> y = data["species"]
+    >>> X = data[["sepal_length", "sepal_width"]]
+    >>> _ = multi_roc_auc_plot(X=X, y=y, models=dict_of_models, figsize=(7, 7))
+
     """
 
     # scale the data and create training and test sets of the data
@@ -511,34 +558,73 @@ def optimize_model(
     grid_params_dict: dict = {
         "max_depth": [1, 2, 3, 4, 5, 10],
         "n_estimators": [10, 20, 30, 40, 50],
-        "max_features": ["log2", "auto", "sqrt"],
+        "max_features": ["log2", "sqrt"],
         "criterion": ["gini", "entropy"],
     },
     gridsearch_kwargs: dict = {"scoring": "roc_auc", "cv": 3, "n_jobs": -2},
     rfe_kwargs: dict = {"n_features_to_select": 2, "verbose": 1},
 ):
-    
-    """tmp
+
+    """A utility to run gridsearch and Recursive Feature Elimination on a classifier to return a model with the best parameters.
 
     Parameters
     ----------
-    tmp: 
-        TODO
- 
+    X : array-like, shape (n_samples, n_features)
+        Classifier vector, where n_samples is the number of samples and
+        n_features is the number of features.
+    y : array-like, shape (n_samples)
+        Target relative to X for classification. Datatype should be integers.
+    estimator : object type that implements the "fit" and "predict" methods
+        An object of that type which is cloned for each validation.
+    grid_params_dict : dict
+        A dictionary of parameters to be used in the gridsearch.
+    gridsearch_kwargs : dict
+        A dictionary of parameters to be used in the gridsearch.
+    rfe_kwargs : dict
+        A dictionary of parameters to be used in the Recursive Feature Elimination.
+
     Returns
     -------
-    TODO
+    optimized_estimator: sklearn estimator
+        The optimized estimator.
+    feature_ranking: pandas DataFrame
+        A dataframe with features ranking (high = dropped early on).
+    feature_selected: list
+        A list of features selected.
+    feature_importance: pandas DataFrame
+        A dataframe with importances per feature.
+    optimal_parameters: pandas DataFrame
+        A dataframe with the optimal parameters.
 
     Examples
     --------
-    >>> #TODO
-    
+    >>> import seaborn as sns
+    >>> from sklearn.ensemble import RandomForestClassifier
+    >>> from jmspack.ml_utils import optimize_model
+    >>> data = (
+    ...     sns.load_dataset("iris")
+    ...     .loc[lambda df: df["species"].isin(["setosa", "virginica"])]
+    ...     .replace({"virginica": 0, "setosa": 1})
+    ... )
+    >>> y = data["species"]
+    >>> X = data[["sepal_length", "sepal_width"]]
+    >>> model = RandomForestClassifier()
+    >>> (
+    ...    optimized_estimator,
+    ...    feature_ranking,
+    ...    feature_selected,
+    ...    feature_importance,
+    ...    optimal_parameters,
+    ... ) = optimize_model(X=X, y=y, estimator=model)
+
     """
     # Perform a 75% training and 25% test data split
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3,
+        X,
+        y,
+        test_size=0.3,
         # stratify=y,
-        random_state=42
+        random_state=42,
     )
 
     # Instantiate grid_dt
@@ -612,10 +698,10 @@ def plot_confusion_matrix(
     title=None,
 ):
     """This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
-    
+
     Parameters
     ----------
-    cf:            
+    cf:
         confusion matrix to be passed in
     group_names:
         List of strings that represent the labels row by row to be shown in each square.
@@ -640,7 +726,24 @@ def plot_confusion_matrix(
         See http://matplotlib.org/examples/color/colormaps_reference.html
     title:
         Title for the heatmap. Default is None.
-    
+
+    Returns
+    -------
+    fig: matplotlib.figure.Figure
+        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim
+    ax: matplotlib.axes._subplots.AxesSubplot
+        The axes associated with the fig Figure.
+
+    Examples
+    --------
+    >>> import seaborn as sns
+    >>> from sklearn.metrics import confusion_matrix
+    >>> from jmspack.ml_utils import plot_confusion_matrix
+    >>> y_true = ["cat", "dog", "cat", "cat", "dog", "bird"]
+    >>> y_pred = ["cat", "cat", "cat", "dog", "bird", "bird"]
+    >>> cf = confusion_matrix(y_true, y_pred, labels=["cat", "dog", "bird"])
+    >>> _ = plot_confusion_matrix(cf, figsize=(7, 5))
+
     """
 
     fig, ax = plt.subplots(figsize=figsize)
@@ -722,7 +825,7 @@ def _bootstrap_auc(
 ):
     """Internal function to bootstrap auc.
     Originates from the AI in healthcare specialization of coursera. https://www.coursera.org/specializations/ai-healthcare
-    
+
     Parameters
     ----------
     model:
@@ -737,11 +840,11 @@ def _bootstrap_auc(
         The number of bootstraps.
     fold_size: int
         The number of folds.
-    
+
     Returns
     -------
     list
-    
+
     """
 
     if use_probabilities:
@@ -791,7 +894,7 @@ def summary_performance_metrics_classification(
     model, X_test, y_true, bootstraps=100, fold_size=1000, random_state=69420
 ):
     """Summary of different evaluation metrics specific to a single class classification learning problem.
-    
+
     Parameters
     ----------
     model: sklearn.model
@@ -802,11 +905,12 @@ def summary_performance_metrics_classification(
         Binary true values.
     bootstraps: int
     fold_size: int
-    
+
     Returns
     -------
-    pd.DataFrame
-    
+    summary_df: pd.DataFrame
+        A dataframe with the summary of the metrics.
+
     Notes
     -----
     The function returns the following metrics:
@@ -823,24 +927,23 @@ def summary_performance_metrics_classification(
         - auc: A measure of goodness of fit.
         - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.
         - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.
-    
+
     Examples
     --------
-    >>> from sklearn import datasets
-    >>> from sklearn.model_selection import train_test_split
-    >>> from sklearn.neighbors import KNeighborsClassifier
-    >>> import pandas as pd
-    >>> data = datasets.load_breast_cancer()
-    >>> df = pd.DataFrame(data.data, columns=data.feature_names)
-    >>> df['target'] = data.target
-    >>> X = data.data
-    >>> y = data.target
-    >>> X_train, X_test, y_train, y_test = train_test_split(X, y)
-    >>> clf = KNeighborsClassifier(n_neighbors=6)
-    >>> clf.fit(X_train, y_train)
-    >>> y_pred = clf.predict(X_test)
-    >>> summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)
-    
+    >>> import seaborn as sns
+    >>> from sklearn.ensemble import RandomForestClassifier
+    >>> from jmspack.ml_utils import summary_performance_metrics_classification
+    >>> data = (
+    ...     sns.load_dataset("iris")
+    ...    .loc[lambda df: df["species"].isin(["setosa", "virginica"])]
+    ...    .replace({"virginica": 0, "setosa": 1})
+    ... )
+    >>> y = data["species"]
+    >>> X = data[["sepal_length", "sepal_width"]]
+    >>> model = RandomForestClassifier()
+    >>> model.fit(X=X, y=y)
+    >>> summary_df = summary_performance_metrics_classification(model=model, X_test=X, y_true=y)
+
     """
 
     y_pred = model.predict(X_test)
@@ -945,3 +1048,29 @@ def summary_performance_metrics_classification(
     )
 
     return df_metrics.round(3)
+
+
+def RMSE(true, pred):
+    """Root Mean Squared Error.
+
+    Parameters
+    ----------
+    true: pd.Series
+        The actual values.
+    pred: pd.Series
+        The predicted values.
+
+    Returns
+    -------
+    float
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> from jmspack.ml_utils import RMSE
+    >>> true = pd.Series([1, 2, 5, 4, 5])
+    >>> pred = pd.Series([1, 2, 3, 4, 5])
+    >>> RMSE(true, pred)
+
+    """
+    return np.sqrt(mean_squared_error(y_true=true, y_pred=pred))

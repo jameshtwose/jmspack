@@ -36,8 +36,9 @@ def network_plot(
     plot_title="Correlations - edges are r-values",
 ):
     """Plot a network graph of the data.
+
     Parameters
-    ==========
+    ----------
     data: pandas.DataFrame
         Dataframe containing the data to be plotted.
     feature_column_1: str
@@ -84,14 +85,14 @@ def network_plot(
         Title of the plot.
 
     Returns
-    =======
+    -------
     fig: matplotlib.figure.Figure
         Figure object of the plot.
     ax: matplotlib.axes._subplots.AxesSubplot
         Axes object of the plot.
 
     Examples
-    ========
+    --------
     >>> import pandas as pd
     >>> import numpy as np
     >>> from jmspack.networks import network_plot

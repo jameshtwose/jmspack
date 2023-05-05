@@ -106,6 +106,15 @@ def ts_levels(
     figsize: tuple (Default=(20,5))
         The tuple used to specify the size of the plot if plot = True.
 
+    Returns
+    -------
+    df_result: pd.DataFrame
+        A dataframe containing the time steps, original time series and time series levels.
+    plt.figure.Figure
+        The matplotlib figure object.
+    plt.axes.Axes
+        The matplotlib axes object.
+
     Examples
     --------
     >>> from jmspack.NLTSA import ts_levels
@@ -237,6 +246,11 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
     col_last: int
         The last column index you wish to be included in the calculation (index starts at 1!)
 
+    Returns
+    -------
+    distribution_uniformity_df: pd.DataFrame
+        A dataframe containing the distribution uniformity values from multivariate time series data from 1 person.
+
     Examples
     --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
@@ -310,6 +324,11 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
         The first column index you wish to be included in the calculation (index starts at 1!)
     col_last: int
         The last column index you wish to be included in the calculation (index starts at 1!)
+
+    Returns
+    -------
+    fluctuation_intensity_df: pd.DataFrame
+        A dataframe containing the fluctuation intensity values from multivariate time series data from 1 person.
 
     Examples
     --------
@@ -407,6 +426,11 @@ def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
         A dataframe containing fluctuation intensity values from multivariate time series data from 1 person.
         Rows should indicate time, columns should indicate the fluctuation intensity.
 
+    Returns
+    -------
+    complexity_resonance_df: pandas DataFrame
+        A dataframe containing the complexity resonance values from multivariate time series data from 1 person.
+
     Examples
     --------
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
@@ -449,6 +473,13 @@ def complexity_resonance_diagram(
         An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the
         x-axis of the plot.
+
+    Returns
+    -------
+    plt.figure.Figure
+        The matplotlib figure object.
+    plt.axes.Axes
+        The matplotlib axes object.
 
     Examples
     --------
@@ -496,9 +527,8 @@ def complexity_resonance_diagram(
 
     # set the axis title
     ax.set_title(plot_title)
-    # plt.show()
 
-    return ax
+    return fig, ax
 
 
 def cumulative_complexity_peaks(
@@ -519,6 +549,15 @@ def cumulative_complexity_peaks(
     significant_level_time: float (Default=0.05)
         A float indicating the cutoff of when a point in time is significantly different than the rest on a timepoint level
         (i.e. is this day different than all the other days).
+
+    Returns
+    -------
+    ccp_df: pd.DataFrame
+        A dataframe containing the cumulative complexity peaks values from multivariate time series data from 1 person.
+        Rows indicate time, columns indicate the cumulative complexity peaks.
+    sig_peaks_df: pd.DataFrame
+        A dataframe containing one column of significant complexity peaks values from multivariate time series data from 1 person.
+        Rows indicate time, columns indicate the significant cumulative complexity peaks.
 
     Examples
     --------
@@ -587,6 +626,13 @@ def cumulative_complexity_peaks_plot(
         An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the
         x-axis of the plot.
+
+    Returns
+    -------
+    plt.figure.Figure
+        The matplotlib figure object.
+    plt.axes.Axes
+        The matplotlib axes object.
 
     Examples
     --------

@@ -12,6 +12,7 @@ r"""Submodule internal_utils.py includes the following functions:
 
 """
 import os
+
 import pandas as pd
 import psycopg2
 
@@ -39,7 +40,8 @@ def postgresql_data_extraction(
 
     Returns
     -------
-    pd.DataFrame
+    df: pd.DataFrame
+        pandas dataframe object containing the data from the specified table.
 
     Examples
     --------
@@ -51,9 +53,9 @@ def postgresql_data_extraction(
     >>> df = postgresql_data_extraction(table_name = 'iris_test',
     ...                            database_name = 'tracker',
     ...                            user='tracker')
-    
+
     """
-    
+
     df = pd.DataFrame()
     try:
         conn = psycopg2.connect(
@@ -96,9 +98,9 @@ def postgresql_table_names_list(
     >>> # labelled as postgresql_host="BLA", and postgresql_password="BLA2"
     >>> load_dotenv(find_dotenv())
     >>> table_names = postgresql_table_names_list()
-    
+
     """
-    
+
     table_list = False
     try:
         conn = psycopg2.connect(
@@ -158,7 +160,7 @@ def create_postgresql_table_based_on_df(
     ...                                         user="tracker",
     ...                                         table_name="iris_test",
     ...                                         )
-    
+
     """
 
     python_to_sql_dtypes_dict = {
@@ -241,7 +243,7 @@ def add_data_to_postgresql_table(
     ...                                 user="tracker",
     ...                                 table_name="iris_test",
     ...                                 )
-    
+
     """
 
     columns_string = ", ".join(df.columns.tolist())
@@ -315,7 +317,7 @@ def delete_postgresql_table(
     ...                             user="tracker",
     ...                             table_name="iris_test"
     ...                             )
-    
+
     """
 
     try:

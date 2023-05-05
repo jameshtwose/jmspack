@@ -16,3 +16,4 @@ session-info>=1.0.0
 pingouin>=0.5.3
 gglasso>=0.1.9
 ipykernel>=6.22.0
+miceforest>=5.6.3
