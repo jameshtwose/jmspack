@@ -1,3 +1,58 @@
+Version git status:
+ - CNAME placement
+ - updating the CNAME reference in the conf.py of the docs
+ - moving the CNAME to static...
+ - removing statsmodels from the docs requirements file as it is causing build issues
+ - Merge pull request #14 from jameshtwose/new_docstrings
+ - adding docstrings to all the jmspack functions - dealing with pre-commit issues
+ - adding the CNAME to deploy the docs directly from github
+ - dealing with pytest issues
+ - dealing with some pre-commit issues - a lot of the pytests need to be updated
+ - adding the imputation_utils notebook to the docs
+ - Merge pull request #12 from jameshtwose/imputation_utils
+ - making the imputation_utils module and notebook - needs more documentation
+ - making the imputation_utils module and notebook - needs more documentation
+ - Update README.md
+ - Adding the new jmspack logo to the docs
+ - starting the missingness playground stuff
+ - attempting to use pre-build-command sphinx.yml V4
+ - attempting to use pre-build-command sphinx.yml V3
+ - attempting to use pre-build-command sphinx.yml V2
+ - attempting to use pre-build-command sphinx.yml
+ - attempting to sudo apt get install pandoc in the sphinx.yml
+ - adding extra notebooks to the documentation to show off the examples
+ - updating black version in pre-commit-config
+ - adding badges to the readme
+ - attempting to add codecov
+ - attempting to add codecov
+ - updating python-package.yml name
+ - removing psycopg2 from the sphinx requirements
+ - making psycopg2 an older requirement
+ - update the publish yaml to include steady publish release
+ - Merge pull request #11 from jameshtwose/develop
+ - updating the docstrings in all the functions and creating documentation via sphinx
+ - creating tests for the fluctuation_intensity, distribution_uniformity, and complexity_resonance
+ - adding the casnet versions of the fi, du, crd, ccp
+ - adding the casnet versions of the NLTSA datasets
+ - adding the casnet versions of the NLTSA datasets
+ - Update python-publish.yml
+ - Update python-publish.yml
+ - creating fi, du, crd and ccp dfs based on the time_series_dataset.csv in R to benchmark the python versions of those functions
+ - Create .pypirc
+ - changing the authentication method from user login to API token
+ - making the package publish on every push to main
+ - Create python-publish.yml
+ - Merge pull request #10 from jameshtwose/develop
+ - removing the test_ax_attributes test as this opens an interactive window which is not possible in automated releases
+ - Update python-package.yml
+ - Create python-package.yml
+ - creating a flexible summary NLTSA window function in the playground which accepts decomposition models from sklearn
+ - Update README.md
+ - Merge pull request #6 from jameshtwose/release-0.1.1
+ - updating the documentation
+ - Merge pull request #5 from jameshtwose/release-0.1.1
+ - Bumped version number to 0.1.1
+
 Version 0.1.1:
  - Update build_instructions.md
  - Merge pull request #4 from jameshtwose/develop
