@@ -8,8 +8,6 @@
 
 [![codecov](https://img.shields.io/codecov/c/github/jameshtwose/jmspack)](https://app.codecov.io/gh/jameshtwose/jmspack)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Actions Passing](https://img.shields.io/badge/python-3.8%20%7C%203.9-blue)](https://github.com/Neurocast/data-science-core/actions)
-
 
 The documentation for the package can be found [here](https://docs.jms.rocks).
 [![Netlify Status](https://api.netlify.com/api/v1/badges/4de4fdcb-e2f0-4178-8f3f-cff4ecbeea3d/deploy-status)](https://app.netlify.com/sites/romantic-franklin-818651/deploys)
