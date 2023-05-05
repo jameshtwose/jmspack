@@ -137,24 +137,23 @@
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
 
 
-<span class="c1"># Create a function which will silence printing when called</span>
 <div class="viewcode-block" id="silence_stdout"><a class="viewcode-back" href="../../usage.html#jmspack.utils.silence_stdout">[docs]</a><span class="nd">@contextmanager</span>
 <span class="k">def</span> <span class="nf">silence_stdout</span><span class="p">():</span>
-
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility function used to stop other functions from printing to console (use with `with()`).</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp:</span>
-<span class="sd">        TODO</span>
+<span class="sd">    None</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    TODO</span>
+<span class="sd">    None</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; #TODO</span>
+<span class="sd">    &gt;&gt;&gt; with silence_stdout():</span>
+<span class="sd">    ...    print(&quot;This will not print to console&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(&quot;This will print to console&quot;)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -203,6 +202,7 @@
 
 <div class="viewcode-block" id="JmsColors.get_names"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.get_names">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_names</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">k</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -211,6 +211,7 @@
 
 <div class="viewcode-block" id="JmsColors.to_dict"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">to_dict</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a dictionary of format {color name: hexcode}&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="n">k</span><span class="p">:</span> <span class="n">v</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -219,6 +220,7 @@
 
 <div class="viewcode-block" id="JmsColors.to_list"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.to_list">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">to_list</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a list of hexcodes&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">v</span>
             <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">JmsColors</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -227,6 +229,7 @@
 
 <div class="viewcode-block" id="JmsColors.plot_colors"><a class="viewcode-back" href="../../usage.html#jmspack.utils.JmsColors.plot_colors">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">plot_colors</span><span class="p">():</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns a lineplot of all the available colours (like a color swatch)&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">JmsColors</span><span class="o">.</span><span class="n">to_list</span><span class="p">()):</span>
             <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Available Jms Colors&quot;</span><span class="p">)</span>
             <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></div></div>
@@ -237,7 +240,6 @@
     <span class="n">method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;MinMax&quot;</span><span class="p">,</span>
     <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="p">{},</span>
 <span class="p">):</span>
-
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Utility function to be used in conjunction with pandas pipe()</span>
 <span class="sd">    to scale columns of a data frame seperately.</span>
 
@@ -254,7 +256,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pd.DataFrame</span>
+<span class="sd">    scal_df: pd.DataFrame</span>
+<span class="sd">        The scaled data frame.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -265,6 +268,7 @@
 <span class="sd">    ...             .select_dtypes(&quot;number&quot;)</span>
 <span class="sd">    ...             .pipe(apply_scaling)</span>
 <span class="sd">    ...             )</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;MinMax&quot;</span><span class="p">:</span>
@@ -296,8 +300,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pd.DataFrame</span>
-
+<span class="sd">    list</span>
+<span class="sd">        The flattened list.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>

@@ -218,6 +218,15 @@
 <span class="sd">    figsize: tuple (Default=(20,5))</span>
 <span class="sd">        The tuple used to specify the size of the plot if plot = True.</span>
 
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    df_result: pd.DataFrame</span>
+<span class="sd">        A dataframe containing the time steps, original time series and time series levels.</span>
+<span class="sd">    plt.figure.Figure</span>
+<span class="sd">        The matplotlib figure object.</span>
+<span class="sd">    plt.axes.Axes</span>
+<span class="sd">        The matplotlib axes object.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; from jmspack.NLTSA import ts_levels</span>
@@ -349,6 +358,11 @@
 <span class="sd">    col_last: int</span>
 <span class="sd">        The last column index you wish to be included in the calculation (index starts at 1!)</span>
 
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    distribution_uniformity_df: pd.DataFrame</span>
+<span class="sd">        A dataframe containing the distribution uniformity values from multivariate time series data from 1 person.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; ts_df = pd.read_csv(&quot;time_series_dataset.csv&quot;, index_col=0)</span>
@@ -422,6 +436,11 @@
 <span class="sd">        The first column index you wish to be included in the calculation (index starts at 1!)</span>
 <span class="sd">    col_last: int</span>
 <span class="sd">        The last column index you wish to be included in the calculation (index starts at 1!)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fluctuation_intensity_df: pd.DataFrame</span>
+<span class="sd">        A dataframe containing the fluctuation intensity values from multivariate time series data from 1 person.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -519,6 +538,11 @@
 <span class="sd">        A dataframe containing fluctuation intensity values from multivariate time series data from 1 person.</span>
 <span class="sd">        Rows should indicate time, columns should indicate the fluctuation intensity.</span>
 
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    complexity_resonance_df: pandas DataFrame</span>
+<span class="sd">        A dataframe containing the complexity resonance values from multivariate time series data from 1 person.</span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; ts_df = pd.read_csv(&quot;time_series_dataset.csv&quot;, index_col=0)</span>
@@ -561,6 +585,13 @@
 <span class="sd">        An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of</span>
 <span class="sd">        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the</span>
 <span class="sd">        x-axis of the plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    plt.figure.Figure</span>
+<span class="sd">        The matplotlib figure object.</span>
+<span class="sd">    plt.axes.Axes</span>
+<span class="sd">        The matplotlib axes object.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -608,9 +639,8 @@
 
     <span class="c1"># set the axis title</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">plot_title</span><span class="p">)</span>
-    <span class="c1"># plt.show()</span>
 
-    <span class="k">return</span> <span class="n">ax</span></div>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
 
 
 <div class="viewcode-block" id="cumulative_complexity_peaks"><a class="viewcode-back" href="../../usage.html#jmspack.NLTSA.cumulative_complexity_peaks">[docs]</a><span class="k">def</span> <span class="nf">cumulative_complexity_peaks</span><span class="p">(</span>
@@ -631,6 +661,15 @@
 <span class="sd">    significant_level_time: float (Default=0.05)</span>
 <span class="sd">        A float indicating the cutoff of when a point in time is significantly different than the rest on a timepoint level</span>
 <span class="sd">        (i.e. is this day different than all the other days).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ccp_df: pd.DataFrame</span>
+<span class="sd">        A dataframe containing the cumulative complexity peaks values from multivariate time series data from 1 person.</span>
+<span class="sd">        Rows indicate time, columns indicate the cumulative complexity peaks.</span>
+<span class="sd">    sig_peaks_df: pd.DataFrame</span>
+<span class="sd">        A dataframe containing one column of significant complexity peaks values from multivariate time series data from 1 person.</span>
+<span class="sd">        Rows indicate time, columns indicate the significant cumulative complexity peaks.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -699,6 +738,13 @@
 <span class="sd">        An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of</span>
 <span class="sd">        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the</span>
 <span class="sd">        x-axis of the plot.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    plt.figure.Figure</span>
+<span class="sd">        The matplotlib figure object.</span>
+<span class="sd">    plt.axes.Axes</span>
+<span class="sd">        The matplotlib axes object.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>

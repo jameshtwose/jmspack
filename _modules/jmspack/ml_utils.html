@@ -128,6 +128,8 @@
 
 <span class="sd">- summary_performance_metrics_classification(): A utility to return a selection of regularly used classification performance metrics.</span>
 
+<span class="sd">- RMSE(): Root Mean Squared Error.</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
@@ -150,6 +152,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">learning_curve</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -173,7 +176,7 @@
     <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mf">11.7</span><span class="p">,</span> <span class="mf">8.27</span><span class="p">),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a simple plot of the decision boundary of a classifier.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    X : array-like, shape (n_samples, n_features)</span>
@@ -191,14 +194,14 @@
 <span class="sd">        Legend title for the plot.</span>
 <span class="sd">    figsize: tuple (default: (11.7, 8.27))</span>
 <span class="sd">        Width and height of the figure in inches</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    boundaries: Figure</span>
 <span class="sd">        Properties of the figure can be changed later, e.g. use `boundaries.axes[0].set_ylim(0,100)` to change ylim</span>
 <span class="sd">    ax: Axes</span>
 <span class="sd">        The axes associated with the boundaries Figure.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
@@ -263,7 +266,7 @@
     <span class="n">boundaries</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_bold</span><span class="p">)</span>
     <span class="n">_</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-        <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="p">(</span><span class="n">Z_max</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_bold</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+        <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="p">(</span><span class="n">Z_max</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="n">Z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_bold</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
     <span class="p">)</span>
 
     <span class="c1"># Plot also the training points</span>
@@ -288,10 +291,10 @@
     <span class="p">)</span>
 
     <span class="c1"># Add legend sizes</span>
-    <span class="n">l1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.4</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">l2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.6</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">l3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.8</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
-    <span class="n">l4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+    <span class="n">l1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.4</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+    <span class="n">l2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.6</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+    <span class="n">l3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.8</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+    <span class="n">l4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">([],</span> <span class="p">[],</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">h</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
 
     <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0.4&quot;</span><span class="p">,</span> <span class="s2">&quot;0.6&quot;</span><span class="p">,</span> <span class="s2">&quot;0.8&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">]</span>
     <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
@@ -313,20 +316,45 @@
 
 <div class="viewcode-block" id="plot_cv_indices"><a class="viewcode-back" href="../../usage.html#jmspack.ml_utils.plot_cv_indices">[docs]</a><span class="k">def</span> <span class="nf">plot_cv_indices</span><span class="p">(</span><span class="n">cv</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create an example plot for indices of a cross-validation object.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
-<span class="sd">        TODO</span>
-<span class="sd"> </span>
+<span class="sd">    cv : cross-validation generator</span>
+<span class="sd">        A scikit-learn cross-validation object with a split method.</span>
+<span class="sd">    X : array-like</span>
+<span class="sd">        Training vector, where n_samples is the number of samples and</span>
+<span class="sd">        n_features is the number of features.</span>
+<span class="sd">    y : array-like</span>
+<span class="sd">        Target relative to X for classification or regression.</span>
+<span class="sd">    group : array-like</span>
+<span class="sd">        Group relative to X for classification or regression.</span>
+<span class="sd">    n_splits : int</span>
+<span class="sd">        Number of splits in the cross-validation object.</span>
+<span class="sd">    lw : int</span>
+<span class="sd">        Line width for the plots.</span>
+<span class="sd">    figsize : tuple</span>
+<span class="sd">        Width and height of the figure in inches</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    TODO</span>
+<span class="sd">    fig: matplotlib.figure.Figure</span>
+<span class="sd">        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">        The axes associated with the fig Figure.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; import numpy as np</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.model_selection import GroupKFold</span>
+<span class="sd">    &gt;&gt;&gt; import matplotlib.pyplot as plt</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import plot_cv_indices</span>
+<span class="sd">    &gt;&gt;&gt; X = np.array([[1, 2], [3, 4], [5, 6], [7, 8]])</span>
+<span class="sd">    &gt;&gt;&gt; y = np.array([1, 2, 1, 2])</span>
+<span class="sd">    &gt;&gt;&gt; groups = np.array([0, 0, 2, 2])</span>
+<span class="sd">    &gt;&gt;&gt; group_kfold = GroupKFold(n_splits=2)</span>
+<span class="sd">    &gt;&gt;&gt; _ = plot_cv_indices(cv=group_kfold, X=X, y=y, group=groups, n_splits=2, lw=10, figsize=(6, 3))</span>
+<span class="sd">    &gt;&gt;&gt; _ = plt.show()</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># set plotting options</span>
@@ -403,7 +431,7 @@
     <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a simple plot of the test and training learning curve.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    estimator : object type that implements the &quot;fit&quot; and &quot;predict&quot; methods</span>
@@ -451,9 +479,9 @@
 <span class="sd">        Note that for classification the number of samples usually have to</span>
 <span class="sd">        be big enough to contain at least one sample from each class.</span>
 <span class="sd">        (default: np.linspace(0.1, 1.0, 5))</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ylim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -566,21 +594,40 @@
     <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
 <span class="p">):</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the ROC curves of multiple classifiers.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
-<span class="sd">        TODO</span>
-<span class="sd"> </span>
+<span class="sd">    X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        Classifier vector, where n_samples is the number of samples and</span>
+<span class="sd">        n_features is the number of features.</span>
+<span class="sd">    y : array-like, shape (n_samples)</span>
+<span class="sd">        Target relative to X for classification. Datatype should be integers.</span>
+<span class="sd">    models : list</span>
+<span class="sd">        A list of dictionaries containing the model and the label to be used in the plot.</span>
+<span class="sd">    figsize: tuple (default: (7, 7))</span>
+<span class="sd">        Width and height of the figure in inches</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    TODO</span>
+<span class="sd">    fig: matplotlib.figure.Figure</span>
+<span class="sd">        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">        The axes associated with the fig Figure.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import multi_roc_auc_plot, dict_of_models</span>
+<span class="sd">    &gt;&gt;&gt; data = (</span>
+<span class="sd">    ...     sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    ...     .loc[lambda df: df[&quot;species&quot;].isin([&quot;setosa&quot;, &quot;virginica&quot;])]</span>
+<span class="sd">    ...     .replace({&quot;virginica&quot;: 0, &quot;setosa&quot;: 1})</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; y = data[&quot;species&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; X = data[[&quot;sepal_length&quot;, &quot;sepal_width&quot;]]</span>
+<span class="sd">    &gt;&gt;&gt; _ = multi_roc_auc_plot(X=X, y=y, models=dict_of_models, figsize=(7, 7))</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># scale the data and create training and test sets of the data</span>
@@ -623,34 +670,73 @@
     <span class="n">grid_params_dict</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
         <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
-        <span class="s2">&quot;max_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;log2&quot;</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;sqrt&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;max_features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;log2&quot;</span><span class="p">,</span> <span class="s2">&quot;sqrt&quot;</span><span class="p">],</span>
         <span class="s2">&quot;criterion&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;gini&quot;</span><span class="p">,</span> <span class="s2">&quot;entropy&quot;</span><span class="p">],</span>
     <span class="p">},</span>
     <span class="n">gridsearch_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;scoring&quot;</span><span class="p">:</span> <span class="s2">&quot;roc_auc&quot;</span><span class="p">,</span> <span class="s2">&quot;cv&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;n_jobs&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">},</span>
     <span class="n">rfe_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;n_features_to_select&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
 <span class="p">):</span>
-<span class="w">    </span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;tmp</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A utility to run gridsearch and Recursive Feature Elimination on a classifier to return a model with the best parameters.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    tmp: </span>
-<span class="sd">        TODO</span>
-<span class="sd"> </span>
+<span class="sd">    X : array-like, shape (n_samples, n_features)</span>
+<span class="sd">        Classifier vector, where n_samples is the number of samples and</span>
+<span class="sd">        n_features is the number of features.</span>
+<span class="sd">    y : array-like, shape (n_samples)</span>
+<span class="sd">        Target relative to X for classification. Datatype should be integers.</span>
+<span class="sd">    estimator : object type that implements the &quot;fit&quot; and &quot;predict&quot; methods</span>
+<span class="sd">        An object of that type which is cloned for each validation.</span>
+<span class="sd">    grid_params_dict : dict</span>
+<span class="sd">        A dictionary of parameters to be used in the gridsearch.</span>
+<span class="sd">    gridsearch_kwargs : dict</span>
+<span class="sd">        A dictionary of parameters to be used in the gridsearch.</span>
+<span class="sd">    rfe_kwargs : dict</span>
+<span class="sd">        A dictionary of parameters to be used in the Recursive Feature Elimination.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    TODO</span>
+<span class="sd">    optimized_estimator: sklearn estimator</span>
+<span class="sd">        The optimized estimator.</span>
+<span class="sd">    feature_ranking: pandas DataFrame</span>
+<span class="sd">        A dataframe with features ranking (high = dropped early on).</span>
+<span class="sd">    feature_selected: list</span>
+<span class="sd">        A list of features selected.</span>
+<span class="sd">    feature_importance: pandas DataFrame</span>
+<span class="sd">        A dataframe with importances per feature.</span>
+<span class="sd">    optimal_parameters: pandas DataFrame</span>
+<span class="sd">        A dataframe with the optimal parameters.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; #TODO</span>
-<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.ensemble import RandomForestClassifier</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import optimize_model</span>
+<span class="sd">    &gt;&gt;&gt; data = (</span>
+<span class="sd">    ...     sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    ...     .loc[lambda df: df[&quot;species&quot;].isin([&quot;setosa&quot;, &quot;virginica&quot;])]</span>
+<span class="sd">    ...     .replace({&quot;virginica&quot;: 0, &quot;setosa&quot;: 1})</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; y = data[&quot;species&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; X = data[[&quot;sepal_length&quot;, &quot;sepal_width&quot;]]</span>
+<span class="sd">    &gt;&gt;&gt; model = RandomForestClassifier()</span>
+<span class="sd">    &gt;&gt;&gt; (</span>
+<span class="sd">    ...    optimized_estimator,</span>
+<span class="sd">    ...    feature_ranking,</span>
+<span class="sd">    ...    feature_selected,</span>
+<span class="sd">    ...    feature_importance,</span>
+<span class="sd">    ...    optimal_parameters,</span>
+<span class="sd">    ... ) = optimize_model(X=X, y=y, estimator=model)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Perform a 75% training and 25% test data split</span>
     <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">,</span>
+        <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
         <span class="c1"># stratify=y,</span>
-        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># Instantiate grid_dt</span>
@@ -724,10 +810,10 @@
     <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    cf:            </span>
+<span class="sd">    cf:</span>
 <span class="sd">        confusion matrix to be passed in</span>
 <span class="sd">    group_names:</span>
 <span class="sd">        List of strings that represent the labels row by row to be shown in each square.</span>
@@ -752,7 +838,24 @@
 <span class="sd">        See http://matplotlib.org/examples/color/colormaps_reference.html</span>
 <span class="sd">    title:</span>
 <span class="sd">        Title for the heatmap. Default is None.</span>
-<span class="sd">    </span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig: matplotlib.figure.Figure</span>
+<span class="sd">        Properties of the figure can be changed later, e.g. use `fig.axes[0].set_ylim(0,100)` to change ylim</span>
+<span class="sd">    ax: matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">        The axes associated with the fig Figure.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.metrics import confusion_matrix</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import plot_confusion_matrix</span>
+<span class="sd">    &gt;&gt;&gt; y_true = [&quot;cat&quot;, &quot;dog&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;dog&quot;, &quot;bird&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; y_pred = [&quot;cat&quot;, &quot;cat&quot;, &quot;cat&quot;, &quot;dog&quot;, &quot;bird&quot;, &quot;bird&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; cf = confusion_matrix(y_true, y_pred, labels=[&quot;cat&quot;, &quot;dog&quot;, &quot;bird&quot;])</span>
+<span class="sd">    &gt;&gt;&gt; _ = plot_confusion_matrix(cf, figsize=(7, 5))</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
@@ -834,7 +937,7 @@
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal function to bootstrap auc.</span>
 <span class="sd">    Originates from the AI in healthcare specialization of coursera. https://www.coursera.org/specializations/ai-healthcare</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    model:</span>
@@ -849,11 +952,11 @@
 <span class="sd">        The number of bootstraps.</span>
 <span class="sd">    fold_size: int</span>
 <span class="sd">        The number of folds.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    list</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">use_probabilities</span><span class="p">:</span>
@@ -903,7 +1006,7 @@
     <span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">bootstraps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">fold_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">69420</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary of different evaluation metrics specific to a single class classification learning problem.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    model: sklearn.model</span>
@@ -914,11 +1017,12 @@
 <span class="sd">        Binary true values.</span>
 <span class="sd">    bootstraps: int</span>
 <span class="sd">    fold_size: int</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pd.DataFrame</span>
-<span class="sd">    </span>
+<span class="sd">    summary_df: pd.DataFrame</span>
+<span class="sd">        A dataframe with the summary of the metrics.</span>
+
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
 <span class="sd">    The function returns the following metrics:</span>
@@ -935,24 +1039,23 @@
 <span class="sd">        - auc: A measure of goodness of fit.</span>
 <span class="sd">        - bootstrapped auc: The bootstrap estimates the uncertainty by resampling the dataset with replacement.</span>
 <span class="sd">        - F1: The harmonic mean of the precision and recall, where an F1 score reaches its best value at 1 (perfect precision and recall) and worst at 0.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; from sklearn import datasets</span>
-<span class="sd">    &gt;&gt;&gt; from sklearn.model_selection import train_test_split</span>
-<span class="sd">    &gt;&gt;&gt; from sklearn.neighbors import KNeighborsClassifier</span>
-<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
-<span class="sd">    &gt;&gt;&gt; data = datasets.load_breast_cancer()</span>
-<span class="sd">    &gt;&gt;&gt; df = pd.DataFrame(data.data, columns=data.feature_names)</span>
-<span class="sd">    &gt;&gt;&gt; df[&#39;target&#39;] = data.target</span>
-<span class="sd">    &gt;&gt;&gt; X = data.data</span>
-<span class="sd">    &gt;&gt;&gt; y = data.target</span>
-<span class="sd">    &gt;&gt;&gt; X_train, X_test, y_train, y_test = train_test_split(X, y)</span>
-<span class="sd">    &gt;&gt;&gt; clf = KNeighborsClassifier(n_neighbors=6)</span>
-<span class="sd">    &gt;&gt;&gt; clf.fit(X_train, y_train)</span>
-<span class="sd">    &gt;&gt;&gt; y_pred = clf.predict(X_test)</span>
-<span class="sd">    &gt;&gt;&gt; summary_performance_metrics_classification(y_true=y_test, y_pred=y_pred)</span>
-<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; import seaborn as sns</span>
+<span class="sd">    &gt;&gt;&gt; from sklearn.ensemble import RandomForestClassifier</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import summary_performance_metrics_classification</span>
+<span class="sd">    &gt;&gt;&gt; data = (</span>
+<span class="sd">    ...     sns.load_dataset(&quot;iris&quot;)</span>
+<span class="sd">    ...    .loc[lambda df: df[&quot;species&quot;].isin([&quot;setosa&quot;, &quot;virginica&quot;])]</span>
+<span class="sd">    ...    .replace({&quot;virginica&quot;: 0, &quot;setosa&quot;: 1})</span>
+<span class="sd">    ... )</span>
+<span class="sd">    &gt;&gt;&gt; y = data[&quot;species&quot;]</span>
+<span class="sd">    &gt;&gt;&gt; X = data[[&quot;sepal_length&quot;, &quot;sepal_width&quot;]]</span>
+<span class="sd">    &gt;&gt;&gt; model = RandomForestClassifier()</span>
+<span class="sd">    &gt;&gt;&gt; model.fit(X=X, y=y)</span>
+<span class="sd">    &gt;&gt;&gt; summary_df = summary_performance_metrics_classification(model=model, X_test=X, y_true=y)</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -1057,6 +1160,32 @@
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">df_metrics</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RMSE"><a class="viewcode-back" href="../../usage.html#jmspack.ml_utils.RMSE">[docs]</a><span class="k">def</span> <span class="nf">RMSE</span><span class="p">(</span><span class="n">true</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Root Mean Squared Error.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    true: pd.Series</span>
+<span class="sd">        The actual values.</span>
+<span class="sd">    pred: pd.Series</span>
+<span class="sd">        The predicted values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; import pandas as pd</span>
+<span class="sd">    &gt;&gt;&gt; from jmspack.ml_utils import RMSE</span>
+<span class="sd">    &gt;&gt;&gt; true = pd.Series([1, 2, 5, 4, 5])</span>
+<span class="sd">    &gt;&gt;&gt; pred = pd.Series([1, 2, 3, 4, 5])</span>
+<span class="sd">    &gt;&gt;&gt; RMSE(true, pred)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">true</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">pred</span><span class="p">))</span></div>
 </pre></div>
 
     </div>

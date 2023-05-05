@@ -85,17 +85,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a><ul>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.correct_pvalues"><code class="docutils literal notranslate"><span class="pre">correct_pvalues()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.correlation_analysis"><code class="docutils literal notranslate"><span class="pre">correlation_analysis()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.correlations_as_sample_increases"><code class="docutils literal notranslate"><span class="pre">correlations_as_sample_increases()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.multiple_univariate_OLSs"><code class="docutils literal notranslate"><span class="pre">multiple_univariate_OLSs()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.normal_check"><code class="docutils literal notranslate"><span class="pre">normal_check()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.partial_correlation"><code class="docutils literal notranslate"><span class="pre">partial_correlation()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.permute_test"><code class="docutils literal notranslate"><span class="pre">permute_test()</span></code></a></li>
-<li><a class="reference internal" href="#jmspack.frequentist_statistics.potential_for_change_index"><code class="docutils literal notranslate"><span class="pre">potential_for_change_index()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code></a></li>
 <li><a class="reference internal" href="#module-jmspack.internal_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code></a><ul>
 <li><a class="reference internal" href="#jmspack.internal_utils.add_data_to_postgresql_table"><code class="docutils literal notranslate"><span class="pre">add_data_to_postgresql_table()</span></code></a></li>
 <li><a class="reference internal" href="#jmspack.internal_utils.create_postgresql_table_based_on_df"><code class="docutils literal notranslate"><span class="pre">create_postgresql_table_based_on_df()</span></code></a></li>
@@ -105,6 +95,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#module-jmspack.ml_utils"><code class="docutils literal notranslate"><span class="pre">jmspack.ml_utils</span></code></a><ul>
+<li><a class="reference internal" href="#jmspack.ml_utils.RMSE"><code class="docutils literal notranslate"><span class="pre">RMSE()</span></code></a></li>
 <li><a class="reference internal" href="#jmspack.ml_utils.multi_roc_auc_plot"><code class="docutils literal notranslate"><span class="pre">multi_roc_auc_plot()</span></code></a></li>
 <li><a class="reference internal" href="#jmspack.ml_utils.optimize_model"><code class="docutils literal notranslate"><span class="pre">optimize_model()</span></code></a></li>
 <li><a class="reference internal" href="#jmspack.ml_utils.plot_confusion_matrix"><code class="docutils literal notranslate"><span class="pre">plot_confusion_matrix()</span></code></a></li>
@@ -176,315 +167,8 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <section id="module-jmspack.frequentist_statistics">
-<span id="jmspack-frequentist-statistics"></span><h1><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code><a class="headerlink" href="#module-jmspack.frequentist_statistics" title="Permalink to this heading">¶</a></h1>
-<p>Submodule frequentist_statistics.py includes the following functions:</p>
-<ul class="simple">
-<li><p><strong>normal_check():</strong> compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test.</p></li>
-<li><p><strong>correlation_analysis():</strong> Run correlations for numerical features and return output in different formats.</p></li>
-<li><p><strong>correlations_as_sample_increases():</strong> Run correlations for subparts of the data to check robustness.</p></li>
-<li><p><strong>multiple_univariate_OLSs():</strong> A function used to compute multiple univariate ordinary least squares regression (i.e. not a multivariate OLS).</p></li>
-<li><p><strong>potential_for_change_index():</strong> Calculate the potential for change index based on either variants of the r-squared (from linear regression) or the r-value (pearson correlation).</p></li>
-<li><p><strong>correct_pvalues():</strong> function to correct for multiple testing.</p></li>
-<li><p><strong>partial_correlation():</strong> function to calculate the partial correlations whilst correcting for other variables.</p></li>
-</ul>
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.correct_pvalues">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">correct_pvalues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pvals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'fdr_bh'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(10,</span> <span class="pre">5)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#correct_pvalues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.correct_pvalues" title="Permalink to this definition">¶</a></dt>
-<dd><p>Correct an array-like with pvalues using <cite>method</cite>, wrapper for <cite>statsmodels.stats.multitest.multipletests</cite></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>pvals: array-like</strong></dt><dd><p>uncorrected pvalues</p>
-</dd>
-<dt><strong>alpha: float</strong></dt><dd><p>FWER, family-wise error rate</p>
-</dd>
-<dt><strong>method: str</strong></dt><dd><p>one of {‘bonferroni’, ‘sidak’, ‘holm-sidak’, ‘holm’, ‘simes-hochberg’, ‘hommel’, ‘fdr_bh’,
-‘fdr_by’, ‘fdr_tsbh’, ‘fdr_tsbky’}</p>
-</dd>
-<dt><strong>plot: bool</strong></dt><dd><p>whether to plot the results</p>
-</dd>
-<dt><strong>title: str</strong></dt><dd><p>title to show above the plot</p>
-</dd>
-<dt><strong>labels: array-like</strong></dt><dd><p>labels for the uncorrected pvalues</p>
-</dd>
-<dt><strong>figsize: tuple</strong></dt><dd><p>size for the Figure</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>reject: numpy.array, bool</dt><dd><p>true for hypothesis that can be rejected for given alpha</p>
-</dd>
-<dt>corrected_p: numpy.array</dt><dd><p>p-values corrected for multiple tests</p>
-</dd>
-<dt>pvalues_plot: matplotlib.figure.Figure (optional)</dt><dd><p>Figure if plot == True, else None</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.correlation_analysis">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">correlation_analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pearson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropna</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'pairwise'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutation_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_permutations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#correlation_analysis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.correlation_analysis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run correlations for numerical features and return output in different formats
-Different methods to compute correlations and to handle missing values are implemented.
-Inspired by <cite>researchpy.corr_case</cite> and <cite>researchpy.corr_pair</cite>.</p>
-<dl class="field-list">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>data</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>Dataframe with variables in columns, cases in rows</p>
-</dd>
-<dt><strong>row_list: list or None (default: None)</strong></dt><dd><p>List with names of columns in <cite>data</cite> that should be in the rows of the correlogram.
-If None, all columns are used but only every unique combination.</p>
-</dd>
-<dt><strong>col_list: list or None (default: None)</strong></dt><dd><p>List with names of columns in <cite>data</cite> that should be in the columns of the correlogram.
-If None, all columns are used and only every unique combination.</p>
-</dd>
-<dt><strong>check_norm: bool (default: False)</strong></dt><dd><p>If True, normality will be checked for columns in <cite>data</cite> using <cite>normal_check</cite>. This influences the used method
-for correlations, i.e. Pearson or Spearman. Note: normality check ignores missing values.</p>
-</dd>
-<dt><strong>method: {‘pearson’, ‘kendall’, ‘spearman’}, default ‘pearson’</strong></dt><dd><p>Type of correlation, either Pearson’s r, Spearman’s rho, or Kendall’s tau, implemented via respectively
-<cite>scipy.stats.pearsonr</cite>, <cite>scipy.stats.spearmanr</cite>, and <cite>scipy.stats.kendalltau</cite>
-Will be ignored if check_norm=True. Instead, Person’s r is used for every combination of normally distributed
-columns and Spearman’s rho is used for all other combinations.</p>
-</dd>
-<dt><strong>dropna</strong><span class="classifier">{‘listwise’, ‘pairwise’}, default ‘pairwise’</span></dt><dd><p>Should rows with missing values be dropped over the complete <cite>data</cite> (‘listwise’) or for every correlation
-separately (‘pairwise’)</p>
-</dd>
-<dt><strong>permutation_test: bool (default: False)</strong></dt><dd><p>If true, a permutation test will added</p>
-</dd>
-<dt><strong>n_permutations: int (default: 1000)</strong></dt><dd><p>Number of permutations in the permutation test</p>
-</dd>
-<dt><strong>random_state: None or int (default: None)</strong></dt><dd><p>Random state for permutation_test. If not None, random_state will be updated for every permutation</p>
-</dd>
-<dt><strong>plot_permutation: bool (default: False)</strong></dt><dd><p>Whether to plot the results of the permutation test</p>
-</dd>
-<dt><strong>figsize: tuple (default: (11.7, 8.27))</strong></dt><dd><p>Width and height of the figure in inches</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl>
-<dt>result_dict: dict</dt><dd><p>Dictionary containing with the following keys:
-info: pd.DataFrame</p>
-<blockquote>
-<div><p>Description of correlation method, missing values handling and number of observations</p>
-</div></blockquote>
-<dl class="simple">
-<dt>r-values: pd.DataFrame</dt><dd><p>Dataframe with correlation coefficients. Indices and columns are column names from <cite>data</cite>. Only lower
-triangle is filled.</p>
-</dd>
-<dt>p-values: pd.DataFrame</dt><dd><p>Dataframe with p-values. Indices and columns are column names from <cite>data</cite>. Only lower triangle is filled.</p>
-</dd>
-<dt>N: pd.DataFrame</dt><dd><p>Dataframe with numbers of observations. Indices and columns are column names from <cite>data</cite>. Only lower
-triangle is filled. If dropna =’listwise’, every correlation will have the same number of observations.</p>
-</dd>
-<dt>summary: pd.DataFrame</dt><dd><p>Dataframe with columns [‘analysis’, ‘feature1’, ‘feature2’, ‘r-value’, ‘p-value’, ‘N’, ‘stat-sign’]
-which indicate the type of test used for the correlation, the pair of columns, the correlation coefficient,
-the p-value, the number of observations for each combination of columns in <cite>data</cite> and whether the r-value is
-statistically significant.</p>
-</dd>
-</dl>
-</dd>
-<dt>plotted_permuations: Figure</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">References</p>
-<p>Bryant, C (2018). researchpy’s documentation [Revision 9ae5ed63]. Retrieved from
-<a class="reference external" href="https://researchpy.readthedocs.io/en/latest/">https://researchpy.readthedocs.io/en/latest/</a></p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.frequentist_statistics</span> <span class="kn">import</span> <span class="n">correlation_analysis</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_results</span> <span class="o">=</span> <span class="n">correlation_analysis</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="s1">&#39;listwise&#39;</span><span class="p">,</span> <span class="n">permutation_test</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="gp">... </span>                                       <span class="n">n_permutations</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">check_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_results</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.correlations_as_sample_increases">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">correlations_as_sample_increases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">starting_N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pearson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bootstrap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bootstrap_per_N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addition_to_title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(9.0,</span> <span class="pre">4.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#correlations_as_sample_increases"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.correlations_as_sample_increases" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot changes in r-value and p-value from correlation between two features when sample size increases.
-Different methods to compute correlations are implemented. Data is shuffled first, to prevent any order effects.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>data</strong><span class="classifier">pd.DataFrame</span></dt><dd><p>Dataframe with variables in columns, cases in rows</p>
-</dd>
-<dt><strong>feature1: str</strong></dt><dd><p>Name of column with first feature to be included in correlation</p>
-</dd>
-<dt><strong>feature2: str</strong></dt><dd><p>Name of column with second feature to be included in correlation</p>
-</dd>
-<dt><strong>starting_N: int (default: 10)</strong></dt><dd><p>Number of cases that should be used for first correlation</p>
-</dd>
-<dt><strong>step: int (default: 1)</strong></dt><dd><p>Step for increasing the number of cases for the correlations</p>
-</dd>
-<dt><strong>method: {‘pearson’, ‘kendall’, ‘spearman’}, default ‘pearson’</strong></dt><dd><p>Type of correlation, either Pearson’s r, Spearman’s rho, or Kendall’s tau, implemented via respectively
-<cite>scipy.stats.pearsonr</cite>, <cite>scipy.stats.spearmanr</cite>, and <cite>scipy.stats.kendalltau</cite>.</p>
-</dd>
-<dt><strong>random_state: int (default: 42)</strong></dt><dd><p>Random state for reordering the data</p>
-</dd>
-<dt><strong>bootstrap: bool</strong></dt><dd><p>Whether to bootstrap the data at each N</p>
-</dd>
-<dt><strong>bootstrap_per_N: int</strong></dt><dd><p>If bootstrap is True then how many bootstraps per each sample size should be performed i.e if bootstrap_per_N
-is 2 then at sample size N=20, 2 bootstraps will be performed. This will continue until starting_N == N.</p>
-</dd>
-<dt><strong>plot: bool (default: True)</strong></dt><dd><p>Whether to plot the results</p>
-</dd>
-<dt><strong>addition_to_title: str (default: ‘’)</strong></dt><dd><p>The title of the plot will be “The absolute r-value between {feature1} and {feature2} as N increases” and
-followed by the addition (e.g. to describe a dataset).</p>
-</dd>
-<dt><strong>alpha: float (default: 0.05)</strong></dt><dd><p>Threshold for p-value that should be shown in the plot</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>cor_results: pd.DataFrame</dt><dd><p>Dataframe with the results for all ran analyses</p>
-</dd>
-<dt>fig: Figure</dt><dd><p>Figure will be returned if plot=True, otherwise None. This allows you to change properties of the figure
-afterwards, e.g. fig.axes[0].set_title(‘This is my new title’)</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.frequentist_statistics</span> <span class="kn">import</span> <span class="n">correlations_as_sample_increases</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s1">&#39;iris&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span><span class="p">,</span>  <span class="n">fig</span> <span class="o">=</span> <span class="n">correlations_as_sample_increases</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">iris</span><span class="p">,</span><span class="n">feature1</span><span class="o">=</span><span class="s1">&#39;petal_width&#39;</span><span class="p">,</span><span class="n">feature2</span><span class="o">=</span><span class="s1">&#39;sepal_length&#39;</span><span class="p">,</span>
-<span class="gp">... </span><span class="n">starting_N</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.multiple_univariate_OLSs">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">multiple_univariate_OLSs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#multiple_univariate_OLSs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.multiple_univariate_OLSs" title="Permalink to this definition">¶</a></dt>
-<dd><p>tmp</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.normal_check">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">normal_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#normal_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.normal_check" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test
-Wrapper for <cite>scipy.stats.kstest</cite>: the empircal data is compared to a normally distributed variable with the
-same mean and standard deviation. A significant result (p &lt; 0.05) in the goodness of fit test means that the
-data is not normally distributed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>data: pd.DataFrame</strong></dt><dd><p>Dataframe including the columns of interest</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>df_normality_check: pd.DataFrame</dt><dd><p>Dataframe with column names, p-values and an indication of normality</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_normality_check</span> <span class="o">=</span> <span class="n">normal_check</span><span class="p">(</span><span class="n">tips</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.partial_correlation">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">partial_correlation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#partial_correlation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.partial_correlation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the sample linear partial correlation coefficients between pairs of variables,
-controlling for all other remaining variables</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>df</strong><span class="classifier">array-like, shape (n, p)</span></dt><dd><p>Array with the different variables. Each column is taken as a variable.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt><strong>P</strong><span class="classifier">array-like, shape (p, p)</span></dt><dd><p>P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
-controlling for all other remaining variables.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.permute_test">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">permute_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#permute_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.permute_test" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function to run tests for permutations</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>a</strong><span class="classifier">np.array</span></dt><dd></dd>
-<dt><strong>test_type: str {‘correlation’, ‘independent_t_test’}</strong></dt><dd><p>Type of the test to be used</p>
-</dd>
-<dt><strong>test:</strong></dt><dd><p>e.g. <cite>scipy.stats.pearsonr</cite> or <cite>statsmodels.stats.weightstats.ttest_ind</cite></p>
-</dd>
-<dt><strong>**kwargs:</strong></dt><dd><p>Additional keywords to be added to <cite>test</cite>
-- <cite>a2</cite> for the second feature if test_type = ‘correlation’</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>float:</dt><dd><p>p value for permutation</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="jmspack.frequentist_statistics.potential_for_change_index">
-<span class="sig-prename descclassname"><span class="pre">jmspack.frequentist_statistics.</span></span><span class="sig-name descname"><span class="pre">potential_for_change_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum_measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'min'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centrality_measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'mean'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum_measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rsquared_adj'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pci_heatmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pci_heatmap_figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">4.0)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/frequentist_statistics.html#potential_for_change_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.frequentist_statistics.potential_for_change_index" title="Permalink to this definition">¶</a></dt>
-<dd><p>tmp</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
-</pre></div>
-</div>
-</dd></dl>
-
+  <section id="jmspack-frequentist-statistics">
+<h1><code class="docutils literal notranslate"><span class="pre">jmspack.frequentist_statistics</span></code><a class="headerlink" href="#jmspack-frequentist-statistics" title="Permalink to this heading">¶</a></h1>
 </section>
 <section id="module-jmspack.internal_utils">
 <span id="jmspack-internal-utils"></span><h1><code class="docutils literal notranslate"><span class="pre">jmspack.internal_utils</span></code><a class="headerlink" href="#module-jmspack.internal_utils" title="Permalink to this heading">¶</a></h1>
@@ -647,7 +331,8 @@ to create the table from in postgresql</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>pd.DataFrame</dt><dd></dd>
+<dt>df: pd.DataFrame</dt><dd><p>pandas dataframe object containing the data from the specified table.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -707,49 +392,135 @@ to create the table from in postgresql</p>
 <li><p>optimize_model(): A utility to run gridsearch and Recursive Feature Elimination on a classifier to return a model with the best parameters.</p></li>
 <li><p>plot_confusion_matrix(): Visualise a confusion matrix.</p></li>
 <li><p>summary_performance_metrics_classification(): A utility to return a selection of regularly used classification performance metrics.</p></li>
+<li><p>RMSE(): Root Mean Squared Error.</p></li>
 </ul>
 <dl class="py function">
-<dt class="sig sig-object py" id="jmspack.ml_utils.multi_roc_auc_plot">
-<span class="sig-prename descclassname"><span class="pre">jmspack.ml_utils.</span></span><span class="sig-name descname"><span class="pre">multi_roc_auc_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[{'label':</span> <span class="pre">'Logistic</span> <span class="pre">Regression',</span> <span class="pre">'model':</span> <span class="pre">LogisticRegression()},</span> <span class="pre">{'label':</span> <span class="pre">'Gradient</span> <span class="pre">Boosting',</span> <span class="pre">'model':</span> <span class="pre">GradientBoostingClassifier()},</span> <span class="pre">{'label':</span> <span class="pre">'K_Neighbors</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">KNeighborsClassifier(n_neighbors=3)},</span> <span class="pre">{'label':</span> <span class="pre">'SVM</span> <span class="pre">Classifier</span> <span class="pre">(linear)',</span> <span class="pre">'model':</span> <span class="pre">SVC(C=0.025,</span> <span class="pre">kernel='linear',</span> <span class="pre">probability=True)},</span> <span class="pre">{'label':</span> <span class="pre">'SVM</span> <span class="pre">Classifier</span> <span class="pre">(Radial</span> <span class="pre">Basis</span> <span class="pre">Function;</span> <span class="pre">RBF)',</span> <span class="pre">'model':</span> <span class="pre">SVC(C=1,</span> <span class="pre">gamma=2,</span> <span class="pre">probability=True)},</span> <span class="pre">{'label':</span> <span class="pre">'Gaussian</span> <span class="pre">Process</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">GaussianProcessClassifier(kernel=1**2</span> <span class="pre">*</span> <span class="pre">RBF(length_scale=1))},</span> <span class="pre">{'label':</span> <span class="pre">'Decision</span> <span class="pre">Tree</span> <span class="pre">(depth=5)',</span> <span class="pre">'model':</span> <span class="pre">DecisionTreeClassifier(max_depth=5)},</span> <span class="pre">{'label':</span> <span class="pre">'Random</span> <span class="pre">Forest</span> <span class="pre">Classifier(depth=5)',</span> <span class="pre">'model':</span> <span class="pre">RandomForestClassifier(max_depth=5,</span> <span class="pre">max_features=1,</span> <span class="pre">n_estimators=10)},</span> <span class="pre">{'label':</span> <span class="pre">'Multilayer</span> <span class="pre">Perceptron</span> <span class="pre">(MLP)</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">MLPClassifier(alpha=1,</span> <span class="pre">max_iter=1000)},</span> <span class="pre">{'label':</span> <span class="pre">'AdaBoost</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">AdaBoostClassifier()},</span> <span class="pre">{'label':</span> <span class="pre">'Naive</span> <span class="pre">Bayes</span> <span class="pre">(Gaussian)</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">GaussianNB()},</span> <span class="pre">{'label':</span> <span class="pre">'Quadratic</span> <span class="pre">Discriminant</span> <span class="pre">Analysis</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">QuadraticDiscriminantAnalysis()}]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(7,</span> <span class="pre">7)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/ml_utils.html#multi_roc_auc_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.ml_utils.multi_roc_auc_plot" title="Permalink to this definition">¶</a></dt>
-<dd><p>tmp</p>
+<dt class="sig sig-object py" id="jmspack.ml_utils.RMSE">
+<span class="sig-prename descclassname"><span class="pre">jmspack.ml_utils.</span></span><span class="sig-name descname"><span class="pre">RMSE</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">true</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/ml_utils.html#RMSE"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.ml_utils.RMSE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Root Mean Squared Error.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
+<dt><strong>true: pd.Series</strong></dt><dd><p>The actual values.</p>
+</dd>
+<dt><strong>pred: pd.Series</strong></dt><dd><p>The predicted values.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
+<dt>float</dt><dd></dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">RMSE</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">true</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pred</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RMSE</span><span class="p">(</span><span class="n">true</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="jmspack.ml_utils.multi_roc_auc_plot">
+<span class="sig-prename descclassname"><span class="pre">jmspack.ml_utils.</span></span><span class="sig-name descname"><span class="pre">multi_roc_auc_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[{'label':</span> <span class="pre">'Logistic</span> <span class="pre">Regression',</span> <span class="pre">'model':</span> <span class="pre">LogisticRegression()},</span> <span class="pre">{'label':</span> <span class="pre">'Gradient</span> <span class="pre">Boosting',</span> <span class="pre">'model':</span> <span class="pre">GradientBoostingClassifier()},</span> <span class="pre">{'label':</span> <span class="pre">'K_Neighbors</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">KNeighborsClassifier(n_neighbors=3)},</span> <span class="pre">{'label':</span> <span class="pre">'SVM</span> <span class="pre">Classifier</span> <span class="pre">(linear)',</span> <span class="pre">'model':</span> <span class="pre">SVC(C=0.025,</span> <span class="pre">kernel='linear',</span> <span class="pre">probability=True)},</span> <span class="pre">{'label':</span> <span class="pre">'SVM</span> <span class="pre">Classifier</span> <span class="pre">(Radial</span> <span class="pre">Basis</span> <span class="pre">Function;</span> <span class="pre">RBF)',</span> <span class="pre">'model':</span> <span class="pre">SVC(C=1,</span> <span class="pre">gamma=2,</span> <span class="pre">probability=True)},</span> <span class="pre">{'label':</span> <span class="pre">'Gaussian</span> <span class="pre">Process</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">GaussianProcessClassifier(kernel=1**2</span> <span class="pre">*</span> <span class="pre">RBF(length_scale=1))},</span> <span class="pre">{'label':</span> <span class="pre">'Decision</span> <span class="pre">Tree</span> <span class="pre">(depth=5)',</span> <span class="pre">'model':</span> <span class="pre">DecisionTreeClassifier(max_depth=5)},</span> <span class="pre">{'label':</span> <span class="pre">'Random</span> <span class="pre">Forest</span> <span class="pre">Classifier(depth=5)',</span> <span class="pre">'model':</span> <span class="pre">RandomForestClassifier(max_depth=5,</span> <span class="pre">max_features=1,</span> <span class="pre">n_estimators=10)},</span> <span class="pre">{'label':</span> <span class="pre">'Multilayer</span> <span class="pre">Perceptron</span> <span class="pre">(MLP)</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">MLPClassifier(alpha=1,</span> <span class="pre">max_iter=1000)},</span> <span class="pre">{'label':</span> <span class="pre">'AdaBoost</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">AdaBoostClassifier()},</span> <span class="pre">{'label':</span> <span class="pre">'Naive</span> <span class="pre">Bayes</span> <span class="pre">(Gaussian)</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">GaussianNB()},</span> <span class="pre">{'label':</span> <span class="pre">'Quadratic</span> <span class="pre">Discriminant</span> <span class="pre">Analysis</span> <span class="pre">Classifier',</span> <span class="pre">'model':</span> <span class="pre">QuadraticDiscriminantAnalysis()}]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(7,</span> <span class="pre">7)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/ml_utils.html#multi_roc_auc_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.ml_utils.multi_roc_auc_plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the ROC curves of multiple classifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>Classifier vector, where n_samples is the number of samples and
+n_features is the number of features.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like, shape (n_samples)</span></dt><dd><p>Target relative to X for classification. Datatype should be integers.</p>
+</dd>
+<dt><strong>models</strong><span class="classifier">list</span></dt><dd><p>A list of dictionaries containing the model and the label to be used in the plot.</p>
+</dd>
+<dt><strong>figsize: tuple (default: (7, 7))</strong></dt><dd><p>Width and height of the figure in inches</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>fig: matplotlib.figure.Figure</dt><dd><p>Properties of the figure can be changed later, e.g. use <cite>fig.axes[0].set_ylim(0,100)</cite> to change ylim</p>
+</dd>
+<dt>ax: matplotlib.axes._subplots.AxesSubplot</dt><dd><p>The axes associated with the fig Figure.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">multi_roc_auc_plot</span><span class="p">,</span> <span class="n">dict_of_models</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;virginica&quot;</span><span class="p">])]</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;virginica&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;setosa&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">multi_roc_auc_plot</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="o">=</span><span class="n">dict_of_models</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="jmspack.ml_utils.optimize_model">
-<span class="sig-prename descclassname"><span class="pre">jmspack.ml_utils.</span></span><span class="sig-name descname"><span class="pre">optimize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseEstimator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RandomForestClassifier()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_params_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'criterion':</span> <span class="pre">['gini',</span> <span class="pre">'entropy'],</span> <span class="pre">'max_depth':</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">10],</span> <span class="pre">'max_features':</span> <span class="pre">['log2',</span> <span class="pre">'auto',</span> <span class="pre">'sqrt'],</span> <span class="pre">'n_estimators':</span> <span class="pre">[10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">50]}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridsearch_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'cv':</span> <span class="pre">3,</span> <span class="pre">'n_jobs':</span> <span class="pre">-2,</span> <span class="pre">'scoring':</span> <span class="pre">'roc_auc'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfe_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'n_features_to_select':</span> <span class="pre">2,</span> <span class="pre">'verbose':</span> <span class="pre">1}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/ml_utils.html#optimize_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.ml_utils.optimize_model" title="Permalink to this definition">¶</a></dt>
-<dd><p>tmp</p>
+<span class="sig-prename descclassname"><span class="pre">jmspack.ml_utils.</span></span><span class="sig-name descname"><span class="pre">optimize_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estimator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseEstimator</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RandomForestClassifier()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_params_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'criterion':</span> <span class="pre">['gini',</span> <span class="pre">'entropy'],</span> <span class="pre">'max_depth':</span> <span class="pre">[1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">10],</span> <span class="pre">'max_features':</span> <span class="pre">['log2',</span> <span class="pre">'sqrt'],</span> <span class="pre">'n_estimators':</span> <span class="pre">[10,</span> <span class="pre">20,</span> <span class="pre">30,</span> <span class="pre">40,</span> <span class="pre">50]}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gridsearch_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'cv':</span> <span class="pre">3,</span> <span class="pre">'n_jobs':</span> <span class="pre">-2,</span> <span class="pre">'scoring':</span> <span class="pre">'roc_auc'}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rfe_kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{'n_features_to_select':</span> <span class="pre">2,</span> <span class="pre">'verbose':</span> <span class="pre">1}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/ml_utils.html#optimize_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.ml_utils.optimize_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>A utility to run gridsearch and Recursive Feature Elimination on a classifier to return a model with the best parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
+<dt><strong>X</strong><span class="classifier">array-like, shape (n_samples, n_features)</span></dt><dd><p>Classifier vector, where n_samples is the number of samples and
+n_features is the number of features.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like, shape (n_samples)</span></dt><dd><p>Target relative to X for classification. Datatype should be integers.</p>
+</dd>
+<dt><strong>estimator</strong><span class="classifier">object type that implements the “fit” and “predict” methods</span></dt><dd><p>An object of that type which is cloned for each validation.</p>
+</dd>
+<dt><strong>grid_params_dict</strong><span class="classifier">dict</span></dt><dd><p>A dictionary of parameters to be used in the gridsearch.</p>
+</dd>
+<dt><strong>gridsearch_kwargs</strong><span class="classifier">dict</span></dt><dd><p>A dictionary of parameters to be used in the gridsearch.</p>
+</dd>
+<dt><strong>rfe_kwargs</strong><span class="classifier">dict</span></dt><dd><p>A dictionary of parameters to be used in the Recursive Feature Elimination.</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
+<dt>optimized_estimator: sklearn estimator</dt><dd><p>The optimized estimator.</p>
+</dd>
+<dt>feature_ranking: pandas DataFrame</dt><dd><p>A dataframe with features ranking (high = dropped early on).</p>
+</dd>
+<dt>feature_selected: list</dt><dd><p>A list of features selected.</p>
+</dd>
+<dt>feature_importance: pandas DataFrame</dt><dd><p>A dataframe with importances per feature.</p>
+</dd>
+<dt>optimal_parameters: pandas DataFrame</dt><dd><p>A dataframe with the optimal parameters.</p>
+</dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">optimize_model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;virginica&quot;</span><span class="p">])]</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;virginica&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;setosa&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span>
+<span class="gp">... </span>   <span class="n">optimized_estimator</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">feature_ranking</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">feature_selected</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">feature_importance</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="n">optimal_parameters</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span> <span class="o">=</span> <span class="n">optimize_model</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -788,7 +559,25 @@ See <a class="reference external" href="http://matplotlib.org/examples/color/col
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>fig: matplotlib.figure.Figure</dt><dd><p>Properties of the figure can be changed later, e.g. use <cite>fig.axes[0].set_ylim(0,100)</cite> to change ylim</p>
+</dd>
+<dt>ax: matplotlib.axes._subplots.AxesSubplot</dt><dd><p>The axes associated with the fig Figure.</p>
+</dd>
 </dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;bird&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">cf</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -798,18 +587,43 @@ See <a class="reference external" href="http://matplotlib.org/examples/color/col
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
+<dt><strong>cv</strong><span class="classifier">cross-validation generator</span></dt><dd><p>A scikit-learn cross-validation object with a split method.</p>
+</dd>
+<dt><strong>X</strong><span class="classifier">array-like</span></dt><dd><p>Training vector, where n_samples is the number of samples and
+n_features is the number of features.</p>
+</dd>
+<dt><strong>y</strong><span class="classifier">array-like</span></dt><dd><p>Target relative to X for classification or regression.</p>
+</dd>
+<dt><strong>group</strong><span class="classifier">array-like</span></dt><dd><p>Group relative to X for classification or regression.</p>
+</dd>
+<dt><strong>n_splits</strong><span class="classifier">int</span></dt><dd><p>Number of splits in the cross-validation object.</p>
+</dd>
+<dt><strong>lw</strong><span class="classifier">int</span></dt><dd><p>Line width for the plots.</p>
+</dd>
+<dt><strong>figsize</strong><span class="classifier">tuple</span></dt><dd><p>Width and height of the figure in inches</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
+<dt>fig: matplotlib.figure.Figure</dt><dd><p>Properties of the figure can be changed later, e.g. use <cite>fig.axes[0].set_ylim(0,100)</cite> to change ylim</p>
+</dd>
+<dt>ax: matplotlib.axes._subplots.AxesSubplot</dt><dd><p>The axes associated with the fig Figure.</p>
+</dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GroupKFold</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">plot_cv_indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_kfold</span> <span class="o">=</span> <span class="n">GroupKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_cv_indices</span><span class="p">(</span><span class="n">cv</span><span class="o">=</span><span class="n">group_kfold</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span> <span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -940,7 +754,8 @@ be big enough to contain at least one sample from each class.
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>pd.DataFrame</dt><dd></dd>
+<dt>summary_df: pd.DataFrame</dt><dd><p>A dataframe with the summary of the metrics.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -964,20 +779,19 @@ be big enough to contain at least one sample from each class.
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_breast_cancer</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">data</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">target</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">KNeighborsClassifier</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">summary_performance_metrics_classification</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">jmspack.ml_utils</span> <span class="kn">import</span> <span class="n">summary_performance_metrics_classification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;setosa&quot;</span><span class="p">,</span> <span class="s2">&quot;virginica&quot;</span><span class="p">])]</span>
+<span class="gp">... </span>   <span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s2">&quot;virginica&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;setosa&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">]]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">summary_df</span> <span class="o">=</span> <span class="n">summary_performance_metrics_classification</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">X_test</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -1008,6 +822,12 @@ Rows should indicate time, columns should indicate the distribution uniformity.<
 </dd>
 <dt><strong>fluctuation_intensity_df: pandas DataFrame</strong></dt><dd><p>A dataframe containing fluctuation intensity values from multivariate time series data from 1 person.
 Rows should indicate time, columns should indicate the fluctuation intensity.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>complexity_resonance_df: pandas DataFrame</dt><dd><p>A dataframe containing the complexity resonance values from multivariate time series data from 1 person.</p>
 </dd>
 </dl>
 </dd>
@@ -1048,6 +868,14 @@ x-axis of the plot.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>plt.figure.Figure</dt><dd><p>The matplotlib figure object.</p>
+</dd>
+<dt>plt.axes.Axes</dt><dd><p>The matplotlib axes object.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ts_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;time_series_dataset.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1078,6 +906,16 @@ is this time point different than all the other time points for this item/ featu
 </dd>
 <dt><strong>significant_level_time: float (Default=0.05)</strong></dt><dd><p>A float indicating the cutoff of when a point in time is significantly different than the rest on a timepoint level
 (i.e. is this day different than all the other days).</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>ccp_df: pd.DataFrame</dt><dd><p>A dataframe containing the cumulative complexity peaks values from multivariate time series data from 1 person.
+Rows indicate time, columns indicate the cumulative complexity peaks.</p>
+</dd>
+<dt>sig_peaks_df: pd.DataFrame</dt><dd><p>A dataframe containing one column of significant complexity peaks values from multivariate time series data from 1 person.
+Rows indicate time, columns indicate the significant cumulative complexity peaks.</p>
 </dd>
 </dl>
 </dd>
@@ -1118,6 +956,14 @@ Rows should indicate time, columns should indicate the significant cumulative co
 <dt><strong>labels_n: int (Default=10)</strong></dt><dd><p>An integer indicating the nth value to be taken for the x-axis of the plot. So if the x-axis consists of
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and the labels_n value is set to 2, then 2, 4, 6, 8, 10, will be shown on the
 x-axis of the plot.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>plt.figure.Figure</dt><dd><p>The matplotlib figure object.</p>
+</dd>
+<dt>plt.axes.Axes</dt><dd><p>The matplotlib axes object.</p>
 </dd>
 </dl>
 </dd>
@@ -1162,6 +1008,12 @@ time series will make no sense.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>distribution_uniformity_df: pd.DataFrame</dt><dd><p>A dataframe containing the distribution uniformity values from multivariate time series data from 1 person.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ts_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;time_series_dataset.csv&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -1195,6 +1047,12 @@ time series will make no sense.</p>
 <dt><strong>col_first: int</strong></dt><dd><p>The first column index you wish to be included in the calculation (index starts at 1!)</p>
 </dd>
 <dt><strong>col_last: int</strong></dt><dd><p>The last column index you wish to be included in the calculation (index starts at 1!)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>fluctuation_intensity_df: pd.DataFrame</dt><dd><p>A dataframe containing the fluctuation intensity values from multivariate time series data from 1 person.</p>
 </dd>
 </dl>
 </dd>
@@ -1253,6 +1111,16 @@ into account when plotting the X-axis of the plot.</p>
 <dt><strong>n_x_ticks: int (Default=10)</strong></dt><dd><p>The amount of x-ticks you wish to show when plotting.</p>
 </dd>
 <dt><strong>figsize: tuple (Default=(20,5))</strong></dt><dd><p>The tuple used to specify the size of the plot if plot = True.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>df_result: pd.DataFrame</dt><dd><p>A dataframe containing the time steps, original time series and time series levels.</p>
+</dd>
+<dt>plt.figure.Figure</dt><dd><p>The matplotlib figure object.</p>
+</dd>
+<dt>plt.axes.Axes</dt><dd><p>The matplotlib axes object.</p>
 </dd>
 </dl>
 </dd>
@@ -1344,22 +1212,26 @@ into account when plotting the X-axis of the plot.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="jmspack.utils.JmsColors.get_names">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/utils.html#JmsColors.get_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.utils.JmsColors.get_names" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="jmspack.utils.JmsColors.plot_colors">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">plot_colors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/utils.html#JmsColors.plot_colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.utils.JmsColors.plot_colors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a lineplot of all the available colours (like a color swatch)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="jmspack.utils.JmsColors.to_dict">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/utils.html#JmsColors.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.utils.JmsColors.to_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a dictionary of format {color name: hexcode}</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="jmspack.utils.JmsColors.to_list">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/utils.html#JmsColors.to_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.utils.JmsColors.to_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns a list of hexcodes</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1383,7 +1255,8 @@ see: <a class="reference external" href="https://scikit-learn.org/stable/modules
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>pd.DataFrame</dt><dd></dd>
+<dt>scal_df: pd.DataFrame</dt><dd><p>The scaled data frame.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -1412,7 +1285,8 @@ see: <a class="reference external" href="https://scikit-learn.org/stable/modules
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>pd.DataFrame</dt><dd></dd>
+<dt>list</dt><dd><p>The flattened list.</p>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -1429,22 +1303,23 @@ see: <a class="reference external" href="https://scikit-learn.org/stable/modules
 <dl class="py function">
 <dt class="sig sig-object py" id="jmspack.utils.silence_stdout">
 <span class="sig-prename descclassname"><span class="pre">jmspack.utils.</span></span><span class="sig-name descname"><span class="pre">silence_stdout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/jmspack/utils.html#silence_stdout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#jmspack.utils.silence_stdout" title="Permalink to this definition">¶</a></dt>
-<dd><p>tmp</p>
+<dd><p>A utility function used to stop other functions from printing to console (use with <cite>with()</cite>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>tmp:</strong></dt><dd><p>TODO</p>
-</dd>
+<dt><strong>None</strong></dt><dd></dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>TODO</dt><dd></dd>
+<dt>None</dt><dd></dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1">#TODO</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">silence_stdout</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This will not print to console&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This will print to console&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
