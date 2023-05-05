@@ -165,7 +165,7 @@
 <div class="viewcode-block" id="ts_levels"><a class="viewcode-back" href="../../usage.html#jmspack.NLTSA.ts_levels">[docs]</a><span class="k">def</span> <span class="nf">ts_levels</span><span class="p">(</span>
     <span class="n">ts</span><span class="p">,</span>
     <span class="n">ts_x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;mse&quot;</span><span class="p">,</span>
+    <span class="n">criterion</span><span class="o">=</span><span class="s2">&quot;squared_error&quot;</span><span class="p">,</span>
     <span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
     <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -176,7 +176,7 @@
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use recursive partitioning (DecisionTreeRegressor) to perform a &#39;classification&#39; of relatively stable levels in a timeseries.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    ts: pd.DataFrame (column)</span>
@@ -185,8 +185,8 @@
 <span class="sd">    ts_x: pd.DataFrame (column; Default=None)</span>
 <span class="sd">        A dataframe column containing the corresponding timestamps to the aforementioned time series.</span>
 <span class="sd">        If None is passed, the index of the time series will be used (Default = None).</span>
-<span class="sd">    criterion: str (Default=&quot;mse&quot;)</span>
-<span class="sd">        The function to measure the quality of a split. Supported criteria are “mse” for the mean squared error, which</span>
+<span class="sd">    criterion: str (Default=&quot;squared_error&quot;)</span>
+<span class="sd">        The function to measure the quality of a split. Supported criteria are squared_error for the mean squared error, which</span>
 <span class="sd">        is equal to variance reduction as feature selection criterion and minimizes the L2 loss using the mean of each</span>
 <span class="sd">        terminal node, “friedman_mse”, which uses mean squared error with Friedman’s improvement score for potential</span>
 <span class="sd">        splits, and “mae” for the mean absolute error, which minimizes the L1 loss using the median of each terminal node.</span>
@@ -223,9 +223,9 @@
 <span class="sd">    &gt;&gt;&gt; from jmspack.NLTSA import ts_levels</span>
 <span class="sd">    &gt;&gt;&gt; ts_df = pd.read_csv(&quot;time_series_dataset.csv&quot;, index_col=0)</span>
 <span class="sd">    &gt;&gt;&gt; ts = ts_df[&quot;lorenz&quot;]</span>
-<span class="sd">    &gt;&gt;&gt; ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion=&quot;mse&quot;, max_depth=10, min_samples_leaf=1,</span>
+<span class="sd">    &gt;&gt;&gt; ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion=&quot;squared_error&quot;, max_depth=10, min_samples_leaf=1,</span>
 <span class="sd">    ...                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Change ts to a numpy array</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
@@ -329,7 +329,7 @@
 
 <div class="viewcode-block" id="distribution_uniformity"><a class="viewcode-back" href="../../usage.html#jmspack.NLTSA.distribution_uniformity">[docs]</a><span class="k">def</span> <span class="nf">distribution_uniformity</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">col_first</span><span class="p">,</span> <span class="n">col_last</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run distribution uniformity on a time series to detect non linear change</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df: pd.DataFrame</span>
@@ -356,7 +356,7 @@
 <span class="sd">    &gt;&gt;&gt; scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())</span>
 <span class="sd">    &gt;&gt;&gt; distribution_uniformity_df = pd.DataFrame(distribution_uniformity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))</span>
 <span class="sd">    &gt;&gt;&gt; distribution_uniformity_df.columns=scaled_ts_df.columns.tolist()</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">col_first</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">col_first</span><span class="p">)</span>
@@ -403,7 +403,7 @@
 
 <div class="viewcode-block" id="fluctuation_intensity"><a class="viewcode-back" href="../../usage.html#jmspack.NLTSA.fluctuation_intensity">[docs]</a><span class="k">def</span> <span class="nf">fluctuation_intensity</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">win</span><span class="p">,</span> <span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">col_first</span><span class="p">,</span> <span class="n">col_last</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Run fluctuation intensity on a time series to detect non linear change</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df: pd.DataFrame</span>
@@ -430,7 +430,7 @@
 <span class="sd">    &gt;&gt;&gt; scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())</span>
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))</span>
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">col_first</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">col_first</span><span class="p">)</span>
@@ -448,8 +448,8 @@
     <span class="n">newrows</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">newrows</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_first</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:</span> <span class="n">col_last</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newrows</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">newrows</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">newrows</span><span class="p">])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data</span><span class="p">,</span> <span class="n">newrows</span><span class="p">])</span>
     <span class="n">data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="n">xmax</span> <span class="o">-</span> <span class="n">xmin</span>
@@ -509,7 +509,7 @@
 
 <div class="viewcode-block" id="complexity_resonance"><a class="viewcode-back" href="../../usage.html#jmspack.NLTSA.complexity_resonance">[docs]</a><span class="k">def</span> <span class="nf">complexity_resonance</span><span class="p">(</span><span class="n">distribution_uniformity_df</span><span class="p">,</span> <span class="n">fluctuation_intensity_df</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    distribution_uniformity_df: pandas DataFrame</span>
@@ -529,7 +529,7 @@
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))</span>
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()</span>
 <span class="sd">    &gt;&gt;&gt; complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">complexity_resonance_df</span> <span class="o">=</span> <span class="n">distribution_uniformity_df</span> <span class="o">*</span> <span class="n">fluctuation_intensity_df</span>
@@ -544,7 +544,7 @@
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df: pandas DataFrame</span>
@@ -573,7 +573,7 @@
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()</span>
 <span class="sd">    &gt;&gt;&gt; complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)</span>
 <span class="sd">    &gt;&gt;&gt; complexity_resonance_diagram(complexity_resonance_df, cmap_n=12, labels_n=30)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">df_for_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -619,7 +619,7 @@
     <span class="n">significant_level_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    df: pd.DataFrame</span>
@@ -643,7 +643,7 @@
 <span class="sd">    &gt;&gt;&gt; fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()</span>
 <span class="sd">    &gt;&gt;&gt; complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)</span>
 <span class="sd">    &gt;&gt;&gt; cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">## Creating CCP data frame</span>
@@ -680,7 +680,7 @@
     <span class="n">labels_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a cumulative complexity peaks plot based on the cumulative_complexity_peaks_df and the significant_peaks_df</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    cumulative_complexity_peaks_df: pdDataFrame</span>
@@ -712,7 +712,7 @@
 <span class="sd">    &gt;&gt;&gt; complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)</span>
 <span class="sd">    &gt;&gt;&gt; cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)</span>
 <span class="sd">    &gt;&gt;&gt; _ = cumulative_complexity_peaks_plot(cumulative_complexity_peaks_df=cumulative_complexity_peaks_df, significant_peaks_df=significant_peaks_df)</span>
-<span class="sd">    </span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">custom_cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">([</span><span class="s2">&quot;#FFFFFF&quot;</span><span class="p">,</span> <span class="s2">&quot;#000000&quot;</span><span class="p">])</span>
 
