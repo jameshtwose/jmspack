@@ -17,12 +17,14 @@ r"""Submodule frequentist_statistics.py includes the following functions:
 """
 from itertools import combinations
 from itertools import product
+from typing import Any
 from typing import Tuple
 from typing import Union
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import pingouin as pg
 import seaborn as sns
 import statsmodels.api as sm
 from matplotlib.lines import Line2D
@@ -33,7 +35,7 @@ from statsmodels.stats.multitest import multipletests
 from .utils import apply_scaling
 
 
-def normal_check(data: pd.DataFrame) -> pd.DataFrame:
+def normal_check(data: pd.DataFrame):
     r"""Compare the distribution of numeric variables to a normal distribution using the Kolmogrov-Smirnov test
     Wrapper for `scipy.stats.kstest`: the empircal data is compared to a normally distributed variable with the
     same mean and standard deviation. A significant result (p < 0.05) in the goodness of fit test means that the
@@ -109,8 +111,6 @@ def correlation_analysis(
     method: str = "pearson",
     dropna: str = "pairwise",
     permutation_test: bool = False,
-    n_permutations: int = 1000,
-    random_state=None,
 ):
     """Run correlations for numerical features and return output in different formats
     Different methods to compute correlations and to handle missing values are implemented.
@@ -216,7 +216,7 @@ def correlation_analysis(
         r_vals = pd.DataFrame(columns=col_list, index=row_list)
         p_vals = pd.DataFrame(columns=col_list, index=row_list)
         n_vals = pd.DataFrame(columns=col_list, index=row_list)
-        iterator = product(col_list, row_list)
+        iterator = product(col_list, row_list)  # type: ignore
 
     if dropna == "listwise":
         # Remove rows with missing values
@@ -294,32 +294,6 @@ def correlation_analysis(
 
         if permutation_test:
             raise ValueError("permutation_test has yet to be implemented")
-
-            # # Copy the complete data
-            # col2_shuffle = np.array(test_data.loc[:, col2])
-            # col2_shuffle = np.repeat(
-            #     col2_shuffle[:, np.newaxis], n_permutations, axis=1
-            # )
-            # # Shuffle within the columns
-            # np.random.seed(random_state)
-            # ix_i = np.random.sample(col2_shuffle.shape).argsort(axis=0)
-            # ix_j = np.tile(np.arange(col2_shuffle.shape[1]), (col2_shuffle.shape[0], 1))
-            # col2_shuffle = col2_shuffle[ix_i, ix_j]
-            # permutations = np.apply_along_axis(
-            #     permute_test,
-            #     axis=0,
-            #     arr=col2_shuffle,
-            #     test_type="correlation",
-            #     test=test,
-            #     a2=np.array(test_data.loc[:, col1]),
-            # )
-            #
-            # extreme_permutation = np.where(permutations < p_value, 1, 0)
-            # p_permutation = extreme_permutation.sum() / len(permutations)
-            # dict_summary["permutation-p-value"] = p_permutation
-            #
-            # # Reset random seed numpy
-            # np.random.seed(None)
 
         summary = pd.concat(
             [summary, pd.DataFrame(data=dict_summary, index=[0])],
@@ -479,20 +453,29 @@ def multiple_univariate_OLSs(
     y: pd.Series,
     features_list: list,
 ):
-    """tmp
+    """Calculate multiple univariate ordinary least squares regression (i.e. not a multivariate OLS).
 
     Parameters
     ----------
-    tmp:
-        TODO
+    X: pd.DataFrame
+        Dataframe with features
+    y: pd.Series
+        Series with target
+    features_list: list
+        List with features to be used in each of the OLS regressions
 
     Returns
     -------
-    TODO
+    all_coefs_df: pd.DataFrame
+        Dataframe with coefficients, p-values, r-squared and r-squared adjusted for each of the OLS regressions
 
     Examples
     --------
-    >>> #TODO
+    >>> from jmspack.frequentist_statistics import multiple_univariate_OLSs
+    >>> import seaborn as sns
+    >>> iris = sns.load_dataset('iris')
+    >>> multiple_univariate_OLSs(X=iris[['sepal_length', 'sepal_width', 'petal_length']], y=iris['petal_width'],
+    ... features_list=['sepal_length', 'sepal_width', 'petal_length'])
 
     """
 
@@ -522,25 +505,58 @@ def potential_for_change_index(
     pci_heatmap: bool = True,
     pci_heatmap_figsize: Tuple[float, float] = (1.0, 4.0),
 ):
-    """tmp
+    """Calculate the potential for change index based on either variants of the r-squared (from linear regression) or
 
     Parameters
     ----------
-    tmp:
-        TODO
+    data: pd.DataFrame
+        Dataframe with features and target
+    features_list: list
+        List with features to be used in each of potential for change index calculations
+    target: str
+        Name of the target variable
+    minimum_measure: str (default: 'min')
+        Measure to be used for the minimum value of the feature
+    centrality_measure: str (default: 'mean')
+        Measure to be used for the centrality of the feature
+    maximum_measure: str (default: 'max')
+        Measure to be used for the maximum value of the feature
+    weight_measure: str (default: 'rsquared_adj')
+        Measure to be used for the weight of the feature
+    scale_data: bool (default: True)
+        Whether to scale the data before calculating the potential for change index
+    pci_heatmap: bool (default: True)
+        Whether to plot the heatmap of the potential for change index
+    pci_heatmap_figsize: tuple (default: (1.0, 4.0))
+        Width and height of the figure in inches
 
     Returns
     -------
-    TODO
+    pci_df: pd.DataFrame
+        Dataframe with the potential for change index for each feature
 
     Examples
     --------
-    >>> #TODO
+    >>> from jmspack.frequentist_statistics import potential_for_change_index
+    >>> import seaborn as sns
+    >>> iris = sns.load_dataset('iris')
+    >>> potential_for_change_index(
+    ...     data=iris,
+    ...     features_list=["sepal_length", "sepal_width", "petal_length"],
+    ...     target="petal_width",
+    ...     minimum_measure="min",
+    ...     centrality_measure="mean",
+    ...     maximum_measure="max",
+    ...     weight_measure="rsquared_adj",
+    ...     scale_data=True,
+    ...     pci_heatmap=True,
+    ...     pci_heatmap_figsize=(1.0, 4.0),
+    ... )
 
     """
 
     if scale_data:
-        data = data.pipe(apply_scaling)
+        data = data[features_list + [target]].pipe(apply_scaling)
 
     if weight_measure == "rsquared_adj" or weight_measure == "rsquared":
         tmp_X = data[features_list]
@@ -559,9 +575,6 @@ def potential_for_change_index(
             method="pearson",
             check_norm=False,
             dropna="pairwise",
-            permutation_test=False,
-            n_permutations=10,
-            random_state=69420,
         )
         weight_df = output_dict["summary"].set_index("feature1")
         negative_list = weight_df[weight_df["r-value"] < 0].index.tolist()
@@ -668,6 +681,27 @@ def correct_pvalues(
         p-values corrected for multiple tests
     pvalues_plot: matplotlib.figure.Figure (optional)
         Figure if plot == True, else None
+
+    Examples
+    --------
+    >>> from jmspack.frequentist_statistics import correct_pvalues, correlation_analysis
+    >>> import seaborn as sns
+    >>> iris = sns.load_dataset('iris')
+    >>> output_dict = correlation_analysis(
+    ...     iris,
+    ...     method="pearson",
+    ...     dropna="listwise",
+    ...     permutation_test=False,
+    ...     n_permutations=100,
+    ...     check_norm=True,
+    ... )
+    >>> rejected_array, corrected_p_array, fig = correct_pvalues(
+    ...     pvals=output_dict["summary"]["p-value"],
+    ...     alpha=0.05,
+    ...     method="fdr_bh",
+    ...     plot=True,
+    ...     title="Corrected p-values",
+    ... )
 
     """
 
@@ -780,52 +814,48 @@ def correct_pvalues(
     return reject, corrected_p, pvalues_plot
 
 
-def partial_correlation(df: pd.DataFrame):
+def partial_correlation(df: pd.DataFrame, feature_list: list):
     """Returns the sample linear partial correlation coefficients between pairs of variables,
     controlling for all other remaining variables
 
     Parameters
     ----------
-    df : array-like, shape (n, p)
-        Array with the different variables. Each column is taken as a variable.
+    df: pd.DataFrame
+        Dataframe with features
+    feature_list: list
+        List with features to be used in each of partial correlation calculations
 
     Returns
     -------
-    P : array-like, shape (p, p)
-        P[i, j] contains the partial correlation of input_df[:, i] and input_df[:, j]
-        controlling for all other remaining variables.
+    partial_cor_df: pd.DataFrame
+        Dataframe with the partial correlation coefficients for each pair of features
+
+    Examples
+    --------
+    >>> from jmspack.frequentist_statistics import partial_correlation
+    >>> import seaborn as sns
+    >>> iris = sns.load_dataset('iris')
+    >>> summary_df = partial_correlation(df=iris, feature_list=['sepal_length', 'sepal_width', 'petal_length'])
 
     """
-    partial_corr_matrix_rvals = np.zeros((df.shape[1], df.shape[1]))
-    partial_corr_matrix_pvals = np.zeros((df.shape[1], df.shape[1]))
+    feature_tuple_list = list(combinations(feature_list, 2))
 
-    for i, column1 in enumerate(df):
-        for j, column2 in enumerate(df):
-            control_variables = np.delete(np.arange(df.shape[1]), [i, j])
-            if i == j:
-                partial_corr_matrix_rvals[i, j] = 1
-                partial_corr_matrix_pvals[i, j] = 1
-                continue
-            data_control_variable = df.iloc[:, control_variables]
-            data_column1 = df[column1].values
-            data_column2 = df[column2].values
-            fit1 = LinearRegression(fit_intercept=True)
-            fit2 = LinearRegression(fit_intercept=True)
-            fit1.fit(data_control_variable, data_column1)
-            fit2.fit(data_control_variable, data_column2)
-            residual1 = data_column1 - (
-                np.dot(data_control_variable, fit1.coef_) + fit1.intercept_
-            )
-            residual2 = data_column2 - (
-                np.dot(data_control_variable, fit2.coef_) + fit2.intercept_
-            )
-            partial_corr_matrix_rvals[i, j] = stats.pearsonr(residual1, residual2)[0]
-            partial_corr_matrix_pvals[i, j] = stats.pearsonr(residual1, residual2)[1]
-            partial_corr_matrix_rvals_df = pd.DataFrame(
-                partial_corr_matrix_rvals, columns=df.columns, index=df.columns
-            )
-            partial_corr_matrix_pvals_df = pd.DataFrame(
-                partial_corr_matrix_pvals, columns=df.columns, index=df.columns
-            )
+    partial_cor_df = pd.DataFrame()
+    for feature_tuple in feature_tuple_list:
+        covariate_list = list(set(feature_list) - set(feature_tuple))
+        partial_cor_df = pd.concat(
+            [
+                partial_cor_df,
+                pg.partial_corr(
+                    data=df,
+                    x=feature_tuple[0],
+                    y=feature_tuple[1],
+                    covar=covariate_list,
+                    method="pearson",
+                ).assign(
+                    **{"feature1": feature_tuple[0], "feature2": feature_tuple[1]}
+                ),
+            ]
+        )
 
-    return partial_corr_matrix_rvals_df, partial_corr_matrix_pvals_df
+    return partial_cor_df.rename(columns={"r": "r-value", "p-val": "p-value"}).round(3)

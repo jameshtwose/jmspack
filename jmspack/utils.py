@@ -25,24 +25,23 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 
 
-# Create a function which will silence printing when called
 @contextmanager
 def silence_stdout():
-
-    """tmp
+    """A utility function used to stop other functions from printing to console (use with `with()`).
 
     Parameters
     ----------
-    tmp:
-        TODO
+    None
 
     Returns
     -------
-    TODO
+    None
 
     Examples
     --------
-    >>> #TODO
+    >>> with silence_stdout():
+    ...    print("This will not print to console")
+    >>> print("This will print to console")
 
     """
 
@@ -91,6 +90,7 @@ class JmsColors:
 
     @staticmethod
     def get_names():
+        """Returns a list of the color names e.g. [PURPLE, DARKBLUE, etc.]"""
         return [
             k
             for k in JmsColors.__dict__.keys()
@@ -99,6 +99,7 @@ class JmsColors:
 
     @staticmethod
     def to_dict():
+        """Returns a dictionary of format {color name: hexcode}"""
         return {
             k: v
             for k, v in JmsColors.__dict__.items()
@@ -107,6 +108,7 @@ class JmsColors:
 
     @staticmethod
     def to_list():
+        """Returns a list of hexcodes"""
         return [
             v
             for k, v in JmsColors.__dict__.items()
@@ -115,6 +117,7 @@ class JmsColors:
 
     @staticmethod
     def plot_colors():
+        """Returns a lineplot of all the available colours (like a color swatch)"""
         for i, c in enumerate(JmsColors.to_list()):
             _ = plt.title("Available Jms Colors")
             _ = plt.plot([1, 5], [i, i], color=c, linewidth=5)
@@ -125,7 +128,6 @@ def apply_scaling(
     method: Union[str, Optional[Callable]] = "MinMax",
     kwargs: Dict = {},
 ):
-
     r"""Utility function to be used in conjunction with pandas pipe()
     to scale columns of a data frame seperately.
 
@@ -142,7 +144,8 @@ def apply_scaling(
 
     Returns
     -------
-    pd.DataFrame
+    scal_df: pd.DataFrame
+        The scaled data frame.
 
     Examples
     --------
@@ -153,6 +156,7 @@ def apply_scaling(
     ...             .select_dtypes("number")
     ...             .pipe(apply_scaling)
     ...             )
+
     """
 
     if method == "MinMax":
@@ -184,8 +188,8 @@ def flatten(list_of_lists):
 
     Returns
     -------
-    pd.DataFrame
-
+    list
+        The flattened list.
 
     Examples
     --------
