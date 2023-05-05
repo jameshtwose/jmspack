@@ -53,7 +53,7 @@ cmaps_options = [
 def ts_levels(
     ts,
     ts_x=None,
-    criterion="mse",
+    criterion="squared_error",
     max_depth=2,
     min_samples_leaf=1,
     min_samples_split=2,
@@ -64,7 +64,7 @@ def ts_levels(
     figsize=(20, 5),
 ):
     """Use recursive partitioning (DecisionTreeRegressor) to perform a 'classification' of relatively stable levels in a timeseries.
-    
+
     Parameters
     ----------
     ts: pd.DataFrame (column)
@@ -73,8 +73,8 @@ def ts_levels(
     ts_x: pd.DataFrame (column; Default=None)
         A dataframe column containing the corresponding timestamps to the aforementioned time series.
         If None is passed, the index of the time series will be used (Default = None).
-    criterion: str (Default="mse")
-        The function to measure the quality of a split. Supported criteria are “mse” for the mean squared error, which
+    criterion: str (Default="squared_error")
+        The function to measure the quality of a split. Supported criteria are squared_error for the mean squared error, which
         is equal to variance reduction as feature selection criterion and minimizes the L2 loss using the mean of each
         terminal node, “friedman_mse”, which uses mean squared error with Friedman’s improvement score for potential
         splits, and “mae” for the mean absolute error, which minimizes the L1 loss using the median of each terminal node.
@@ -111,9 +111,9 @@ def ts_levels(
     >>> from jmspack.NLTSA import ts_levels
     >>> ts_df = pd.read_csv("time_series_dataset.csv", index_col=0)
     >>> ts = ts_df["lorenz"]
-    >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="mse", max_depth=10, min_samples_leaf=1,
+    >>> ts_levels_df, fig, ax = ts_levels(ts, ts_x=None, criterion="squared_error", max_depth=10, min_samples_leaf=1,
     ...                          min_samples_split=2, max_leaf_nodes=30, plot=True, equal_spaced=True, n_x_ticks=10)
-    
+
     """
     # Change ts to a numpy array
     if not isinstance(ts, np.ndarray):
@@ -217,7 +217,7 @@ def ts_levels(
 
 def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
     """Run distribution uniformity on a time series to detect non linear change
-    
+
     Parameters
     ----------
     df: pd.DataFrame
@@ -244,7 +244,7 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
     >>> distribution_uniformity_df = pd.DataFrame(distribution_uniformity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> distribution_uniformity_df.columns=scaled_ts_df.columns.tolist()
-    
+
     """
 
     col_first = int(col_first)
@@ -291,7 +291,7 @@ def distribution_uniformity(df, win, xmin, xmax, col_first, col_last):
 
 def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
     """Run fluctuation intensity on a time series to detect non linear change
-    
+
     Parameters
     ----------
     df: pd.DataFrame
@@ -318,7 +318,7 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
     >>> scaled_ts_df = pd.DataFrame(scaler.fit_transform(ts_df), columns=ts_df.columns.tolist())
     >>> fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
-    
+
     """
 
     col_first = int(col_first)
@@ -336,8 +336,8 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
     newrows = df.iloc[0:1, :].copy()
     newrows.iloc[:, col_first - 1 : col_last] = 0.0
 
-    data = df.append(newrows)
-    data = data.append(newrows)
+    data = pd.concat([df, newrows])
+    data = pd.concat([data, newrows])
     data.reset_index(inplace=True, drop=True)
 
     s = xmax - xmin
@@ -397,7 +397,7 @@ def fluctuation_intensity(df, win, xmin, xmax, col_first, col_last):
 
 def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
     """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
-    
+
     Parameters
     ----------
     distribution_uniformity_df: pandas DataFrame
@@ -417,7 +417,7 @@ def complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df):
     >>> fluctuation_intensity_df = pd.DataFrame(fluctuation_intensity(scaled_ts_df, win=7, xmin=0, xmax=1, col_first=1, col_last=7))
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
-    
+
     """
 
     complexity_resonance_df = distribution_uniformity_df * fluctuation_intensity_df
@@ -432,7 +432,7 @@ def complexity_resonance_diagram(
     figsize=(20, 7),
 ):
     """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
-    
+
     Parameters
     ----------
     df: pandas DataFrame
@@ -461,7 +461,7 @@ def complexity_resonance_diagram(
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> complexity_resonance_diagram(complexity_resonance_df, cmap_n=12, labels_n=30)
-    
+
     """
 
     df_for_plot = df.copy()
@@ -507,7 +507,7 @@ def cumulative_complexity_peaks(
     significant_level_time: float = 0.05,
 ):
     """Create a complexity resonance data frame based on the product of the distribution uniformity and the fluctuation intensity
-    
+
     Parameters
     ----------
     df: pd.DataFrame
@@ -531,7 +531,7 @@ def cumulative_complexity_peaks(
     >>> fluctuation_intensity_df.columns=scaled_ts_df.columns.tolist()
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)
-    
+
     """
 
     ## Creating CCP data frame
@@ -568,7 +568,7 @@ def cumulative_complexity_peaks_plot(
     labels_n: int = 10,
 ):
     """Create a cumulative complexity peaks plot based on the cumulative_complexity_peaks_df and the significant_peaks_df
-    
+
     Parameters
     ----------
     cumulative_complexity_peaks_df: pdDataFrame
@@ -600,7 +600,7 @@ def cumulative_complexity_peaks_plot(
     >>> complexity_resonance_df = complexity_resonance(distribution_uniformity_df, fluctuation_intensity_df)
     >>> cumulative_complexity_peaks_df, significant_peaks_df = cumulative_complexity_peaks(df=complexity_resonance_df)
     >>> _ = cumulative_complexity_peaks_plot(cumulative_complexity_peaks_df=cumulative_complexity_peaks_df, significant_peaks_df=significant_peaks_df)
-    
+
     """
     custom_cmap = sns.color_palette(["#FFFFFF", "#000000"])
 
